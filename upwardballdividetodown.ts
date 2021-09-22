@@ -2,8 +2,8 @@ import { min } from "lodash"
 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const parts : number = 3 
-const scGap : number = 0.03 / parts 
+const parts : number = 4 
+const scGap : number = 0.04 / parts 
 const sizeFactor : number = 15.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
@@ -13,7 +13,8 @@ const colors : Array<string> = [
     "#FFC107",
     "#795548",
     "#3F51B5"
-]   
+]
+const strokeFactor : number = 90    
 
 class ScaleUtil {
 
@@ -23,5 +24,46 @@ class ScaleUtil {
 
     static divideScale(scale : number, i : number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
+class DrawingUtil {
+    
+    static drawCircle(context : CanvasRenderingContext2D, x : number, y : number, r : number) {
+        context.beginPath()
+        context.arc(x, y, r, 0, 2 * Math.PI)
+        context.fill()
+    }
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawUpwardBallDivideDown(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        context.save()
+        context.translate(w / 2, h / 2)
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.translate(-(w / 2 - size / 2) * sc3, -(h / 2 - size / 2) * sc3 + (h + size) * sc4)
+            DrawingUtil.drawCircle(context, 0, (h / 2 + size / 2) * (1 - sc1), size / 2) 
+            context.restore()
+        }
+        DrawingUtil.drawLine(context, 0, h * 0.5 * (1 - sc2), 0, h * 0.5 * (1 - sc1))
+        context.restore()
+    }
+
+    static drawUBDDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.strokeStyle = colors[i]
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.fillStyle = colors[i]
+        DrawingUtil.drawUpwardBallDivideDown(context, scale)
     }
 }
