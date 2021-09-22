@@ -1,4 +1,3 @@
-import { min } from "lodash"
 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
@@ -51,6 +50,7 @@ class DrawingUtil {
         context.translate(w / 2, h / 2)
         for (let j = 0; j < 2; j++) {
             context.save()
+            context.scale(1 - 2 * j, 1)
             context.translate(-(w / 2 - size / 2) * sc3, -(h / 2 - size / 2) * sc3 + (h + size) * sc4)
             DrawingUtil.drawCircle(context, 0, (h / 2 + size / 2) * (1 - sc1), size / 2) 
             context.restore()
@@ -72,6 +72,7 @@ class Stage {
 
     canvas : HTMLCanvasElement = document.createElement('canvas')
     context : CanvasRenderingContext2D
+    renderer : Renderer = new Renderer()
 
     initCanvas() {
         this.canvas.width = w 
@@ -83,11 +84,14 @@ class Stage {
     render() {
         this.context.fillStyle = backColor 
         this.context.fillRect(0, 0, w, h)
+        this.renderer.render(this.context)
     }
 
     handleTap() {
         this.canvas.onmousedown = () => {
-
+            this.renderer.handleTap(() => {
+                this.render()
+            })
         }
     }
 
@@ -109,8 +113,8 @@ class State {
         this.scale += scGap * this.dir 
         if (Math.abs(this.prevScale - this.scale) > 1) {
             this.scale = this.prevScale + this.dir 
-            this.dir = 9
-            this.prevScale = this.scale + this.dir 
+            this.dir = 0
+            this.prevScale = this.scale 
             cb()
         }
     }
@@ -229,4 +233,4 @@ class Renderer {
             })
         })
     }
-}
+} 
