@@ -208,3 +208,25 @@ class UpwardBallDivideDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ubdd : UpwardBallDivideDown = new UpwardBallDivideDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ubdd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ubdd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ubdd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
