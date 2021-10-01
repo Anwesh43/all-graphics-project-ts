@@ -1,7 +1,7 @@
 const w : number = window.innerWidth
 const h : number = window.innerHeight 
-const parts : number = 4 
-const scGap : number = 0.04 / parts 
+const parts : number = 3
+const scGap : number = 0.03 / parts 
 const sizeFactor : number = 12.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
@@ -21,5 +21,30 @@ class ScaleUtil {
 
     static divideScale(scale : number, i : number, n : number) : number {
         return  Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
+
+class DrawingUtil {
+
+    static drawSquareMoveLeftBreak(context : CanvasRenderingContext2D, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        context.save()
+        context.translate(-size / 2 + (w / 2 + size / 2) * sc1, size / 2 + (h / 2 - size / 2) * sc2)
+        for (var j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1)
+            context.translate((w / 2 + size) * sc3, 0)
+            context.fillRect(-size / 2, -size / 2, size, size)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawSMLBNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawSquareMoveLeftBreak(context, scale)
     }
 }
