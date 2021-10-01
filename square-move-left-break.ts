@@ -188,3 +188,25 @@ class SquareMoveLeftBreak {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    smlb : SquareMoveLeftBreak = new SquareMoveLeftBreak()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.smlb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.smlb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.smlb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
