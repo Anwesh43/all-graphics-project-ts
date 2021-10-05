@@ -204,3 +204,25 @@ class TRectDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    trd : TRectDown = new TRectDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.trd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.trd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.trd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
