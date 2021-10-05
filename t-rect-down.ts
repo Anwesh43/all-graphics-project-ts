@@ -48,8 +48,8 @@ class DrawingUtil {
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            context.fillRect(0, -size, size * sc3, size / 2)
-            DrawingUtil.drawLine(context, 0, -size, size * sc2, -size)
+            context.fillRect(0, -size, size * sc3 * 0.5, size / 2)
+            DrawingUtil.drawLine(context, 0, -size, size * sc2 * 0.5, -size)
             context.restore()
         }
         context.restore()
