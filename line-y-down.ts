@@ -208,3 +208,25 @@ class LineYDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    animator : Animator = new Animator()
+    lyd : LineYDown = new LineYDown()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lyd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lyd.startUpdating(() => {
+            cb()
+            this.animator.start(() => {
+                this.lyd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
