@@ -13,11 +13,15 @@ const execPromise = (command) => {
 }
 
 const  execute = async (filename, message) => {
+    try {
     await execPromise(`tsc ${filename}.ts`)
     console.log("compiled to js")
     await execPromise(`git add ${filename}.ts`)
     await execPromise(`git commit -m "${filename}: ${message}"`)
     console.log("added the commit")
+    } catch(er) {
+        console.log("Error", er)
+    }
 }
 if (process.argv.length >= 3) {
     console.log(process.argv)
