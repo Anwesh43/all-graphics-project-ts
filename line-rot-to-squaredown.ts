@@ -54,4 +54,12 @@ class DrawingUtil {
         context.fillRect(-size / 2, 0, size / 2, size * sc3)
         context.restore()
     }
+
+    static drawLRTSNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        DrawingUtil.drawLineRotToSquareDown(context, scale)
+    }
 }
