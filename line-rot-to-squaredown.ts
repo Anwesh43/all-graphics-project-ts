@@ -203,3 +203,25 @@ class LineRotToSquareDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrts : LineRotToSquareDown = new LineRotToSquareDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrts.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lrts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
