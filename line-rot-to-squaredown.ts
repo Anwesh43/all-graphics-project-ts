@@ -41,17 +41,18 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        console.log(size, sc1, sc2, sc3, sc4)
         context.save()
         context.translate(w / 2, h / 2 + h * 0.5 * sc4)
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            context.translate(0, -size / 2)
+            context.translate(-size / 2, 0)
             context.rotate(deg * sc2)
             DrawingUtil.drawLine(context, 0, 0, 0, -size * 0.5 * sc1)
             context.restore()
         }
-        context.fillRect(-size / 2, 0, size / 2, size * sc3)
+        context.fillRect(-size / 2, 0, size, size * sc3)
         context.restore()
     }
 
@@ -103,7 +104,7 @@ class State {
 
     scale : number = 0 
     dir : number = 0 
-    prevScale ; number = 0 
+    prevScale : number = 0 
 
     update(cb : Function) {
         this.scale += scGap * this.dir 
