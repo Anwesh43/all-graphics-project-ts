@@ -45,11 +45,11 @@ class DrawingUtil {
         context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.rotate(deg * sc2)
+            context.rotate(deg * sc2 * j)
             DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
             context.restore()
         }
-        context.fillRect(-size / 2, -size * 0.5 * sc3, size, size * 0.5 * sc1)
+        context.fillRect(-size / 2, -size * 0.5 * sc3, size, size * 0.5 * sc3)
         context.restore()
     }
 
@@ -57,6 +57,7 @@ class DrawingUtil {
         context.strokeStyle = colors[i]
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.fillStyle = colors[i]
         DrawingUtil.drawPlusDivideBarUp(context, scale)
     }
 }
