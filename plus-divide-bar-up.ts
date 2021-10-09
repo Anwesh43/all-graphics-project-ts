@@ -1,6 +1,6 @@
 const w : number = window.innerWidth
 const h : number = window.innerHeight 
-const parts : number = 4 
+const parts : number = 5
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 11.9 
@@ -41,8 +41,10 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
         context.save()
-        context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc4)
+        context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc5)
+        context.rotate(deg * 2 * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(deg * sc2 * j)
@@ -172,7 +174,7 @@ class PDBUNode {
 
     getNext(dir : number, cb : Function) : PDBUNode {
         var curr : PDBUNode = this.next 
-        if (dir == 1) {
+        if (dir == -1) {
             curr = this.prev 
         }
         if (curr) {
