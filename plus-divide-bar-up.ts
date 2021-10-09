@@ -200,3 +200,25 @@ class PlusDivideBarUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pdbu : PlusDivideBarUp = new PlusDivideBarUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pdbu.draw(context)    
+    }
+
+    handleTap(cb : Function) {
+        this.pdbu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pdbu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
