@@ -206,3 +206,25 @@ class VToTSideMove {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    vtsm : VToTSideMove = new VToTSideMove()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.vtsm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.vtsm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.vtsm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
