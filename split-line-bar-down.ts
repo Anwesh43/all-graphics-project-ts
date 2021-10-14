@@ -52,7 +52,9 @@ class DrawingUtil {
             context.restore()
         }
         context.restore()
-        context.fillRect(-size / 2, -size * sc1, size, size * sc1)
+        if (sc1 > 0) {
+            context.fillRect(-size / 2, -size * sc1, size, size * sc1)
+        }
         context.restore()
     }
 
