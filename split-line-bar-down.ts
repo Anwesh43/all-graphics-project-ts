@@ -202,3 +202,24 @@ class SplitLineBarDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slbd : SplitLineBarDown = new SplitLineBarDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slbd.draw(context)
+    }
+    
+    handleTap(cb : Function) {
+        this.slbd.startUpdating(() => {
+            this.animator.start(() =>{
+                cb()
+                this.slbd.update(() => {
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
