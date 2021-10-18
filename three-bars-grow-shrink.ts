@@ -34,7 +34,7 @@ class DrawingUtil {
         context.save()
         for (var j = 0; j < bars; j++) {
             const sc1j : number = ScaleUtil.divideScale(sc1, j, bars)
-            const sc2j : number = ScaleUtil.divideScale(sc2, bars - 1 - j, parts)
+            const sc2j : number = ScaleUtil.divideScale(sc2, bars - 1 - j, bars)
             context.save()
             context.translate(0, hSize / 2 + hSize * j)
             context.fillRect(w * sc2j, 0, w * (sc1j - sc2j), hSize)
