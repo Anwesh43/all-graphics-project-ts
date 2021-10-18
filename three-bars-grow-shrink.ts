@@ -189,3 +189,25 @@ class ThreeBarsGrowShrink {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tbgs : ThreeBarsGrowShrink = new ThreeBarsGrowShrink()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tbgs.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.tbgs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tbgs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
