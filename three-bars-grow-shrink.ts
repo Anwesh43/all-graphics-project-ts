@@ -11,6 +11,8 @@ const scGap : number = 0.04 / (parts * bars)
 const hFactor : number = 11
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
+const w : number = window.innerWidth
+const h : number = window.innerHeight
 
 class ScaleUtil {
 
@@ -20,5 +22,29 @@ class ScaleUtil {
 
     static divideScale(scale : number, i : number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
+
+class DrawingUtil {
+
+    static drawThreeBarsGrowShrink(context : CanvasRenderingContext2D, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const hSize : number = h / hFactor 
+        context.save()
+        for (var j = 0; j < bars; j++) {
+            const sc1j : number = ScaleUtil.divideScale(sc1, j, bars)
+            const sc2j : number = ScaleUtil.divideScale(sc2, bars - 1 - j, parts)
+            context.save()
+            context.translate(0, hSize / 2 + hSize * j)
+            context.fillRect(w * sc2j, 0, w * (sc1j - sc2j), hSize)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawTBGSNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawThreeBarsGrowShrink(context, scale)
     }
 }
