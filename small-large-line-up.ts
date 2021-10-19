@@ -200,3 +200,25 @@ class SmallLargeLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    smllu : SmallLargeLineUp = new SmallLargeLineUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.smllu.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.smllu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.smllu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
