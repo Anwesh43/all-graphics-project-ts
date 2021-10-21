@@ -210,3 +210,25 @@ class ExpandArrowGo {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    eag : ExpandArrowGo = new ExpandArrowGo()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.eag.draw(context)
+    }
+
+    handleTap(cb : Function) {
+       this.eag.startUpdating(() => {
+           this.animator.start(() => {
+               cb()
+               this.eag.update(() => {
+                   this.animator.stop()
+                   cb()
+               })
+           })
+       })
+    }
+}
