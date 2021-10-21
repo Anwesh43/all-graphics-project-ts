@@ -48,8 +48,9 @@ class DrawingUtil {
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1 - 2 * j)
+            context.translate(w * 0.5 * sc3, -h * 0.5 * sc3)
             context.rotate(deg)
-            context.translate(w * 0.5 * sc3, h * 0.5 * sc3)
+            
             DrawingUtil.drawLine(context, 0, -arrowSize, 0, -arrowSize - (size - arrowSize) * sc1)
             for (var k = 0; k < 2; k++) {
                 const upSize : number = arrowSize * Math.floor(sc1)
