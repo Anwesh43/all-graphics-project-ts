@@ -41,6 +41,7 @@ class DrawingUtil {
         const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        console.log("SC1:SC2:SC3", sc1, sc2, sc3)
         const arrowSize : number = Math.min(w, h) / arrowSizeFactor 
         context.save()
         context.translate(w / 2, h / 2)
@@ -54,7 +55,7 @@ class DrawingUtil {
                 context.save()
                 context.translate(0, -size)
                 context.rotate(deg * sc2 * (1 - 2 * k))
-                DrawingUtil.drawLine(context, 0, 0, 0, arrowSize)
+                DrawingUtil.drawLine(context, 0, 0, 0, upSize)
                 context.restore()
             }
             context.restore()
