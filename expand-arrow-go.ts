@@ -47,7 +47,7 @@ class DrawingUtil {
         context.translate(w / 2, h / 2)
         for (var j = 0; j < 2; j++) {
             context.save()
-            context.scale(1, 1 - 2 * j)
+            context.scale(1 - 2 * j, 1 - 2 * j)
             context.rotate(deg)
             context.translate(w * 0.5 * sc3, -h * 0.5 * sc3)
             DrawingUtil.drawLine(context, 0, -arrowSize, 0, -arrowSize - (size - arrowSize) * sc1)
