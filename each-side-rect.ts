@@ -1,5 +1,5 @@
-const w : number = window.innerWidth
-const h : number = window.innerHeight 
+const w : number = 500
+const h : number = 500 
 const parts : number = 4
 const scGap : number = 0.03 / parts 
 const sizeFactor : number = 8.9 
