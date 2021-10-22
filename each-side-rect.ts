@@ -23,3 +23,32 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawEachSideRect(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const rSize : number = Math.min(w, h) / rectFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const upSize : number = size * (sc2 - sc4)
+        context.save()
+        context.translate(w / 2, h / 2)
+        context.fillRect(-upSize / 2, -upSize / 2, upSize, upSize)
+        for (var j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1 - 2 * j)
+            context.translate(-w / 2, h / 2)
+            context.fillRect(rSize * sc3, -rSize, rSize * (sc1 - sc3), 0)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawESRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawEachSideRect(context, scale)
+    }
+}
