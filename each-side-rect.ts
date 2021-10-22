@@ -193,3 +193,25 @@ class EachSideRect {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    esr : EachSideRect = new EachSideRect()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.esr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.esr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.esr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
