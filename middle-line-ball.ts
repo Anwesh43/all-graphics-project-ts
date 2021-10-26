@@ -212,3 +212,25 @@ class MiddleLineBall {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mlb : MiddleLineBall = new MiddleLineBall()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.mlb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.mlb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mlb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
