@@ -209,3 +209,25 @@ class ExpandBallLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ebl : ExpandBallLine = new ExpandBallLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ebl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ebl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ebl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
