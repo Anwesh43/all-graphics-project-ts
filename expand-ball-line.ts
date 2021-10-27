@@ -14,3 +14,14 @@ const h : number = window.innerHeight
 const strokeFactor : number = 90 
 const lSizeFactor : number = 11.9
 const rFactor : number = 25.6
+
+class ScaleUtil {
+
+    static maxScale(scale : number, i : number, n : number) : number {
+        return Math.max(0, scale - i / n)
+    }
+
+    static divideScale(scale : number, i : number, n : number) : number {
+        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
