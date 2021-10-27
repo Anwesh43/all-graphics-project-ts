@@ -12,7 +12,7 @@ const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 const strokeFactor : number = 90 
-const lSizeFactor : number = 4.9
+const lSizeFactor : number = 2.9
 const rFactor : number = 25.6
 
 class ScaleUtil {
