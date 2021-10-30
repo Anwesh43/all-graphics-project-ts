@@ -50,7 +50,7 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2 + (w * 0.5 * sc3), h / 2)
         DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
-        DrawingUtil.drawCircle(context, size, (-r + (h + r) * sc2), r)
+        DrawingUtil.drawCircle(context, size, (-r - h / 2 + (h / 2 + r) * sc2), r)
         context.restore()
     }
 
