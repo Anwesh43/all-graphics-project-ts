@@ -201,3 +201,25 @@ class LineBallToSide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+    
+    lbts : LineBallToSide = new LineBallToSide()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbts.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lbts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
