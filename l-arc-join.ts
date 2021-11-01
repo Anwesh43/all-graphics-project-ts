@@ -59,7 +59,7 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc3)
-        context.rotate(deg * sc3)
+        context.rotate(deg * sc3 * Math.PI / 180)
         for (var j = 0; j < 2; j++) {
             context.save()
             context.rotate(j * deg * Math.PI / 180)
