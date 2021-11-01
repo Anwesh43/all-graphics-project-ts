@@ -63,7 +63,7 @@ class DrawingUtil {
         for (var j = 0; j < 2; j++) {
             context.save()
             context.rotate(j * deg * Math.PI / 180)
-            DrawingUtil.drawLine(context, 0, 0, 0, -size * sc1)
+            DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
             context.restore()
         }
         DrawingUtil.drawArc(context, 0, 0, size, sc2)
