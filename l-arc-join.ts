@@ -218,3 +218,25 @@ class LArcJoin {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    laj : LArcJoin = new LArcJoin()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.laj.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.laj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.laj.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
