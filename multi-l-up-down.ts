@@ -157,7 +157,7 @@ class MULDNode {
     addNeighbor() {
         if (this.i < colors.length - 1) {
             this.next = new MULDNode(this.i + 1)
-            this.prev.next = this  
+            this.next.prev = this  
         }
     }
 
