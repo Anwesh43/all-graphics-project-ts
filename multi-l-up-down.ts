@@ -204,3 +204,25 @@ class MultiLUpDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    muld : MultiLUpDown = new MultiLUpDown()
+    animator : Animator = new Animator()
+
+    draw(context : CanvasRenderingContext2D) {
+        this.muld.draw(context)
+    }
+    
+    handleTap(cb : Function) {
+        this.muld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.muld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
