@@ -202,3 +202,25 @@ class SqAltOver {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sao : SqAltOver = new SqAltOver()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sao.draw(context)
+    }
+    
+    handleTap(cb : Function) {
+        this.sao.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sao.update(() => {
+                    cb()
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
