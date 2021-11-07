@@ -210,3 +210,25 @@ class DownHCreateShrink {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dhcs : DownHCreateShrink = new DownHCreateShrink()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dhcs.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.dhcs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dhcs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
