@@ -201,3 +201,25 @@ class BiLineClosureUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blcu : BiLineClosureUp = new BiLineClosureUp()
+    animator : Animator = new Animator()
+
+    draw(context : CanvasRenderingContext2D) {
+        this.blcu.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.blcu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blcu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
