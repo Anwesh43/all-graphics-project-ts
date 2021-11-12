@@ -53,7 +53,7 @@ class DrawingUtil {
                 DrawingUtil.drawATXY(context, x, h * 0.5 * sc3, () => {
                     DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
                 })
-                DrawingUtil.drawATXY(context, x, -h / 2 + (h * 0.5 - size) * sc2 + (h * 0.5 + size) * sc3, () => {
+                DrawingUtil.drawATXY(context, x, -h / 2 + (h * 0.5) * sc2 + (h * 0.5 + size) * sc3, () => {
                     DrawingUtil.drawLine(context, 0, 0, 0, -size)
                 }) 
             }
