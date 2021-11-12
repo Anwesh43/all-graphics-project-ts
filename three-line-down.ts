@@ -49,12 +49,12 @@ class DrawingUtil {
         DrawingUtil.drawATXY(context, w / 2, h / 2, () => {
             
             for (var j = 0; j < lines; j++) {
-                const x : number = w / 4 + (w / 3) * j 
+                const x : number = -w / 4 + (w / 3) * j 
                 DrawingUtil.drawATXY(context, x, h * 0.5 * sc3, () => {
                     DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
                 })
                 DrawingUtil.drawATXY(context, x, -h / 2 + (h * 0.5 - size) * sc2 + (h * 0.5 + size) * sc3, () => {
-                    DrawingUtil.drawLine(context, 0, 0, 0, size)
+                    DrawingUtil.drawLine(context, 0, 0, 0, -size)
                 }) 
             }
         })
