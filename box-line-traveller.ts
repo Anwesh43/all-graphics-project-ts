@@ -56,7 +56,7 @@ class DrawingUtil {
             DrawingUtil.drawAtXY(context, -size / 2, -h / 2 + h * sc1, () => {
                 DrawingUtil.drawLine(context, 0, 0, 0, -size)
             })
-            DrawingUtil.drawAtXY(context, -size / 2, -h / 2 + h * sc2, () => {
+            DrawingUtil.drawAtXY(context, -size / 2, -h / 2 + (h - size) * sc2, () => {
                 context.fillRect(-boxSize / 2, -boxSize, boxSize, boxSize)
             })
             context.restore()
