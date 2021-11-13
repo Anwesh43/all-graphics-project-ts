@@ -6,7 +6,7 @@ const strokeFactor : number = 90
 const sizeFactor : number = 12.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
-const boxSizeFactor : number = 11.9 
+const boxSizeFactor : number = 20.9 
 const colors : Array<string> = [
     "#B71C1C",
     "#00C853",
@@ -49,7 +49,7 @@ class DrawingUtil {
         const boxSize : number = Math.min(w, h) / boxSizeFactor
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2, h / 2 - h * sc3)
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
@@ -57,7 +57,7 @@ class DrawingUtil {
                 DrawingUtil.drawLine(context, 0, 0, 0, -size)
             })
             DrawingUtil.drawAtXY(context, -size / 2, -h / 2 + h * sc2, () => {
-                context.fillRect(-boxSize / 2, -boxSize / 2, boxSize, boxSize)
+                context.fillRect(-boxSize / 2, -boxSize, boxSize, boxSize)
             })
             context.restore()
         }
