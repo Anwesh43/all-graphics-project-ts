@@ -212,3 +212,25 @@ class BoxLineTraveller {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blt : BoxLineTraveller = new BoxLineTraveller()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blt.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.blt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
