@@ -202,3 +202,25 @@ class CrossLineRotator {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    clr : CrossLineRotator = new CrossLineRotator()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.clr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.clr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.clr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
