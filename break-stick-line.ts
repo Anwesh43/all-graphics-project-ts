@@ -205,3 +205,25 @@ class BreakStickLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsl : BreakStickLine = new BreakStickLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
