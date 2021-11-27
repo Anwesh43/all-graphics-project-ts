@@ -180,7 +180,7 @@ class ALHNode {
     }
 }
 
-class AllLineHolder {
+class AltLineHolder {
 
     curr : ALHNode = new ALHNode(0)
     dir : number = 1
@@ -200,5 +200,27 @@ class AllLineHolder {
 
     startUpdating(cb : Function) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    alh : AltLineHolder = new AltLineHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.alh.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.alh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.alh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
