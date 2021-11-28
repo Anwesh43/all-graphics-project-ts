@@ -9,7 +9,7 @@ const parts : number = 4
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 12.9
-const delay : number = 90 
+const delay : number = 20 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 const backColor : string = "#BDBDBD"
@@ -55,7 +55,7 @@ class DrawingUtil {
         DrawingUtil.drawAtXY(context, 0, -h / 2 + h * 0.5 * sc2, () => {
             DrawingUtil.drawLine(context, 0, 0, 0, -size)
         })
-        context.fillRect(0, -size * sc4, size, size)
+        context.fillRect(0, -size * sc4, size, size * sc4)
         context.restore()
     }
 
