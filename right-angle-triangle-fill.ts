@@ -25,3 +25,45 @@ class ScaleUtil {
     }
 }
 
+class DrawingUtil {
+
+    static drawAtXY(context : CanvasRenderingContext2D, x : number, y : number, cb : Function) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawRightAngleTriangleFill(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        context.save()
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
+        DrawingUtil.drawAtXY(context, 0, -h / 2 + h * 0.5 * sc1, () => {
+            DrawingUtil.drawLine(context, 0, 0, size, 0)
+        })
+        DrawingUtil.drawAtXY(context, 0, -h / 2 + h * 0.5 * sc2, () => {
+            DrawingUtil.drawLine(context, 0, 0, 0, -size)
+        })
+        context.fillRect(0, -size * sc4, size, size)
+        context.restore()
+    }
+
+    static drawRATFNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        DrawingUtil.drawRightAngleTriangleFill(context, scale)
+    }
+}
