@@ -50,7 +50,7 @@ class DrawingUtil {
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            context.translate((w / 2) * (1 - sc2), -size / 2 + size * j)
+            context.translate((w / 2) * (1 - sc2), size * j)
             context.fillRect(0, -size / 2, sqSize, sqSize)
             context.restore()
         }
