@@ -49,8 +49,8 @@ class DrawingUtil {
         DrawingUtil.drawLine(context, 0, -size * 0.5 * sc1, 0, size * 0.5 * sc1)
         for (var j = 0; j < 2; j++) {
             context.save()
-            context.scale(1 - 2 * j, 1)
-            context.translate((w / 2) * (1 - sc2), size * j)
+            context.scale(1 - 2 * j, 1 - 2 * j)
+            context.translate((w / 2) * (1 - sc2), 0)
             context.fillRect(0, -size / 2, sqSize, sqSize)
             context.restore()
         }
