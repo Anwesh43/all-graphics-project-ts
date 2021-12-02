@@ -205,3 +205,25 @@ class AltLineSqBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    animator : Animator = new Animator()
+    als : AltLineSqBar = new AltLineSqBar()
+
+    render(context : CanvasRenderingContext2D) {
+        this.als.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.als.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.als.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
