@@ -204,3 +204,25 @@ class ThreeLineJoinDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tljd : ThreeLineJoinDown = new ThreeLineJoinDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tljd.draw(context)
+    } 
+
+    handleTap(cb : Function) {
+        this.tljd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tljd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
