@@ -204,3 +204,25 @@ class SquareAltSide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sas : SquareAltSide = new SquareAltSide()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sas.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.sas.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sas.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
