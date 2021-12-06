@@ -42,10 +42,9 @@ class DrawingUtil {
         context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc4)
         for (var j = 0; j < 2; j++) {
             context.save()
-            context.scale(1 - 2 * j, 1)
+            context.scale(1 - 2 * j, 1 - 2 * j)
             DrawingUtil.drawLine(context, -size / 2, size / 2, -size / 2, size / 2 - size * sc1)
             context.save()
-            context.scale(1, 1 - 2 * j)
             context.translate(0, (h /2) * (1 - ScaleUtil.divideScale(scale, j + 1, parts)))
             context.fillRect(-size / 2, 0, size, size / 2)
             context.restore()
