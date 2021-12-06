@@ -37,11 +37,9 @@ class DrawingUtil {
     static drawLineSquareHolder(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
-        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
-        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc4)
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
@@ -49,7 +47,7 @@ class DrawingUtil {
             context.save()
             context.scale(1, 1 - 2 * j)
             context.translate(0, (h /2) * (1 - ScaleUtil.divideScale(scale, j + 1, parts)))
-            context.fillRect(-size / 2, 0, size / 2, size / 2)
+            context.fillRect(-size / 2, 0, size, size / 2)
             context.restore()
             context.restore()
         }
