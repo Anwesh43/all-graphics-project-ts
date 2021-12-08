@@ -45,11 +45,11 @@ class DrawingUtil {
         const lSize : number = size / lineFactor 
         const upSize : number = size * sc1 
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         context.strokeRect(-upSize / 2, -upSize / 2, upSize, upSize)
         for (var j = 0; j < 2; j++) {
             context.save()
-            context.rotate(deg * (1 - 2 * j))
+            context.rotate(deg * (1 - 2 * j) * sc3)
             DrawingUtil.drawLine(context, -lSize * 0.5 * sc2, 0, lSize * 0.5 * sc2, 0)
             context.restore()
         }
