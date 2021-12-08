@@ -203,3 +203,26 @@ class StrokeSquareCross {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ssc : StrokeSquareCross = new StrokeSquareCross()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ssc.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ssc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ssc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+
+}
