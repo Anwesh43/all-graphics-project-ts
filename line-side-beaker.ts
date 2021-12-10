@@ -202,3 +202,25 @@ class LineSideBeaker {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    curr : LineSideBeaker = new LineSideBeaker()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    } 
+
+    handleTap(cb : Function) {
+        this.curr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.curr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
