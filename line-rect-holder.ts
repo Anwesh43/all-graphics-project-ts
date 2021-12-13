@@ -45,7 +45,7 @@ class DrawingUtil {
         context.rotate(Math.PI * 0.5 * sc3)
         context.save()
         context.translate(0, -h / 2 + (h / 2) * sc1)
-        context.fillRect(0, -size, size, size)
+        context.fillRect(-size / 2, -size, size, size)
         context.restore()
         for (let j = 0; j < 2; j++) {
             context.save()
