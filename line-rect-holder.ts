@@ -204,3 +204,25 @@ class LineRectHolder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrh : LineRectHolder = new LineRectHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrh.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lrh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
