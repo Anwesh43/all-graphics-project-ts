@@ -74,7 +74,7 @@ class Stage {
     initCanvas() {
         this.canvas.width = w 
         this.canvas.height = h 
-        this.context.fillStyle = backColor 
+        this.context = this.canvas.getContext('2d') 
         document.body.appendChild(this.canvas)
     }
 
