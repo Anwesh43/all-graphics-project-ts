@@ -204,3 +204,25 @@ class SquareMoveInLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    smil : SquareMoveInLine = new SquareMoveInLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.smil.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.smil.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.smil.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
