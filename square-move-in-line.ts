@@ -197,7 +197,7 @@ class SquareMoveInLine {
 
     update(cb : Function) {
         this.curr.update(() => {
-            this.curr.getNext(this.dir, () => {
+            this.curr = this.curr.getNext(this.dir, () => {
                 this.dir *= -1
             })
             cb()
