@@ -56,7 +56,7 @@ class DrawingUtil {
 
     static drawLRSUNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
-        context.lineWidth = Math.min(w, h) / 2
+        context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
         context.fillStyle = colors[i]
         DrawingUtil.drawLineRotSquareUp(context, scale)
