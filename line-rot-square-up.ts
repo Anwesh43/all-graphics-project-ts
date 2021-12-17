@@ -202,3 +202,25 @@ class LineRotSquareUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrsu : LineRotSquareUp = new LineRotSquareUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrsu.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lrsu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrsu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
