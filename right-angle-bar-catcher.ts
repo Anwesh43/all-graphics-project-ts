@@ -205,3 +205,25 @@ class RightAngleBarCatcher {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rabc : RightAngleBarCatcher = new RightAngleBarCatcher()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rabc.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rabc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rabc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
