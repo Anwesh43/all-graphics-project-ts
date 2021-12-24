@@ -40,11 +40,12 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const size : number = Math.min(w, h) / sizeFactor 
+        const rSize : number = size + context.lineWidth
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc3)
         context.rotate(rot * sc3)
         for (var j = 0; j < 2; j++) {
-            const y : number = (w / 2 + size / 2) * (1 - j) + (h / 2 + size / 2) * j 
+            const y : number = (w / 2 + rSize / 2) * (1 - j) + (h / 2 + rSize / 2) * j 
             context.save()
             context.rotate(rot * j)
             context.translate(y * (1 - sc1), 0)
@@ -52,7 +53,7 @@ class DrawingUtil {
             context.restore()
             context.save()
             context.scale(1 - 2 * j, 1 - 2 * j)
-            context.fillRect(0, -size / 2, size * 0.5 * sc2, size / 2)
+            context.fillRect(0, -rSize / 2, rSize * 0.5 * sc2, rSize / 2)
             context.restore()
         }
     
