@@ -206,3 +206,25 @@ class CrossLineAltSquare {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    clas : CrossLineAltSquare = new CrossLineAltSquare()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.clas.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.clas.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.clas.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
