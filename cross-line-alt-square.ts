@@ -12,3 +12,14 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const sizeFactor : number = 11.9 
 const rot : number = Math.PI / 2
+
+class ScaleUtil {
+
+    static maxScale(scale : number, i : number, n : number) : number {
+        return Math.max(0, scale - i / n)  
+    }
+
+    static divideScale(scale : number, i : number, n : number) : number {
+        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
