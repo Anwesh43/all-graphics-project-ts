@@ -206,3 +206,25 @@ class ArrowFromUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    afu : ArrowFromUp = new ArrowFromUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.afu.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.afu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.afu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
