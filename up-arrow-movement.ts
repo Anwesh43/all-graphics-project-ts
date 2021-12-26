@@ -23,7 +23,7 @@ class ScaleUtil {
     }
 
     static divideScale(scale : number, i : number, n : number) : number {
-        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n))
+        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
 
@@ -48,7 +48,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.translate(0, (h / 2) * (1 - sc1))
-            context.rotate(deg * (1 - 2 * j))
+            context.rotate(deg * (1 - 2 * j) * sc2)
             DrawingUtil.drawLine(context, 0, 0, 0, arrowSize)
             context.restore()
         }
