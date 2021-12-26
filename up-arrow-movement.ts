@@ -206,3 +206,25 @@ class UpArrowMovement {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    uam : UpArrowMovement = new UpArrowMovement()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.uam.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.uam.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.uam.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
