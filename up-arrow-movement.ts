@@ -25,3 +25,43 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n))
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawUpArrowMovement(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const arrowSize : number = Math.min(w, h) / arrowSizeFactor 
+        context.save()
+        context.translate(w / 2, h / 2 - (h / 2 - size) * sc4)
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.translate(0, (h / 2) * (1 - sc1))
+            context.rotate(deg * (1 - 2 * j))
+            DrawingUtil.drawLine(context, 0, 0, 0, arrowSize)
+            context.restore()
+        }
+        context.save()
+        context.translate(0, (h / 2) * (1 - sc3))
+        DrawingUtil.drawLine(context, 0, 0, 0, size)
+        context.restore()
+        context.restore()
+    }
+
+    static drawUAMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawUpArrowMovement(context, scale)
+    }
+}
