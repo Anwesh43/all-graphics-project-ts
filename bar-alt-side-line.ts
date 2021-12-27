@@ -60,7 +60,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            DrawingUtil.drawAtXY(context, -w / 2 - size / 2 + (w / 2 - size) * sc2, -size / 4, (context : CanvasRenderingContext2D) => {
+            DrawingUtil.drawAtXY(context, -w / 2 - size / 2 + (w / 2 - size / 2) * sc2, -size / 4, (context : CanvasRenderingContext2D) => {
                 context.fillRect(0, 0, size / 2, size / 2)
             })
             context.restore()
