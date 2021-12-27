@@ -215,3 +215,25 @@ class BarAltSideLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    basl : BarAltSideLine = new BarAltSideLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.basl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.basl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.basl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }    
+}
