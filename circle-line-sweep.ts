@@ -205,3 +205,25 @@ class CircleLineSweep {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    cls : CircleLineSweep = new CircleLineSweep()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cls.draw(context)
+    }
+    
+    handleTap(cb : Function) {
+        this.cls.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cls.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
