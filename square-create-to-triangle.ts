@@ -207,3 +207,25 @@ class SquareCreateToTriangle {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sctt : SquareCreateToTriangle = new SquareCreateToTriangle()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.sctt.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.sctt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sctt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
