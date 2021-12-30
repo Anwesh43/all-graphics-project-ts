@@ -24,3 +24,45 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawSquareCreateToTriangle(context : CanvasRenderingContext2D, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        context.save()
+        context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc4)
+        for (var j = 0; j < 2; j++) {
+            const xSize = size * 0.5 * (sc1 - (1 - j) * sc2)
+            context.save()
+            context.scale(1, 1 - 2 * j)
+            context.translate(0, -size * 0.5 * sc2)
+            DrawingUtil.drawLine(context, -xSize, 0, xSize, 0)
+            context.restore()   
+        }
+        for (var j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1)
+            DrawingUtil.drawLine(context, -size / 2, -size * 0.5 * sc2, -size / 2, size * 0.5 * sc2)
+            context.restore()           
+        }
+        context.restore()
+    }
+
+    static drawSCTTNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawSquareCreateToTriangle(context, scale)
+    }
+}
