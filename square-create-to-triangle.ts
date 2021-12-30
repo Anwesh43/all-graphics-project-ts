@@ -43,7 +43,7 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc4)
         for (var j = 0; j < 2; j++) {
-            const xSize = size * 0.5 * (sc1 - (1 - j) * sc2)
+            const xSize = size * 0.5 * (sc1 - (1 - j) * sc3)
             context.save()
             context.scale(1, 1 - 2 * j)
             context.translate(0, -size * 0.5 * sc2)
@@ -53,7 +53,7 @@ class DrawingUtil {
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            DrawingUtil.drawLine(context, -size / 2, -size * 0.5 * sc2, -size / 2, size * 0.5 * sc2)
+            DrawingUtil.drawLine(context, -size / 2 + size * 0.5 * sc3, -size * 0.5 * sc2, -size / 2, size * 0.5 * sc2)
             context.restore()           
         }
         context.restore()
