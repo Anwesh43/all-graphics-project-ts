@@ -202,3 +202,25 @@ class LineDiveBarMover {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldbm : LineDiveBarMover = new LineDiveBarMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ldbm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ldbm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldbm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
