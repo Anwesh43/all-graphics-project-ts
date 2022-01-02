@@ -43,7 +43,7 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         context.save()
         context.translate(w / 2, h / 2 - (h / 2 + size) * sc4)
-        context.fillRect(-size / 2, -size * 0.2 * sc1, size / 2, size * 0.2 * sc1)
+        context.fillRect(-size / 2, -size * 0.2 * sc1, size, size * 0.2 * sc1)
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
