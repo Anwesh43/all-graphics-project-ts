@@ -48,8 +48,8 @@ class DrawingUtil {
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            context.translate(-size / 2, -size * 0.2)
-            context.rotate(-deg * sc3)
+            context.translate(-size / 2 + context.lineWidth / 2, -size * barHFactor)
+            context.rotate(-deg * sc3) 
             if (sc2 > 0) {
                 DrawingUtil.drawLine(context, 0, 0, 0, -size * (1 - barHFactor) * sc2)
             }
