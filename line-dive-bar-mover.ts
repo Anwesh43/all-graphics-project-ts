@@ -14,6 +14,7 @@ const w : number = window.innerWidth
 const h : number = window.innerHeight 
 const parts : number = 4
 const scGap : number = 0.04 / parts 
+const barHFactor : number = 0.3
 
 class ScaleUtil {
 
@@ -43,13 +44,15 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         context.save()
         context.translate(w / 2, h / 2 - (h / 2 + size) * sc4)
-        context.fillRect(-size / 2, -size * 0.2 * sc1, size, size * 0.2 * sc1)
+        context.fillRect(-size / 2, -size * barHFactor * sc1, size, size * barHFactor * sc1)
         for (var j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
             context.translate(-size / 2, -size * 0.2)
             context.rotate(-deg * sc3)
-            DrawingUtil.drawLine(context, 0, 0, 0, -size * 0.8 * sc2)
+            if (sc2 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, 0, -size * (1 - barHFactor) * sc2)
+            }
             context.restore()
         }
         context.restore()  
