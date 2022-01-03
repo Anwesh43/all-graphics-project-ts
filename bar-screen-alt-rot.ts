@@ -202,3 +202,25 @@ class BarScreenAltRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsar : BarScreenAltRot = new BarScreenAltRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsar.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bsar.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsar.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
