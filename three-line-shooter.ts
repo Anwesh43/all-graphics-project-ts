@@ -201,3 +201,26 @@ class ThreeLineShooter {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+    
+    tls : ThreeLineShooter = new ThreeLineShooter()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tls.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.tls.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tls.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+
+}
