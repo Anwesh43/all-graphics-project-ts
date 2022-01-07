@@ -200,3 +200,25 @@ class PlusToSquare {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pts : PlusToSquare = new PlusToSquare() 
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pts.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
