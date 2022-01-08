@@ -52,15 +52,18 @@ class DrawingUtil {
             context.save()
             context.scale(1 - 2 * k, 1)
             for (let j = 0; j < lines; j++) {
+                const scj : number = ScaleUtil.divideScale(scale, j, parts)
                 context.save()
                 context.translate(x, y)
-                DrawingUtil.drawLine(
-                    context,
-                    0,
-                    0,
-                    0,
-                    -uSize * ScaleUtil.divideScale(scale, j, parts)
-                )
+                if (scj > 0) {
+                    DrawingUtil.drawLine(
+                        context,
+                        0,
+                        0,
+                        0,
+                        -uSize * scj
+                    )
+                }
                 context.restore()
                 x -= uSize 
                 y -= uSize 
