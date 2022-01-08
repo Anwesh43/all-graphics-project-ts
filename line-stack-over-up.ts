@@ -121,6 +121,7 @@ class State {
 
     update(cb : Function) {
         this.scale += scGap * this.dir 
+        console.log("SCALE", this.scale)
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir 
             this.dir = 0 
@@ -234,6 +235,7 @@ class Renderer {
     handleTap(cb : Function) {
         this.lsou.startUpdating(() => {
             this.animator.start(() =>  {
+                console.log("STARTED")
                 cb()
                 this.lsou.update(() => {
                     this.animator.stop()
