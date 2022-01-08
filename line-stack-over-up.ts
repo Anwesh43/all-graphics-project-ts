@@ -216,3 +216,25 @@ class LineStackOverUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsou : LineStackOverUp = new LineStackOverUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsou.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lsou.startUpdating(() => {
+            this.animator.start(() =>  {
+                cb()
+                this.lsou.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
