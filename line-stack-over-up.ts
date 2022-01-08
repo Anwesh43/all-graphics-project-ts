@@ -184,7 +184,7 @@ class LSOUNode {
     }
 
     startUpdating(cb : Function) {
-        this.state.update(cb)
+        this.state.startUpdating(cb)
     }
 
     getNext(dir : number, cb : Function) : LSOUNode {
