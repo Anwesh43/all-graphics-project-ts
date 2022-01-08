@@ -41,6 +41,7 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         const sc1 : number = ScaleUtil.divideScale(scale, lines, parts)
         const sc2 : number = ScaleUtil.divideScale(scale, lines + 1, parts)
+        console.log("SC1, SC2", `${sc1}, ${sc2}`)
         const uSize : number = size / divideFactor 
         context.save()
         context.translate(w / 2, h / 2 + (h / 2) * sc2)
