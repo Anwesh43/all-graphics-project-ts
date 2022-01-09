@@ -229,6 +229,7 @@ class Renderer {
                 cb()
                 this.blj.update(() => {
                     this.animator.stop()
+                    cb()
                 })
             })
         })
