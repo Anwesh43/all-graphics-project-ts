@@ -203,3 +203,24 @@ class BarLineJoin {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blj : BarLineJoin = new BarLineJoin()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blj.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.blj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blj.update(() => {
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
