@@ -188,6 +188,7 @@ class BLJNode {
             return curr 
         }
         cb()
+        return this 
     }
 }
 
