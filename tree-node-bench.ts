@@ -6,7 +6,7 @@ const colors : Array<string> = [
     "#8BC34A"
 ]
 const backColor : string = "#BDBDBD"
-const sizeFactor : number  = 1.2 
+const sizeFactor : number  = 1.1 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 const strokeFactor : number = 90 
@@ -145,7 +145,7 @@ class TNBNode {
     constructor(
         private i : number = 0,
         private x : number = w / 2,
-        private y : number = h / 2,
+        private y : number = h / 10,
         private size : number = Math.min(w, h) / sizeFactor
     ) {
         if (this.i < colors.length - 1) {
