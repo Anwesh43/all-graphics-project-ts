@@ -123,3 +123,38 @@ class Animator {
         }
     }
 }
+
+class TNBNode {
+
+    right : TNBNode 
+    left : TNBNode 
+    state : State = new State()
+
+    constructor(
+        private i : number = 0,
+        private x : number = w / 2,
+        private y : number = h / 2,
+        private size : number = Math.min(w, h) / sizeFactor
+    ) {
+        if (this.i < colors.length - 1) {
+            this.right = new TNBNode(this.i + 1, x + size / 2, y + size / 4, size / 2)
+            this.left = new TNBNode(this.i + 1, x - size / 2, y + size / 4, size / 2)
+        }
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawTNB(context, this.i, this.state.scale, this.x, this.y, this.size)
+    }
+
+    update(cb : Function) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : Function) {
+        this.state.startUpdating(cb)
+    }
+
+    getChildren() : Array<TNBNode> {
+        return [this.left, this.right]
+    }
+}
