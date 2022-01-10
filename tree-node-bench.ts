@@ -13,8 +13,8 @@ const strokeFactor : number = 90
 const delay : number = 20
 const parts : number = 2 
 const scGap : number = 0.02 / parts 
-const hDivideFactor : number = 4.1 
-const wDivideFactor : number = 2.1
+const hDivideFactor : number = 3.1 
+const wDivideFactor : number = 1.2
 
 class ScaleUtil {
 
