@@ -159,7 +159,7 @@ class TNBNode {
     }
 }
 
-class TreeNodeBranch {
+class TreeNodeBench {
 
     drawingQueue : Array<TNBNode> = [new TNBNode()]
     updatingQueue : Array<TNBNode> = [new TNBNode()]
@@ -189,6 +189,28 @@ class TreeNodeBranch {
             if (i == 0) {
                 cb()
             }
+        })
+    }
+}
+
+class Renderer {
+
+    tnb : TreeNodeBench = new TreeNodeBench()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tnb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.tnb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tnb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
         })
     }
 }
