@@ -184,18 +184,21 @@ class TreeNodeBench {
 
     update(cb : Function) {
         this.updatingQueue.forEach((tnb : TNBNode, i : number) => {
-            tnb.update(cb)
+            tnb.update(() => {
+                if (i == this.updatingQueue.length - 1) {
+                    cb()
+                }
+            })
         })
     }
 
     startUpdating(cb : Function) {
-        const children : Array<TNBNode> = []
-        const l = this.updatingQueue.length;
+        const l = this.updatingQueue.length
         this.updatingQueue.forEach((tnb : TNBNode) => {
             this.drawingQueue.push(tnb)
             this.updatingQueue.push(tnb)
         })
-        this.updatingQueue.splice(0, l);
+        this.updatingQueue.splice(0, l)
         this.updatingQueue.forEach((tnb : TNBNode, i : number) => {
             tnb.startUpdating(cb)
             if (i == 0) {
