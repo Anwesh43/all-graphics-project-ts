@@ -6,7 +6,7 @@ const colors : Array<string> = [
     "#8BC34A"
 ]
 const backColor : string = "#BDBDBD"
-const sizeFactor : number  = 5.9 
+const sizeFactor : number  = 1.2 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 const strokeFactor : number = 90 
