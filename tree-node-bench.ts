@@ -158,3 +158,37 @@ class TNBNode {
         return [this.left, this.right]
     }
 }
+
+class TreeNodeBranch {
+
+    drawingQueue : Array<TNBNode> = [new TNBNode()]
+    updatingQueue : Array<TNBNode> = [new TNBNode()]
+
+    draw(context : CanvasRenderingContext2D) {
+        this.drawingQueue.forEach((tnb : TNBNode) => {
+            tnb.draw(context)
+        })
+    }
+
+    update(cb : Function) {
+        this.updatingQueue.forEach((tnb : TNBNode, i : number) => {
+            tnb.update(cb)
+        })
+    }
+
+    startUpdating(cb : Function) {
+        const children : Array<TNBNode> = []
+        const l = this.updatingQueue.length;
+        this.updatingQueue.forEach((tnb : TNBNode) => {
+            this.drawingQueue.push(tnb)
+            this.updatingQueue.push(tnb)
+        })
+        this.updatingQueue.splice(0, l);
+        this.updatingQueue.forEach((tnb : TNBNode, i : number) => {
+            tnb.startUpdating(cb)
+            if (i == 0) {
+                cb()
+            }
+        })
+    }
+}
