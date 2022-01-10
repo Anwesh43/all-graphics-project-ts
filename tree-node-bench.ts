@@ -206,10 +206,12 @@ class TreeNodeBench {
     startUpdating(cb : Function) {
         
         this.updatingQueue.forEach((tnb : TNBNode, i : number) => {
-            tnb.startUpdating(cb)
-            if (i == 0) {
-                cb()
-            }
+            tnb.startUpdating(() => {
+                
+                if (i == 0) {
+                    cb()
+                }
+            })
         })
     }
 }
