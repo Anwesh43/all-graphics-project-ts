@@ -173,9 +173,14 @@ class TNBNode {
 
 class TreeNodeBench {
 
-    drawingQueue : Array<TNBNode> = [new TNBNode()]
-    updatingQueue : Array<TNBNode> = [new TNBNode()]
+    drawingQueue : Array<TNBNode> = []
+    updatingQueue : Array<TNBNode> = []
 
+    constructor() {
+        const root = new TNBNode()
+        this.drawingQueue.push(root)
+        this.updatingQueue.push(root)
+    }
     draw(context : CanvasRenderingContext2D) {
         this.drawingQueue.forEach((tnb : TNBNode) => {
             tnb.draw(context)
