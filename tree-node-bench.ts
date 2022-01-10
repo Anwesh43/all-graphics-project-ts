@@ -13,6 +13,8 @@ const strokeFactor : number = 90
 const delay : number = 20
 const parts : number = 2 
 const scGap : number = 0.02 / parts 
+const hDivideFactor : number = 5.3 
+const wDivideFactor : number = 3.6
 
 class ScaleUtil {
 
@@ -153,8 +155,8 @@ class TNBNode {
         private size : number = Math.min(w, h) / sizeFactor
     ) {
         if (this.i < colors.length - 1) {
-            this.right = new TNBNode(this.i + 1, x + size / 2, y + size / 4, size / 2)
-            this.left = new TNBNode(this.i + 1, x - size / 2, y + size / 4, size / 2)
+            this.right = new TNBNode(this.i + 1, x + size / wDivideFactor, y + size / hDivideFactor, size / wDivideFactor)
+            this.left = new TNBNode(this.i + 1, x - size / wDivideFactor, y + size / hDivideFactor, size / wDivideFactor)
         }
     }
 
