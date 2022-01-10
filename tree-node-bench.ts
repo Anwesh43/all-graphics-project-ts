@@ -195,8 +195,10 @@ class TreeNodeBench {
     startUpdating(cb : Function) {
         const l = this.updatingQueue.length
         this.updatingQueue.forEach((tnb : TNBNode) => {
-            this.drawingQueue.push(tnb)
-            this.updatingQueue.push(tnb)
+            this.drawingQueue.push(tnb.left)
+            this.drawingQueue.push(tnb.right)
+            this.updatingQueue.push(tnb.left)
+            this.updatingQueue.push(tnb.right)
         })
         this.updatingQueue.splice(0, l)
         this.updatingQueue.forEach((tnb : TNBNode, i : number) => {
