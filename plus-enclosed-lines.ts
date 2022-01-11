@@ -55,4 +55,11 @@ class DrawingUtil {
         DrawingUtil.drawLine(context, 0, -size / 2, -size * 0.5 * sc1, -size / 2)
         context.restore()
     }
+
+    static drawPELNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawPlusEnclosedLines(context, scale)
+    }
 }
