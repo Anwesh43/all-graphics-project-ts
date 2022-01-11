@@ -47,12 +47,12 @@ class DrawingUtil {
         context.rotate(rot * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.rotate(deg * sc2)
+            context.rotate(deg * sc2 * j)
             DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
             context.restore()
         }
         DrawingUtil.drawLine(context, -size / 2, 0, -size / 2, -size * 0.5 * sc3)
-        DrawingUtil.drawLine(context, 0, -size / 2, -size * 0.5 * sc1, -size / 2)
+        DrawingUtil.drawLine(context, 0, -size / 2, -size * 0.5 * sc3, -size / 2)
         context.restore()
     }
 
