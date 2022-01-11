@@ -12,9 +12,9 @@ const sizeFactor : number = 12.9
 const deg : number = Math.PI / 2
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const parts : number = 4
+const parts : number = 5
 const scGap : number = 0.04 / parts 
-const rot : number = Math.PI / 2 
+const rot : number = Math.PI / 4
 
 class ScaleUtil {
 
@@ -41,9 +41,10 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
-        context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc4)
+        context.translate(w / 2, h / 2 - (h / 2 + size / 2) * sc5)
         context.rotate(rot * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
