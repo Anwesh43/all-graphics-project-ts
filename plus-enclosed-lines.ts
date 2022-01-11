@@ -203,3 +203,25 @@ class PlusEnclosedLines {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pel : PlusEnclosedLines = new PlusEnclosedLines()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pel.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pel.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pel.update(() => {
+                    cb()
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
