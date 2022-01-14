@@ -41,6 +41,7 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        console.log("SCALE", sc1, sc2, sc3, sc4)
         context.save()
         context.translate(w / 2, h / 2 - (h / 2 + size) * sc4)
         context.rotate(deg * sc3)
@@ -137,7 +138,7 @@ class Animator {
 
     stop() {
         if (this.animated) {
-            this.animated = true 
+            this.animated = false 
             clearInterval(this.interval)
         }
     }
