@@ -11,7 +11,7 @@ const delay : number = 20
 const parts : number = 4
 const scGap : number = 0.03 / parts 
 const backColor : string = "#BDBDBD"
-const deg : number = Math.PI / 2
+const deg : number = Math.PI
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
@@ -48,7 +48,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(j * Math.PI / 2)
-            DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc2, 0)
+            DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
             context.restore()
         }
         context.fillRect(-size / 2, 0, size, size * 0.5 * sc2)
