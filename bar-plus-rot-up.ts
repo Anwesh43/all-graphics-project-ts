@@ -203,3 +203,25 @@ class BarPlusRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bpru : BarPlusRotUp = new BarPlusRotUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bpru.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bpru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bpru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
