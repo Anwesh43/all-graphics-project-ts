@@ -199,3 +199,25 @@ class RightAngleStepLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rasl : RightAngleStepLine = new RightAngleStepLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rasl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rasl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rasl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
