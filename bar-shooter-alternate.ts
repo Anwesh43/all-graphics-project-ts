@@ -208,3 +208,25 @@ class BarShooterAlternate {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsa : BarShooterAlternate = new BarShooterAlternate()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsa.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bsa.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsa.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
