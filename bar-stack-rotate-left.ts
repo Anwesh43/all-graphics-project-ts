@@ -31,6 +31,7 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        let y : number = 0 
         context.save()
         context.translate(w / 2 + (w / 2 + size) * sc4, h / 2)
         context.rotate(rot * sc3)
@@ -38,9 +39,10 @@ class DrawingUtil {
             const barSize : number = (size) / (j + 1)
             const scj : number = ScaleUtil.divideScale(scale, j, parts)
             context.save()
-            context.translate(-barSize / 2, -h / 2 - barSize + (h / 2) * scj)
+            context.translate(-barSize / 2, -h / 2 - barSize + (h / 2 - y) * scj)
             context.fillRect(0, 0, barSize, barSize)
             context.restore()
+            y -= barSize
         }
         context.restore()
     }
