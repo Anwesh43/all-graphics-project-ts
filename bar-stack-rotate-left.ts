@@ -197,3 +197,25 @@ class BarStackRotateLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsrl : BarStackRotateLeft = new BarStackRotateLeft()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.bsrl.draw(context)
+    }
+
+    handleTap(cb :  Function) {
+        this.bsrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
