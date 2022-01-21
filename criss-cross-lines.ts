@@ -201,3 +201,25 @@ class CrissCrossLines {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ccl : CrissCrossLines = new CrissCrossLines()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ccl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ccl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ccl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
