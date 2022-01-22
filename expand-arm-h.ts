@@ -147,3 +147,46 @@ class Animator {
         }
     }
 }
+
+class EAHNode {
+
+    state : State = new State()
+    next : EAHNode 
+    prev : EAHNode 
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new EAHNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+    
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawEAHNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : Function) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : Function) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : Function) : EAHNode {
+        var curr : EAHNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+
+    }
+}
