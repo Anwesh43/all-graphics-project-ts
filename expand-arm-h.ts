@@ -41,6 +41,8 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const size : number = Math.min(w, h) / sizeFactor
+        context.save()
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.scale(1, 1 - 2 * j)
@@ -53,8 +55,12 @@ class DrawingUtil {
                 DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
                 context.restore()
             }
+            context.fillRect(-size / 2, 0, size, size * 0.5 * sc3)
             context.restore()
         }
+        DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+        
+        context.restore()
     }
 
     static drawEAHNode(context : CanvasRenderingContext2D, i : number, scale : number) {
@@ -86,7 +92,7 @@ class Stage {
 
     handleTap() {
         this.canvas.onmousedown = () => {
-            
+
         }
     }
 
