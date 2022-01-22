@@ -213,3 +213,25 @@ class ExpandArmH {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    eah : ExpandArmH = new ExpandArmH()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.eah.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.eah.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.eah.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
