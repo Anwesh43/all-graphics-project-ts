@@ -56,7 +56,7 @@ class DrawingUtil {
                 DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
                 context.restore()
             }
-            context.fillRect(-size / 2, 0, size, size * 0.5 * sc3)
+            context.fillRect(-size / 2, 0, size, size * sc3)
             context.restore()
         }
         DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
