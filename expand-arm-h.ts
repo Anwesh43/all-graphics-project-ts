@@ -41,6 +41,7 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const size : number = Math.min(w, h) / sizeFactor
+        console.log("UPDATING", sc1, sc2, sc3, sc4)
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         for (let j = 0; j < 2; j++) {
@@ -67,6 +68,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawExpandArmH(context, scale)
     } 
 }
