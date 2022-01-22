@@ -49,7 +49,7 @@ class DrawingUtil {
             context.scale(1, 1 - 2 * j)
             for (let k = 0; k < 2; k++) {
                 context.save()
-                context.scale(1 - 2 * j, 1)
+                context.scale(1 - 2 * k, 1)
                 context.translate(size / 2, 0)
                 context.rotate(deg * sc2)
                 context.translate(-size / 2, 0)
