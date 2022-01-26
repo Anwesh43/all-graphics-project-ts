@@ -203,3 +203,25 @@ class PieSqHolderLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pshl : PieSqHolderLine = new PieSqHolderLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pshl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pshl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pshl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
