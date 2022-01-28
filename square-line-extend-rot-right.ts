@@ -50,7 +50,7 @@ class DrawingUtil {
             context.save()
             context.scale(1 - 2 * j, 1)
             context.translate(size / 2, -size / 2)
-            DrawingUtil.drawLine(context, 0, 0, size * sc2, size * sc2)
+            DrawingUtil.drawLine(context, 0, 0, size * sc2, -size * sc2)
             context.restore()
         }
         context.restore()
