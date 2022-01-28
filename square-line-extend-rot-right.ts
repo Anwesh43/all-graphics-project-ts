@@ -204,3 +204,25 @@ class SquareLineExtendedRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slerr : SquareLineExtendedRotRight = new SquareLineExtendedRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slerr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.slerr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slerr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
