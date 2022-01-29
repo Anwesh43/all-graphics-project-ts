@@ -203,3 +203,25 @@ class FToRectHolder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ftrh : FToRectHolder = new FToRectHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ftrh.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ftrh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ftrh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
