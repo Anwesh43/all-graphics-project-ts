@@ -206,3 +206,25 @@ class TridentRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    trr : TridentRotRight = new TridentRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.trr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.trr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.trr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
