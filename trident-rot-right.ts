@@ -15,6 +15,7 @@ const strokeFactor : number = 90
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth
 const h : number = window.innerHeight 
+const delay : number = 20 
 
 class ScaleUtil {
 
@@ -117,6 +118,26 @@ class State {
         if (this.dir == 0) {
             this.dir = 1 - 2 * this.prevScale 
             cb()
+        }
+    }
+}
+
+class Animator {
+
+    animated : boolean = false 
+    interval : number 
+
+    start(cb : Function) {
+        if (!this.animated) {
+            this.animated = true 
+            this.interval = setInterval(cb, delay)
+        }
+    }
+
+    stop() {
+        if (this.animated) {
+            this.animated = false 
+            clearInterval(this.interval)
         }
     }
 }
