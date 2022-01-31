@@ -202,3 +202,25 @@ class FishLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    flr : FishLineRot = new FishLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.flr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.flr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.flr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
