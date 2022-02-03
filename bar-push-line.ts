@@ -206,3 +206,25 @@ class BarPushLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bpl : BarPushLine = new BarPushLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bpl.draw(context)
+    }
+    
+    handleTap(cb : Function) {
+        this.bpl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bpl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
