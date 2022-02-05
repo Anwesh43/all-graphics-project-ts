@@ -43,7 +43,7 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
         context.save()
-        context.translate(w / 2, h / 2 - (h / 2) * sc5)
+        context.translate(w / 2, h / 2 - (h / 2 + size / 2) * sc5)
         DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
         for (let j = 0; j < 2; j++) {
             context.save()
