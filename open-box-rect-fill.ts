@@ -204,3 +204,25 @@ class OpenBoxRectFill {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    obrf : OpenBoxRectFill = new OpenBoxRectFill()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.obrf.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.obrf.startUdpating(() => {
+            this.animator.start(() => {
+                cb()
+                this.obrf.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
