@@ -48,7 +48,9 @@ class DrawingUtil {
             context.scale(1 - 2 * j, 1)
             context.translate(-size / 2, 0)
             context.rotate(deg * sc2)
-            DrawingUtil.drawLine(context, 0, 0, 0, -size * sc1)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, 0, -size * sc1)
+            }
             context.restore()
         }
         context.fillRect(-size / 2, -size * sc3, size, size * sc3)
@@ -60,6 +62,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawLineRotateBarUp(context, scale)
     }
 }
