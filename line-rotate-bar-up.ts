@@ -186,7 +186,7 @@ class LineRotateBarUp {
     curr : LBRUNode = new LBRUNode(0)
     dir : number = 1
 
-    render(context : CanvasRenderingContext2D) {
+    draw(context : CanvasRenderingContext2D) {
         this.curr.draw(context)
     }
 
@@ -201,5 +201,28 @@ class LineRotateBarUp {
 
     startUpdating(cb : Function) {
         this.curr.startUpdating(cb)
+    }
+}
+
+
+class Renderer {
+
+    lrbu : LineRotateBarUp = new LineRotateBarUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrbu.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lrbu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrbu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
