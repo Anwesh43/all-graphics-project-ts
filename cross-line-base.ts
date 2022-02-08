@@ -10,8 +10,8 @@ const scGap : number = 0.04 / parts
 const strokeFactor : number = 90 
 const sizeFactor : number = 11.9 
 const backColor : string = "#BDBDBD"
-const delay : number = 90 
-const deg : number = 45 
+const delay : number = 20
+const deg : number = Math.PI / 2 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
@@ -42,14 +42,14 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2, h / 2  - (h / 2 + size / 2 + context.lineWidth) * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(deg * (1 - 2 * j) * sc2)
             DrawingUtil.drawLine(context, 0, -size * 0.5 * sc1, 0, size * 0.5 * sc1)
             context.restore()
         }
-        DrawingUtil.drawLine(context, -size * 0.5 * sc1, size / 2, size * 0.5 * sc1, size / 2)
+        DrawingUtil.drawLine(context, -size * 0.5 * sc3, size / 2, size * 0.5 * sc3, size / 2)
         context.restore()
     }
 
@@ -134,7 +134,7 @@ class Animator {
 
     stop() {
         if (this.animated) {
-            this.animated = true 
+            this.animated = false 
             clearInterval(this.interval)
         }
     }
