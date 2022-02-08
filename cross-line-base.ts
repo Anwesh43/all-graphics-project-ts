@@ -41,15 +41,20 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const lSize : number = -(size * 0.5 * Math.cos(deg))
         context.save()
         context.translate(w / 2, h / 2  - (h / 2 + size / 2 + context.lineWidth) * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(deg * (1 - 2 * j) * sc2)
-            DrawingUtil.drawLine(context, 0, -size * 0.5 * sc1, 0, size * 0.5 * sc1)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, 0, -size * 0.5 * sc1, 0, size * 0.5 * sc1)
+            }
             context.restore()
         }
-        DrawingUtil.drawLine(context, -size * 0.5 * sc3, size / 2, size * 0.5 * sc3, size / 2)
+        if (sc3 > 0) {
+            DrawingUtil.drawLine(context, -lSize * sc3, size / 2, lSize * sc3, size / 2)
+        }
         context.restore()
     }
 
