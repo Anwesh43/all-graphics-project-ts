@@ -36,7 +36,7 @@ class DrawingUtil {
     }
 
     static drawCrossLineBase(context : CanvasRenderingContext2D, scale : number) {
-        const size : number = Math.min(w, h) / strokeFactor 
+        const size : number = Math.min(w, h) / sizeFactor 
         const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
