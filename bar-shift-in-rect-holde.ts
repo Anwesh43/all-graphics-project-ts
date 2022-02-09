@@ -48,7 +48,7 @@ class DrawingUtil {
         context.restore()
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.scale(1, 1- 2 * j)
+            context.scale(1 - 2 * j, 1)
             DrawingUtil.drawLine(context, -size / 2, 0, -size / 2, -size * sc2)
             context.restore()
         }
