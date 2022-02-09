@@ -211,3 +211,24 @@ class BarShiftInRectHolder {
     }
 }
 
+class Renderer {
+
+    bisrh : BarShiftInRectHolder = new BarShiftInRectHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bisrh.draw(context)    
+    }
+
+    handleTap(cb : Function) {
+        this.bisrh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bisrh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
