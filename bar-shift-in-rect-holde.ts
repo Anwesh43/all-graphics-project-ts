@@ -54,8 +54,8 @@ class DrawingUtil {
         }
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.translate(-size / 2, -size + (size - size / 10) * j)
-            context.fillRect(0, 0, size * sc3, size / 10)
+            context.translate(-size / 2, -size + (size - size / 4) * j)
+            context.fillRect(0, 0, size * sc3, size / 4)
             context.restore()
         }
         context.restore()
