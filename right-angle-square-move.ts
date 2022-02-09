@@ -138,7 +138,7 @@ class Animator {
     stop() {
         if (this.animated) {
             this.animated = false 
-            clearInterval(delay)
+            clearInterval(this.interval)
         }
     }
 }
