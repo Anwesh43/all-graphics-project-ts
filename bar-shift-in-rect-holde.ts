@@ -161,7 +161,7 @@ class BSIRHNode {
 
     addNeighbor() {
         if (this.i < colors.length - 1) {
-            this.next = new BSIRHNode(0)
+            this.next = new BSIRHNode(this.i + 1)
             this.next.prev = this 
         }
     }
