@@ -53,7 +53,7 @@ class DrawingUtil {
             }
             context.restore()
         }
-        context.fillRect(0, -size, size * sc4, size)
+        context.fillRect(size - size * sc4, -size, size * sc4, size)
         context.restore()
     }
     
