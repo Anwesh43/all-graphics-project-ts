@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#795548",
     "#8BC34A"
 ]
-const parts : number = 4 
+const parts : number = 5
 const scGap : number = 0.04 / parts 
 const delay : number = 20 
 const strokeFactor : number = 90 
@@ -24,4 +24,41 @@ class ScaleUtil {
     static divideScale(scale : number, i : number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
+}
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawRightAngleSquareMove(context : CanvasRenderingContext2D, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        context.save()
+        context.translate(w / 2 + (w / 2) * sc5, h / 2)
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.translate(size * sc3 * j, 0)
+            context.rotate(-deg * j * sc2)
+            DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
+            context.restore()
+        }
+        context.fillRect(0, -size, size * sc4, size)
+        context.restore()
+    }
+    
+    static drawRASMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawRightAngleSquareMove(context, scale)
+    } 
 }
