@@ -202,3 +202,25 @@ class RightAngleSquareMove {
         this.curr.startUdpating(cb)
     }
 }
+
+class Renderer {
+
+    rasm : RightAngleSquareMove = new RightAngleSquareMove()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.rasm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rasm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rasm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
