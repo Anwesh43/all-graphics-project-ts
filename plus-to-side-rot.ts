@@ -208,3 +208,25 @@ class PlusToSideRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ptsr : PlusToSideRot = new PlusToSideRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ptsr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ptsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ptsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
