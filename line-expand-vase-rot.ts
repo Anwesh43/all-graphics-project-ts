@@ -51,9 +51,10 @@ class DrawingUtil {
                 DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
             }
             context.save()
+            context.translate(size, 0)
             context.rotate(rot * sc3)
             if (sc2 > 0) {
-                DrawingUtil.drawLine(context, size, 0, size, -size * sc2)
+                DrawingUtil.drawLine(context, 0, 0, 0, -size * sc2)
             }
             context.restore()
             context.restore()
