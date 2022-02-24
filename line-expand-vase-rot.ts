@@ -208,3 +208,25 @@ class LineExpandVaseRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    levr : LineExpandVaseRot = new LineExpandVaseRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.levr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.levr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.levr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
