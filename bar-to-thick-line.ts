@@ -198,3 +198,25 @@ class BarToThickLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bttl : BarToThickLine = new BarToThickLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bttl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bttl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bttl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
