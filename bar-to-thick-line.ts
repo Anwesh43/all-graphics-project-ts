@@ -10,10 +10,11 @@ const parts : number = 4
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
 const delay : number = 20 
-const rot : number = Math.PI / 2
 const sizeFactor : number = 11.3 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
+const deg : number = Math.PI / 4
+const barSizeFactor : number = 4
 
 class ScaleUtil {
 
@@ -23,5 +24,37 @@ class ScaleUtil {
 
     static divideScale(scale : number, i : number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
+
+class DrawingUtil {
+
+    static drawBarToThickLine(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+
+        context.save()
+        context.translate(w / 2, h / 2)
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.rotate(deg * sc3 * (1 - 2 * j))
+            for (let k = 0; k < 2; k++) {
+                context.save()
+                context.scale(1 - 2 * k, 1 - 2 * k)
+                context.translate(0, (h / 2 + size / 2) * (1 - sc1))
+                context.fillRect(0, -size / 2 + (size / barSizeFactor) * sc2, size, size - size * (2 / barSizeFactor) * sc2)
+                context.restore()
+            }
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawBTTLNode(context : CanvasRenderingContext2D, i : number, scale : number) {        
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBarToThickLine(context, scale)
     }
 }
