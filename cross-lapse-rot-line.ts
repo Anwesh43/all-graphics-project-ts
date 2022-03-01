@@ -14,6 +14,7 @@ const rot : number = Math.PI / 4
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
+const deg : number = -Math.PI / 2
 
 class ScaleUtil {
 
@@ -41,14 +42,18 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
         context.save()
-        context.translate(w / 2 + (w / 2) * sc4, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc5)
+        context.rotate(deg * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(rot * (1 - 2 * j) * sc2)
             context.save()
             context.translate(size * 0.5 * sc3, 0)
-            DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+            }
             context.restore()
             context.restore()
         }
