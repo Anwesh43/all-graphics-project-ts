@@ -202,3 +202,25 @@ class CrossLapseRotLine {
         this.curr.startUdpating(cb)
     }
 }
+
+class Renderer {
+
+    clrl : CrossLapseRotLine = new CrossLapseRotLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.clrl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.clrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.clrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
