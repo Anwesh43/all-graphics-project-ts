@@ -203,3 +203,25 @@ class BreakRectAndMove {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bram : BreakRectAndMove = new BreakRectAndMove()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bram.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bram.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bram.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
