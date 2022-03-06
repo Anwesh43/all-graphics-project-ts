@@ -42,7 +42,7 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
-        const size : number = Math.min(w, h) / strokeFactor 
+        const size : number = Math.min(w, h) / sizeFactor 
         context.save()
         context.translate(w / 2, h / 2 + (h / 2) * sc5)
         context.rotate(deg * sc1)
