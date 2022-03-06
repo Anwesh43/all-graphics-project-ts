@@ -26,3 +26,42 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawSquareClosureDown(context : CanvasRenderingContext2D, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
+        const size : number = Math.min(w, h) / strokeFactor 
+        context.save()
+        context.translate(w / 2, h / 2)
+        context.rotate(deg * sc1)
+        for (let j = 0; j < 3; j++) {
+            const scj : number = ScaleUtil.divideScale(scale, j, parts)
+            context.save()
+            context.translate(0, -size / 2)
+            context.rotate(rot * j)
+            DrawingUtil.drawLine(context, -size / 2, 0, -size / 2, -size * scj)
+            context.restore()
+        }
+        DrawingUtil.drawLine(context, -size / 2, 0, -size / 2 + size * 0.33 * (sc1 + sc2 + sc3), 0)
+        context.restore()
+    }
+
+    static drawSCDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawSquareClosureDown(context, scale)
+    }
+}
