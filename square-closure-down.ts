@@ -205,3 +205,25 @@ class SquareClosureDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    scd : SquareClosureDown = new SquareClosureDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.scd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.scd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.scd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
