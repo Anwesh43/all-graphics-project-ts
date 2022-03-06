@@ -44,7 +44,7 @@ class DrawingUtil {
         const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
         const size : number = Math.min(w, h) / strokeFactor 
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2) * sc5)
         context.rotate(deg * sc1)
         for (let j = 0; j < 3; j++) {
             const scj : number = ScaleUtil.divideScale(scale, j, parts)
@@ -70,6 +70,7 @@ class Stage {
 
     canvas : HTMLCanvasElement = document.createElement('canvas')
     context : CanvasRenderingContext2D 
+    renderer : Renderer = new Renderer()
 
     initCanvas() {
         this.canvas.width = w 
@@ -81,11 +82,14 @@ class Stage {
     render() {
         this.context.fillStyle = backColor 
         this.context.fillRect(0, 0, w, h)
+        this.renderer.render(this.context)
     }
     
     handleTap() {
         this.canvas.onmousedown = () => {
-
+            this.renderer.handleTap(() => {
+                this.render()
+            })
         }
     }
 
