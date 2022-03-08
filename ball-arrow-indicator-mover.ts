@@ -209,3 +209,25 @@ class BallArrowIndicatorMover {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    baim : BallArrowIndicatorMover = new BallArrowIndicatorMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.baim.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.baim.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.baim.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
