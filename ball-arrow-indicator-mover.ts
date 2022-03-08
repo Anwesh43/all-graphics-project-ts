@@ -57,7 +57,9 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(deg * (1 - 2 * j))
-            DrawingUtil.drawLine(context, 0, 0, -arrowSize * sc2, 0)
+            if (sc2 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, -arrowSize * sc2, 0)
+            }
             context.restore()
         }
         context.restore()
