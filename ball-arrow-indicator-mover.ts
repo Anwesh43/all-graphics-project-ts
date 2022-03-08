@@ -51,8 +51,9 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const arrowSize : number = Math.min(w, h) / arrowSizeFactor
         context.save()
-        context.translate(w / 2, h / 2)
-        DrawingUtil.drawCircle(context, 0, 0, size)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
+        context.rotate(rot * sc3)
+        DrawingUtil.drawCircle(context, 0, 0, size * sc1)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(deg * (1 - 2 * j))
@@ -64,8 +65,9 @@ class DrawingUtil {
 
     static drawBAIMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
-        context.strokeStyle = colors[i]
+        context.strokeStyle = backColor 
         context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.fillStyle = colors[i]
         DrawingUtil.drawBallArrowIndicatorMover(context, scale)
     }
 }
