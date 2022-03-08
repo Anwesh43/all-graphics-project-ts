@@ -144,3 +144,45 @@ class Animator {
         }
     }
 }
+
+class BAIMNode {
+
+    prev : BAIMNode 
+    next : BAIMNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new BAIMNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawBAIMNode(context, this.i, this.state.scale)
+    }
+
+    startUpdating(cb : Function) {
+        this.state.startUpdating(cb)
+    }
+
+    update(cb : Function) {
+        this.state.update(cb)
+    }
+
+    getNext(dir : number, cb : Function) : BAIMNode {
+        var curr : BAIMNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
