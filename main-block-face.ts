@@ -194,3 +194,25 @@ class MainBlockFace {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mbf : MainBlockFace = new MainBlockFace()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.mbf.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.mbf.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mbf.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
