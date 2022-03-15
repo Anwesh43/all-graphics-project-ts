@@ -43,7 +43,7 @@ class DrawingUtil {
             context.save()
             context.translate(size / 2, 0)
             context.scale(1, 1 - 2 * j)
-            context.fillRect(-bSize / 2, -1.5 * bSize, bSize * sc2, bSize)
+            context.fillRect(-bSize / 2, -size / 4 - bSize / 2, bSize * sc2, bSize)
             context.restore()
         }
         context.restore()
