@@ -203,3 +203,25 @@ class LineRotToArm {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrtm : LineRotToArm = new LineRotToArm()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.lrtm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lrtm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrtm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
