@@ -63,9 +63,13 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         context.save()
-        context.translate(w / 2, h / 2)
-        DrawingUtil.drawOpenLine(context, size, sc1, sc2, sc3)
-        DrawingUtil.drawArms(context, size, sc3)
+        context.translate(w / 2, h / 2 + (h / 2 + size + context.lineWidth) * sc4)
+        if (sc1 > 0) {
+            DrawingUtil.drawOpenLine(context, size, sc1, sc2, sc3)
+        }
+        if (sc3 > 0) {
+            DrawingUtil.drawArms(context, size, sc3)
+        }
         context.restore()     
     }
 
