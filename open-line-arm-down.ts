@@ -216,3 +216,25 @@ class OpenLineArmDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    olad : OpenLineArmDown = new OpenLineArmDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.olad.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.olad.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.olad.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
