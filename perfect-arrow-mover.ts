@@ -52,9 +52,9 @@ class DrawingUtil {
         const headSize : number = size / arrowHeadFactor 
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.translate(0, -size + headSize)
+            context.translate(0, -size)
             context.rotate(rot * (1 - 2 * j) * sc3)
-            DrawingUtil.drawLine(context, 0, 0, 0, -headSize * Math.floor(sc1))
+            DrawingUtil.drawLine(context, 0, 0, 0, headSize * Math.floor(sc1))
             context.restore()
         }
     }
@@ -67,7 +67,7 @@ class DrawingUtil {
         context.restore()
     }
 
-    static drawPAMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+    static drawPerfectArrowMover(context : CanvasRenderingContext2D, scale : number) {
         const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
@@ -79,6 +79,13 @@ class DrawingUtil {
         DrawingUtil.drawArrowTail(context, size, sc1, sc2)
         DrawingUtil.drawArrowHead(context, size, sc1, sc3)
         context.restore()
+    }
+
+    static drawPAMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]    
+        DrawingUtil.drawPerfectArrowMover(context, scale)
     }
 }
 
