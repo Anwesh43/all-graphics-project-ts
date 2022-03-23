@@ -74,10 +74,12 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
-        context.translate(w / 2, h / 2 - (h / 2) * sc4)
-        DrawingUtil.drawArrowLine(context, size, sc1, sc2)
-        DrawingUtil.drawArrowTail(context, size, sc1, sc2)
-        DrawingUtil.drawArrowHead(context, size, sc1, sc3)
+        context.translate(w / 2, h / 2 - (h / 2 + size) * sc4)
+        if (sc1 > 0) {
+            DrawingUtil.drawArrowLine(context, size, sc1, sc2)
+            DrawingUtil.drawArrowTail(context, size, sc1, sc2)
+            DrawingUtil.drawArrowHead(context, size, sc1, sc3)
+        }
         context.restore()
     }
 
