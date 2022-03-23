@@ -221,3 +221,24 @@ class Animator {
         this.curr.startUpdating(cb)
     }
  }
+
+ class Renderer {
+
+    pam : PerfectArrowMover = new PerfectArrowMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pam.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pam.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pam.update(() => {
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+ }
