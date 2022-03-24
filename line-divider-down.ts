@@ -201,5 +201,26 @@ class LineDividerDown {
     startUpdating(cb : Function) {
         this.curr.startUpdating(cb)
     }
+}
 
+class Renderer {
+
+    ldd : LineDividerDown = new LineDividerDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ldd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ldd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
 }
