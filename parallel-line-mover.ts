@@ -203,7 +203,7 @@ class ParallelLineMover {
     }
 
     startUpdating(cb : Function) {
-        this.startUpdating(cb)
+        this.curr.startUpdating(cb)
     }
 }
 
