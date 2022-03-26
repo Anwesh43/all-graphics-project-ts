@@ -202,3 +202,25 @@ class ParallelLineMover {
         this.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    plm : ParallelLineMover = new ParallelLineMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.plm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.plm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.plm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
