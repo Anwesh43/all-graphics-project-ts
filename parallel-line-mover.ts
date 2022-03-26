@@ -47,7 +47,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            context.translate((w / 2)  * sc4 + size * sc2, size * (1 - 2 * j) * 0.5 * sc2)
+            context.translate((w / 2)  * sc4 + size * 0.5 * sc2, size * (1 - 2 * j) * 0.5 * sc2)
             DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
             context.restore()
         }
@@ -78,14 +78,13 @@ class Stage {
     render() {
         this.context.fillStyle = backColor 
         this.context.fillRect(0, 0, w, h)
-        this.renderer.handleTap(() => {
-            this.render()
-        })
     }
 
     handleTap() {
         this.canvas.onmousedown = () => {
-
+            this.renderer.handleTap(() => {
+                this.render()
+            })
         }
     }
 
