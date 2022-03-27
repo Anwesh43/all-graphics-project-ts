@@ -199,3 +199,25 @@ class EitherLineDrop {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    eld : EitherLineDrop = new EitherLineDrop()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.eld.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.eld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.eld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
