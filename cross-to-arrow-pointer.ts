@@ -202,3 +202,25 @@ class CrossToArrowPointer {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ctap : CrossToArrowPointer = new CrossToArrowPointer()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.ctap.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ctap.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ctap.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
