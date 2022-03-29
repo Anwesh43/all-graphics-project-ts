@@ -202,3 +202,25 @@ class PerpLineToParallel {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pltp : PerpLineToParallel = new PerpLineToParallel()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pltp.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pltp.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pltp.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
