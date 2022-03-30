@@ -202,3 +202,25 @@ class LineUpBridgeRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lubr : LineUpBridgeRot = new LineUpBridgeRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lubr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lubr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lubr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
