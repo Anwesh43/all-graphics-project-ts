@@ -50,7 +50,7 @@ class DrawingUtil {
         context.rotate(deg * sc4)
         for (let k = 0; k < 2; k++) {
             context.save()
-            context.rotate(rot * sc2)
+            context.rotate(rot * sc2 * k)
             DrawingUtil.drawLine(context, 0, 0, -size * sc1, 0)
             context.fillRect(-size, -sqSize * sc3, sqSize, sqSize * sc3)
             context.restore()
