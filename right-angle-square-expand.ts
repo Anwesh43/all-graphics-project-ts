@@ -205,3 +205,25 @@ class RightAngleSquareExpand {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rase : RightAngleSquareExpand = new RightAngleSquareExpand()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rase.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rase.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rase.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
