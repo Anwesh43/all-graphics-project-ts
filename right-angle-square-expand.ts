@@ -11,7 +11,7 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const rot : number = Math.PI / 2 
 const sizeFactor : number = 11.2 
-const sqSizeFactor : number = 8.9
+const sqSizeFactor : number = 6.9
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 const deg : number = Math.PI / 4
@@ -46,7 +46,7 @@ class DrawingUtil {
         const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
         const sqSize : number = size / sqSizeFactor 
         context.save()
-        context.translate(w / 2 + (w / 2 + size) * sc5, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc5)
         context.rotate(deg * sc4)
         for (let k = 0; k < 2; k++) {
             context.save()
@@ -62,6 +62,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawRightAngleSquareExpand(context, scale)
     }
 }
