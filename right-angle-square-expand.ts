@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#D50000",
     "#43A047"
 ]
-const parts : number = 4 
+const parts : number = 5
 const scGap : number = 0.04 / parts 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
@@ -14,6 +14,8 @@ const sizeFactor : number = 11.2
 const sqSizeFactor : number = 8.9
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
+const deg : number = Math.PI / 4
+const strokeFactor : number = 90 
 
 class ScaleUtil {
 
@@ -25,3 +27,42 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.divideScale(scale, 0, parts)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawRightAngleSquareExpand(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
+        const sqSize : number = size / sqSizeFactor 
+        context.save()
+        context.translate(w / 2 + (w / 2 + size) * sc5, h / 2)
+        context.rotate(deg * sc4)
+        for (let k = 0; k < 2; k++) {
+            context.save()
+            context.rotate(rot * sc2)
+            DrawingUtil.drawLine(context, 0, 0, -size * sc1, 0)
+            context.fillRect(-size, -sqSize * sc3, sqSize, sqSize * sc3)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawRASENode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawRightAngleSquareExpand(context, scale)
+    }
+}
+
