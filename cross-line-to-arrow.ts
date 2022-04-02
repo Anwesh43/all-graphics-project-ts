@@ -207,3 +207,25 @@ class CrossLineToArrow {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    clta : CrossLineToArrow = new CrossLineToArrow()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.clta.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.clta.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.clta.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
