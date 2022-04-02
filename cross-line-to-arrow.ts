@@ -6,7 +6,7 @@ const colors : Array<string> = [
     "#43A047"
 ]
 const parts : number = 4 
-const scGap : number = 0.02 / parts 
+const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 11.9 
 const delay : number = 20 
@@ -23,7 +23,7 @@ class ScaleUtil {
     }
 
     static divideScale(scale : number, i : number, n : number) : number {
-        return Math.max(0, scale - i / n)
+        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
 
@@ -50,7 +50,7 @@ class DrawingUtil {
             context.rotate(deg * j * sc3)
             for (let k = 0; k < 2; k++) {
                 context.save()
-                context.scale(1 - 2 * j, 1)
+                context.scale(1 - 2 * k, 1)
                 context.rotate(rot * sc2)
                 DrawingUtil.drawLine(context, 0, 0, 0, -size * sc1)
                 context.restore()
