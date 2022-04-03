@@ -120,7 +120,7 @@ class State {
     }
 }
 
-class Animated {
+class Animator {
 
     animated : boolean = false 
     interval : number 
@@ -200,5 +200,27 @@ class DivideLineUpBar {
 
     startUpdating(cb : Function) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    dlub : DivideLineUpBar = new DivideLineUpBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dlub.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.dlub.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlub.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
