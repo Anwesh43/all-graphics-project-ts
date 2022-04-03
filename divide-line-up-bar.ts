@@ -155,8 +155,10 @@ class DLUBNode {
     }
 
     addNeighbor() {
-        this.next = new DLUBNode(this.i + 1)
-        this.next.prev = this 
+        if (this.i < colors.length - 1) {
+            this.next = new DLUBNode(this.i + 1)
+            this.next.prev = this 
+        }
     }
 
     draw(context : CanvasRenderingContext2D) {
