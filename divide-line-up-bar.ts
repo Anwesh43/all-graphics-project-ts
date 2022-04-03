@@ -44,7 +44,7 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const sqSize : number = size / sqSizeFactor
         context.save()
-        context.translate(w / 2 + (w / 2 + size) * sc4, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
