@@ -14,7 +14,7 @@ const delay : number = 20
 const rot : number = Math.PI / 4 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const sqSizeFactor : number = 6.9 
+const sqSizeFactor : number = 3.9 
 
 class ScaleUtil {
 
