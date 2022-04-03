@@ -14,7 +14,7 @@ const delay : number = 20
 const rot : number = Math.PI / 4 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const sqSizeFactor : number = 8.9 
+const sqSizeFactor : number = 6.9 
 
 class ScaleUtil {
 
@@ -50,7 +50,7 @@ class DrawingUtil {
             context.scale(1 - 2 * j, 1)
             context.rotate(rot * sc2)
             DrawingUtil.drawLine(context, 0, 0, -size * sc1, 0)
-            context.fillRect(-size + sqSize / 2, -sqSize * sc3 * (1 - j), sqSize, sqSize * sc3)
+            context.fillRect(-size + sqSize / 2, -sqSize * sc3, sqSize, sqSize * sc3)
             context.restore()
         }
         context.restore()
