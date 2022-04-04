@@ -193,3 +193,25 @@ class RotDivideRect {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rdr : RotDivideRect = new RotDivideRect()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rdr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rdr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rdr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
