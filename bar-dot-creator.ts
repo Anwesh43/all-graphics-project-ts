@@ -52,7 +52,7 @@ class DrawingUtil {
     }
 
     static drawBDCNode(context : CanvasRenderingContext2D, i : number, scale : number) {
-        context.fillStyle = backColor 
+        context.fillStyle = colors[i] 
         DrawingUtil.drawBarDotCreator(context, scale)
     }
 }
