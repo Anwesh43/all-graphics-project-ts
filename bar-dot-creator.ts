@@ -27,3 +27,32 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawDot(context : CanvasRenderingContext2D, x : number, y : number, r : number) {
+        context.beginPath()
+        context.arc(x, y, r, 0, 2 * Math.PI)
+        context.fill()
+    }
+    static drawBarDotCreator(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const barH : number = size / barHFactor 
+        const r : number = size / dotRFactor 
+        context.save()
+        context.translate(w / 2, h / 2 - (h / 2 + size / 2) * sc4)
+        context.rotate(-rot * sc3)
+        context.fillRect(-size / 2, -barH / 2, size * sc1, barH)
+        DrawingUtil.drawDot(context, size / 2 + r,  -r - h / 2 + (h / 2 + r) * sc2, r)
+        context.restore()
+    }
+
+    static drawBDCNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = backColor 
+        DrawingUtil.drawBarDotCreator(context, scale)
+    }
+}
