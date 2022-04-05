@@ -196,3 +196,25 @@ class BarDotCreator {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bdc : BarDotCreator = new BarDotCreator()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bdc.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bdc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bdc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
