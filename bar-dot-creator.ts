@@ -12,8 +12,8 @@ const sizeFactor : number = 11.9
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
 const rot : number = Math.PI / 2
-const barHFactor : number = 5.9  
-const dotRFactor : number = 9.8 
+const barHFactor : number = 3.9  
+const dotRFactor : number = 7.8 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
