@@ -207,3 +207,25 @@ class EitherBarDivideLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ebdlr : EitherBarDivideLineRot = new EitherBarDivideLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ebdlr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ebdlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ebdlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
