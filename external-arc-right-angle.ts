@@ -219,3 +219,25 @@ class ExternalArcRightAngle {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    eara : ExternalArcRightAngle = new ExternalArcRightAngle()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.eara.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.eara.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.eara.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
