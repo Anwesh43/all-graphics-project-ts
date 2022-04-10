@@ -38,9 +38,9 @@ class DrawingUtil {
         context.stroke()
     }
 
-    static drawArc(context : CanvasRenderingContext2D, r : number) {
+    static drawArc(context : CanvasRenderingContext2D, r : number, scale : number) {
         context.beginPath()
-        for (let j = start; j <= start + sweep; j++) {
+        for (let j = start; j <= start + sweep * scale; j++) {
             const x : number = r * Math.cos(j * Math.PI / 180)
             const y : number = r * Math.sin(j * Math.PI / 180)
             if (j == start) {
@@ -61,14 +61,14 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + r) * sc4)
-        context.rotate(-deg / 2)
+        context.rotate(deg * 0.5 * sc3)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(deg * j)
             DrawingUtil.drawLine(context, 0, 0, -size * sc1, 0)
             context.restore()
         }
-        DrawingUtil.drawArc(context, r)
+        DrawingUtil.drawArc(context, r, sc2)
         context.restore()
     }
 
