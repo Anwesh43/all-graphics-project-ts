@@ -215,3 +215,25 @@ class BallsOnTHolder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    both : BallsOnTHolder = new BallsOnTHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.both.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.both.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.both.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
