@@ -26,3 +26,51 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawCircle(context : CanvasRenderingContext2D, x : number, y : number, r : number) {
+        context.beginPath()
+        context.arc(x, y, r, 0, 2 * Math.PI)
+        context.fill()
+    }
+
+    static drawBallsOnTHolder(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const r : number = size / rFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        context.save()
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
+        for (let j = 0; j < 3; j++) {
+            context.save()
+            context.rotate((j - 1) * rot * sc2)
+            DrawingUtil.drawLine(context, 0, 0, 0, size * sc1)
+            context.restore()
+        }
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1)
+            DrawingUtil.drawCircle(context, -size + r, -r, r * sc3)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawBOTHNode(context : CanvasRenderingContext2D, i : number,  scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        DrawingUtil.drawBallsOnTHolder(context, scale)
+    }
+}
