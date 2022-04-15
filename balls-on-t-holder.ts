@@ -70,7 +70,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
-        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.fillStyle = colors[i]
         DrawingUtil.drawBallsOnTHolder(context, scale)
     }
 }
