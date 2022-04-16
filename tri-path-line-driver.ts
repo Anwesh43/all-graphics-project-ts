@@ -206,3 +206,25 @@ class TriPathLineDriver {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tpld : TriPathLineDriver = new TriPathLineDriver()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tpld.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.tpld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tpld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
