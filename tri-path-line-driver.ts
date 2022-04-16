@@ -43,7 +43,7 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
-        const lSize : number = Math.min(w, h) / lSizeFactor 
+        const lSize : number = size / lSizeFactor 
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         context.rotate(deg * sc3)
