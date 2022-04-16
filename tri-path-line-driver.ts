@@ -13,7 +13,7 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const deg : number = Math.PI / 2
+const deg : number = Math.PI
 const angle : number = Math.PI / 4 
 const lSizeFactor : number = 3.9 
 
@@ -51,9 +51,13 @@ class DrawingUtil {
             context.save()
             context.translate(-lSize * (1 - 2 * j), 0)
             context.save()
-            DrawingUtil.drawLine(context, 0, 0, lSize * (1 - 2 * j) * sc1, lSize * sc1)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, lSize * (1 - 2 * j) * sc1, lSize * sc1)
+            }
             context.restore()
-            DrawingUtil.drawLine(context, 0, 0, 0, size * sc2)
+            if (sc2 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, 0, size * sc2)
+            }
             context.restore()
         }   
         context.restore()
