@@ -219,3 +219,25 @@ class LineArcPointWrap {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lapw : LineArcPointWrap = new LineArcPointWrap()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lapw.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lapw.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lapw.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
