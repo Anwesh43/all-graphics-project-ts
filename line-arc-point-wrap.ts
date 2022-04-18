@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#795548",
     "#8BC34A"
 ]
-const parts : number = 5
+const parts : number = 4
 const scGap : number = 0.04 / parts 
 const deg : number = -90 
 const sweep : number = 270 
