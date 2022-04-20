@@ -208,3 +208,24 @@ class SideWiseMidLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    swml : SideWiseMidLine = new SideWiseMidLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.swml.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.swml.startUpdating(() => {
+            this.animator.start(() => {
+                this.swml.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
