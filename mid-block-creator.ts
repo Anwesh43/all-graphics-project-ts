@@ -55,6 +55,7 @@ class DrawingUtil {
             context.restore()
             for (let k = 0; k < 2; k++) {
                 context.save()
+                context.scale(1 - 2 * k, 1)
                 if (sc2 > 0) {
                     DrawingUtil.drawLine(context, 0, -size / 2, size * 0.5 * sc2, -size / 2)
                 }
