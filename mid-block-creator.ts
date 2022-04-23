@@ -14,7 +14,7 @@ const delay  : number = 20
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const rot : number = Math.PI / 2
+const rot : number = Math.PI
 
 class ScaleUtil {
 
@@ -53,11 +53,15 @@ class DrawingUtil {
             context.translate(0, -size / 2)
             context.fillRect(-barSize * 0.5 * sc1, -barSize * 0.5 * sc1, barSize * sc1, barSize * sc1)
             context.restore()
-            if (sc2 > 0) {
-                DrawingUtil.drawLine(context, 0, -size / 2, size * 0.5 * sc2, -size / 2)
-            }
-            if (sc3 > 0) {
-                DrawingUtil.drawLine(context, size / 2, -size / 2 ,size / 2, -size / 2 + size * 0.5 * sc3)
+            for (let k = 0; k < 2; k++) {
+                context.save()
+                if (sc2 > 0) {
+                    DrawingUtil.drawLine(context, 0, -size / 2, size * 0.5 * sc2, -size / 2)
+                }
+                if (sc3 > 0) {
+                    DrawingUtil.drawLine(context, size / 2, -size / 2 ,size / 2, -size / 2 + size * 0.5 * sc3)
+                }
+                context.restore()
             }
             context.restore()
         }
