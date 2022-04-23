@@ -212,3 +212,25 @@ class MidBlockCreator {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mbc : MidBlockCreator = new MidBlockCreator()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.mbc.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.mbc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mbc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
