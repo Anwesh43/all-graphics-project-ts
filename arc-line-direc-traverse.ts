@@ -222,3 +222,25 @@ class ArcLineDirectTraverse {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    aldt : ArcLineDirectTraverse = new ArcLineDirectTraverse()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.aldt.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.aldt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.aldt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
