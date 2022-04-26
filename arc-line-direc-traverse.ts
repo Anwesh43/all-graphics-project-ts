@@ -157,3 +157,38 @@ class Animator {
         }
     }
 }
+
+class ALDTNode {
+
+    prev : ALDTNode 
+    next : ALDTNode 
+    state : State = new State()
+
+    addNeighbor() {
+
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+
+    }
+
+    update(cb : Function) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : Function) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : Function) : ALDTNode {
+        var curr : ALDTNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
