@@ -14,6 +14,7 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const deg : number = -90 
 const rot : number = 180
+const arrowDeg : number = Math.PI / 4
 const rotateDeg : number = 2 * Math.PI 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
@@ -26,5 +27,58 @@ class ScaleUtil {
 
     static divideScale(scale : number, i : number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawArc(context : CanvasRenderingContext2D, scale : number, r : number) {
+        context.beginPath()
+        for (let j = deg; j <= deg + rot * scale; j++) {
+            const x : number = r * Math.cos(j * Math.PI / 180)
+            const y : number = r * Math.sin(j * Math.PI / 180)
+            if (j == deg) {
+                context.moveTo(x, y)
+            } else {
+                context.lineTo(x, y)
+            }
+        }
+        context.stroke()
+    }
+
+    static drawArcLineDirecTraverse(context : CanvasRenderingContext2D, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const r : number = Math.min(w, h) / sizeFactor
+        const l : number = Math.min(w, h) / lineSizeFactor  
+        context.save()
+        context.translate(w / 2 + (w / 2 + r) * sc4, h / 2)
+        context.rotate(rotateDeg * sc4)
+        DrawingUtil.drawArc(context, sc1, r)
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.translate(0, r)
+            context.scale(1, 1 - 2 * j)
+            context.rotate(arrowDeg * sc3)
+            DrawingUtil.drawLine(context, 0, 0, 0, l * sc2)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawALDTNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawArcLineDirecTraverse(context, scale)
     }
 }
