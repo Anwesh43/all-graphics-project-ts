@@ -212,3 +212,25 @@ class BiTWithLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    btwl : BiTWithLine = new BiTWithLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.btwl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.btwl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.btwl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
