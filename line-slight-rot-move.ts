@@ -196,3 +196,25 @@ class LineSlightRotMove {
         this.curr.startUpdating(cb)
     }   
 }
+
+class Renderer {
+
+    lsrm : LineSlightRotMove = new LineSlightRotMove()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsrm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lsrm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsrm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
