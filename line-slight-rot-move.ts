@@ -132,3 +132,41 @@ class Animator {
         }
     }
 }
+
+class LSRMNode {
+
+    prev : LSRMNode 
+    next : LSRMNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LSRMNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    update(cb : Function) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : Function) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : Function) : LSRMNode {
+        var curr : LSRMNode = this.next 
+        if (dir == -1) {
+            curr = this.prev 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
