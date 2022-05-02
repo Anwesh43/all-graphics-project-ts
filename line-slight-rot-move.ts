@@ -24,11 +24,18 @@ class ScaleUtil {
     static divideScale(scale : number, i: number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
+    
+    static distance(x1 : number, y1 : number, x2 : number, y2 : number) {
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
+    }
 }
 
 class DrawingUtil {
 
     static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        if (ScaleUtil.distance(x1, y1, x2, y2)) {
+            return 
+        }
         context.beginPath()
         context.moveTo(x1, y1)
         context.lineTo(x2, y2)
@@ -40,11 +47,11 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 3, parts)
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2 + (w / 2 + size) * sc3, h / 2)
         for (var j = 0; j < 2; j++) {
             context.save()
             context.rotate(rot * (1 - 2 * j) * ScaleUtil.divideScale(scale, j + 1, parts))
-            DrawingUtil.drawLine(context, 0, 0, 0, size * 0.5 * (sc1 - sc3) * (1 - 2 * j))   
+            DrawingUtil.drawLine(context, 0, 0, 0, size * 0.5 * sc1 * (1 - 2 * j))   
             context.restore()
         }
         context.restore()
