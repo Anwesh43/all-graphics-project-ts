@@ -200,3 +200,25 @@ class DiagLineBiDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dlbd : DiagLineBiDown = new DiagLineBiDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dlbd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.dlbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
