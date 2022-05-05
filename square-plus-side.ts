@@ -43,7 +43,7 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         console.log("sc1, sc2, sc3, sc4", sc1, sc2, sc3, sc4)
         context.save()
-        context.translate(w / 2 , (h / 2 + size * 1.5) * sc4)
+        context.translate(w / 2 , h / 2 + (h / 2 + size * 1.5) * sc4)
         context.rotate(rot  * sc3)
         for (let j = 0; j < 2; j++) {
             context.save()
