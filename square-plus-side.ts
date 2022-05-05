@@ -206,3 +206,25 @@ class SquarePlusSide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sps : SquarePlusSide = new SquarePlusSide()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sps.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.sps.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sps.startUpdating(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
