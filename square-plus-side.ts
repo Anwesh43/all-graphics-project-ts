@@ -225,7 +225,7 @@ class Renderer {
         this.sps.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.sps.startUpdating(() => {
+                this.sps.update(() => {
                     this.animator.stop()
                     cb()
                 })
