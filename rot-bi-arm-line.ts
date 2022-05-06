@@ -203,3 +203,25 @@ class RotBiArmLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rbal : RotBiArmLine = new RotBiArmLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rbal.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rbal.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rbal.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
