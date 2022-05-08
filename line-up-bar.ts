@@ -14,6 +14,7 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
+const rot : number = Math.PI / 2
 
 class ScaleUtil {
 
@@ -42,7 +43,8 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc5)
+        context.rotate(rot * sc4)
         DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
         for (let j = 0; j < 2; j++) {
             const y : number = barSize * ScaleUtil.divideScale(scale, j + 1, parts)
