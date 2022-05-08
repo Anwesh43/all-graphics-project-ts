@@ -203,3 +203,25 @@ class LineUpBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lub : LineUpBar = new LineUpBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lub.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lub.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lub.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
