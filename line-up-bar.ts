@@ -45,7 +45,9 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc5)
         context.rotate(rot * sc4)
-        DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+        if (sc1 > 0) {
+            DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+        }
         for (let j = 0; j < 2; j++) {
             const y : number = barSize * ScaleUtil.divideScale(scale, j + 1, parts)
             context.save()
