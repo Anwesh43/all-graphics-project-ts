@@ -193,3 +193,25 @@ class SideAltBarBlock {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sabb : SideAltBarBlock = new SideAltBarBlock()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sabb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.sabb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sabb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
