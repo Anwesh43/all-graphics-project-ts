@@ -203,3 +203,25 @@ class DivideLineTRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dltr : DivideLineTRot = new DivideLineTRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dltr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.dltr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dltr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
