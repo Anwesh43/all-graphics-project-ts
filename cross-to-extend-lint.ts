@@ -50,8 +50,8 @@ class DrawingUtil {
                     context,
                     -size * 0.5 * sc1 + size * 0.25 * sc2,
                     -size * 0.5 * sc1 + size * 0.25 * sc2,
-                    size * 0.5 + size * 0.25 * sc2,
-                    size * 0.5 + size * 0.25 * sc2
+                    size * 0.5 * sc1 + size * 0.25 * sc2,
+                    size * 0.5 * sc1 + size * 0.25 * sc2
                 )
             }
             context.restore()
