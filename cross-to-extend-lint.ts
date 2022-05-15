@@ -188,7 +188,7 @@ class CrossToExtendLine {
 
     curr : CTELNode = new CTELNode(0)
     dir : number = 1
-    
+
     draw(context : CanvasRenderingContext2D) {
         this.curr.draw(context)
     }
@@ -204,5 +204,27 @@ class CrossToExtendLine {
 
     startUpdating(cb : Function) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    ctel : CrossToExtendLine = new CrossToExtendLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ctel.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ctel.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ctel.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
