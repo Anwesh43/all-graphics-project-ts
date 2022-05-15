@@ -56,6 +56,7 @@ class DrawingUtil {
             }
             context.restore()
         }
+        DrawingUtil.drawLine(context, 0.75 * size, -0.75 * size, 0.75 * size, 0.75 * size * (-1 + 1.5 * size * sc3))
         context.restore()
     }
 
