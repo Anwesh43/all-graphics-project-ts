@@ -191,3 +191,25 @@ class BarVertRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bvr : BarVertRot = new BarVertRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bvr.draw(context)
+    }
+    
+    handleTap(cb : Function) {
+        this.bvr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bvr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
