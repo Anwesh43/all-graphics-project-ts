@@ -54,7 +54,8 @@ class DrawingUtil {
     static drawRLIBNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
-        context.strokeStyle = backColor 
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i] 
         DrawingUtil.drawRightLineIntoBox(context, scale)
     }
 }
