@@ -41,10 +41,11 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const size : number = Math.min(w, h) / sizeFactor 
+        console.log("SIZE", size, sc1, sc2, sc3, sc4)
         context.save()
         context.translate(w / 2 + (w / 2 + size / 2) * sc4, h / 2)
         context.save()
-        context.rotate(rot * sc2)
+        context.rotate(-rot * sc2)
         DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
         context.restore()
         context.fillRect(0, -size, size * sc3, size)
@@ -103,6 +104,7 @@ class State {
 
     update(cb : Function) {
         this.scale += scGap * this.dir 
+        console.log("THIS_SCALE", this.scale)
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir 
             this.dir = 0 
