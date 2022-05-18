@@ -200,3 +200,25 @@ class RightAngleHolderDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rahd : RightAngleHolderDown = new RightAngleHolderDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rahd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rahd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rahd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
