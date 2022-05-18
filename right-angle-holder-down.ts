@@ -49,7 +49,7 @@ class DrawingUtil {
             DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
             context.restore()
         }
-        DrawingUtil.drawLine(context, 0, 0, 0, -size * Math.floor(sc2))
+        DrawingUtil.drawLine(context, size * sc3, 0, size * sc3, -size * Math.floor(sc2))
         context.restore() 
     }
 
