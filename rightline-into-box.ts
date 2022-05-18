@@ -44,10 +44,10 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2 + (w / 2 + size / 2) * sc4, h / 2)
         context.save()
-        context.rotate(rot * sc3)
+        context.rotate(rot * sc2)
         DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
         context.restore()
-        context.fillRect(0, -size, size * sc1, size)
+        context.fillRect(0, -size, size * sc3, size)
         context.restore()
     }
 
