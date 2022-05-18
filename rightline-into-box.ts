@@ -198,3 +198,25 @@ class RightlineIntoBox {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rilb : RightlineIntoBox = new RightlineIntoBox()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rilb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.rilb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rilb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
