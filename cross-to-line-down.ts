@@ -199,3 +199,25 @@ class CrossToLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ctld : CrossToLineDown = new CrossToLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ctld.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ctld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ctld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
