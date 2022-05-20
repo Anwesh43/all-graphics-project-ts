@@ -206,3 +206,25 @@ class FourGridDown {
     }
 
 }
+
+class Renderer {
+
+    fgd : FourGridDown = new FourGridDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.fgd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.fgd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.fgd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
