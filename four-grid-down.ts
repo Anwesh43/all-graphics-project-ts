@@ -46,7 +46,7 @@ class DrawingUtil {
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.rotate(rot * sc2)
+            context.rotate(rot * sc2 * j)
             for (let i = 0; i < lines; i++) {
                 context.save()
                 context.translate(0, size * 0.5 * (1 - i) * sc3)
