@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts : number = 4 
+const parts : number = 5
 const scGap : number = 0.04 / parts 
 const delay : number = 20 
 const rot : number = Math.PI / 2 
@@ -40,12 +40,20 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
-        context.translate(w / 2 + (w / 2 + size) * sc4, h / 2)
-        context.rotate(rot * sc3)
+        context.translate(w / 2 + (w / 2 + size) * sc5, h / 2)
+        context.rotate(rot * sc4)
         DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
-
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1)
+            context.translate(size * 0.5 * sc3, - h / 2 + (h / 2) * sc2)
+            DrawingUtil.drawLine(context, 0, 0, 0, -size)
+            context.restore()
+        }
+        context.fillRect(-size * 0.5 * sc3, -size, size * sc3, size)
         context.restore()
     }
 
@@ -53,6 +61,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.fillStyle = colors[i]
+        context.strokeStyle = colors[i]
         DrawingUtil.drawPerpLineDownRot(context, scale)
     } 
 }
