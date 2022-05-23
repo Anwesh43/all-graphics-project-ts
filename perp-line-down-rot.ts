@@ -196,3 +196,25 @@ class PerpLineDownRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pldr : PerpLineDownRot = new PerpLineDownRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pldr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pldr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pldr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
