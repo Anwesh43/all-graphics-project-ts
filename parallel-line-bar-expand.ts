@@ -51,6 +51,7 @@ class DrawingUtil {
             context.scale(1 - 2 * j, 1)
             context.translate(-gap - (h / 2) * sc4, 0)
             DrawingUtil.drawLine(context, 0, -size * 0.5 * sc1, 0, size * 0.5 * sc1)
+            context.fillRect(-(size / 2 - 0.1 * size) * sc2, -size / 2, (size / 2 - 0.1 * size) * sc2, size)
             context.restore()
         }
         context.restore()
