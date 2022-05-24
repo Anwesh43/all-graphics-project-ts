@@ -133,7 +133,7 @@ class Animator {
     start(cb : Function) {
         if (!this.animated) {
             this.animated = true 
-            cb()
+            this.interval = setInterval(cb, delay)
         }
     }
 
