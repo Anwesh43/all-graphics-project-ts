@@ -225,6 +225,7 @@ class Renderer {
                 cb()
                 this.plbe.update(() => {
                     this.animator.stop()
+                    cb()
                 })
             })
         })
