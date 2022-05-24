@@ -204,3 +204,24 @@ class ParallelLineBarExpand {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    plbe : ParallelLineBarExpand = new ParallelLineBarExpand()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.plbe.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.plbe.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.plbe.update(() => {
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
