@@ -8,7 +8,7 @@ const colors : Array<string> = [
 const parts : number = 4
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
-const sizeFactor : number = 11.9 
+const sizeFactor : number = 3.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
 const rot : number = Math.PI / 2
@@ -48,7 +48,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.scale(1, 1 - 2 * j)
-            DrawingUtil.drawLine(context, -size / 2, size * 0.5 * (1 - 2 * j), -size / 2 + (size * 0.5) * (j + 1) * sc1, size * 0.5 * (1 - 2 * j))
+            DrawingUtil.drawLine(context, -size / 2, -size * 0.5 * (1 - 2 * j), -size / 2 + (size * 0.5) * (j + 1) * sc1, -size * 0.5 * (1 - 2 * j))
             context.restore()
         }
         DrawingUtil.drawLine(context, 0, -size / 2, size * 0.5 * sc2, -size / 2 + size * sc2)
