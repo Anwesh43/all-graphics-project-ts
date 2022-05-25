@@ -186,7 +186,7 @@ class PPRDNode {
 
 class ParallelPipeRotDown {
 
-    curr : PPRDNode 
+    curr : PPRDNode = new PPRDNode(0)
     dir : number = 1
 
     draw(context : CanvasRenderingContext2D) {
