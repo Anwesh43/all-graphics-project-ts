@@ -48,10 +48,10 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             console.log("WWW", j,  -size / 2, (-size / 2) + (size * 0.5) * (j + 1) * sc1, size * 0.5 * (1 - 2 * j))
             context.save()
-            DrawingUtil.drawLine(context, -size / 2, size * 0.5 * (1 - 2 * j), -size / 2 + (size * 0.5) * (j + 1) * sc1, size * 0.5 * (1 - 2 * j))
+            DrawingUtil.drawLine(context, -size / 2, size * 0.25 * (1 - 2 * j), -size / 2 + (size * 0.5) * (j + 1) * sc1, size * 0.25 * (1 - 2 * j))
             context.restore()
         }
-        DrawingUtil.drawLine(context, size / 2, -size / 2, size / 2 - size * 0.5 * sc2, -size / 2 + size * sc2)
+        DrawingUtil.drawLine(context, size / 2, -size / 4, size / 2 - size * 0.5 * sc2, -size / 4 + size * 0.5 * sc2)
         context.restore()
     }
 
