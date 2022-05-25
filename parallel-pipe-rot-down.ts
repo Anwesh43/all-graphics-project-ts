@@ -46,7 +46,9 @@ class DrawingUtil {
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         context.rotate(rot * sc3)
         for (let j = 0; j < 2; j++) {
-            console.log("WWW", -size / 2, -size / 2 + (size * 0.5) * (j + 1) * sc1)
+            if (sc1 < 1) {
+                console.log("WWW", j,  -size / 2, (-size / 2) + (size * 0.5) * (j + 1) * sc1)
+            }
             context.save()
             context.scale(1, 1 - 2 * j)
             DrawingUtil.drawLine(context, -size / 2, size * 0.5 * (1 - 2 * j), -size / 2 + (size * 0.5) * (j + 1) * sc1, size * 0.5 * (1 - 2 * j))
