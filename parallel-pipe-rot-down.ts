@@ -48,7 +48,6 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             console.log("WWW", j,  -size / 2, (-size / 2) + (size * 0.5) * (j + 1) * sc1, size * 0.5 * (1 - 2 * j))
             context.save()
-            context.scale(1, 1 - 2 * j)
             DrawingUtil.drawLine(context, -size / 2, size * 0.5 * (1 - 2 * j), -size / 2 + (size * 0.5) * (j + 1) * sc1, size * 0.5 * (1 - 2 * j))
             context.restore()
         }
