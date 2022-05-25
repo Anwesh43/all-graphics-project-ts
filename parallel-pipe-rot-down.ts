@@ -40,12 +40,13 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
-        console.log("Sc1, sc2, sc3, sc4", sc1, sc2, sc3, sc4)
+        //console.log("Sc1, sc2, sc3, sc4", sc1, sc2, sc3, sc4)
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         context.rotate(rot * sc3)
         for (let j = 0; j < 2; j++) {
+            console.log("WWW", -size / 2, -size / 2 + (size * 0.5) * (j + 1) * sc1)
             context.save()
             context.scale(1, 1 - 2 * j)
             DrawingUtil.drawLine(context, -size / 2, size * 0.5 * (1 - 2 * j), -size / 2 + (size * 0.5) * (j + 1) * sc1, size * 0.5 * (1 - 2 * j))
