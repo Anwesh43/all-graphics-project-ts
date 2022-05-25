@@ -201,3 +201,25 @@ class ParallelPipeRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pprd : ParallelPipeRotDown = new ParallelPipeRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pprd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pprd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pprd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
