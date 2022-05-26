@@ -45,7 +45,7 @@ class DrawingUtil {
         const lineH : number = (size / 2) / lines 
         const lineGap : number = (size) / (lines - 1) 
         context.save()
-        context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc1)
+        context.translate(w / 2, h / 2 + (h / 2 + size / 2) * sc4)
         context.rotate(rot * sc3)
         context.rotate(rot * sc1)
         for (let j = 1; j <= 5; j++) {
