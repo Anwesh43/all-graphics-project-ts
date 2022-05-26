@@ -206,3 +206,25 @@ class WifiLineExpand {
     }
 
 }
+
+class Renderer {
+
+    wle : WifiLineExpand = new WifiLineExpand()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.wle.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.wle.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.wle.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
