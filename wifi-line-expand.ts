@@ -51,7 +51,7 @@ class DrawingUtil {
             context.save()
             context.translate(-size / 2 + lineGap * (j - 1), 0)
             if (sc1 > 0) {
-                DrawingUtil.drawLine(context, 0, 0, 0, -lineH * sc1)
+                DrawingUtil.drawLine(context, 0, 0, 0, -lineH * sc1 * j)
             }
             context.restore()
         }
