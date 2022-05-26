@@ -59,4 +59,11 @@ class DrawingUtil {
         context.restore()
         context.restore()
     }
+
+    static drawPLRDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.strokeStyle = colors[i]
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        DrawingUtil.drawPieLineRotDown(context, scale)
+    }
 }
