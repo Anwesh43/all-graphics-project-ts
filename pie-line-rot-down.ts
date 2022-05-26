@@ -51,7 +51,7 @@ class DrawingUtil {
             DrawingUtil.drawLine(context, -size / 4, -size, -size / 4 + size * 0.5 * sc2, -size)
         }
         context.save()
-        context.translate(size / 2, -size)
+        context.translate(size / 4, -size)
         context.rotate(-rot * sc4)
         if (sc3 > 0) {
             DrawingUtil.drawLine(context, 0, 0, 0, size * 0.5 * sc3)
