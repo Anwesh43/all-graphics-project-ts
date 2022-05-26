@@ -207,3 +207,25 @@ class PieLineRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    plrd : PieLineRotDown = new PieLineRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.plrd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.plrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.plrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
