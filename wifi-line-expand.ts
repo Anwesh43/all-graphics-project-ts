@@ -50,10 +50,14 @@ class DrawingUtil {
         for (let j = 1; j <= 5; j++) {
             context.save()
             context.translate(-size / 2 + lineGap * (j - 1), 0)
-            DrawingUtil.drawLine(context, 0, 0, 0, -lineH * sc1)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, 0, -lineH * sc1)
+            }
             context.restore()
         }
-        DrawingUtil.drawLine(context, -size * 0.5 * sc2, 0, size * 0.5 * sc2, 0)
+        if (sc2 > 0) {
+            DrawingUtil.drawLine(context, -size * 0.5 * sc2, 0, size * 0.5 * sc2, 0)
+        }
         context.restore()
     }
 
