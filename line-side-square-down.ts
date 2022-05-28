@@ -199,3 +199,25 @@ class LineSideSquareDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lssd : LineSideSquareDown = new LineSideSquareDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lssd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lssd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lssd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
