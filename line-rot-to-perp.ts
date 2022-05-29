@@ -202,3 +202,25 @@ class LineRotToPerp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrtp : LineRotToPerp = new LineRotToPerp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrtp.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lrtp.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrtp.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
