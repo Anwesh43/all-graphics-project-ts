@@ -201,3 +201,25 @@ class LineDivideRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldrd : LineDivideRotDown = new LineDivideRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D ){
+        this.ldrd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ldrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
