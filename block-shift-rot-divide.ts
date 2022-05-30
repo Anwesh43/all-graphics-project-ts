@@ -41,7 +41,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             const x : number = -(size / 2) * sc1 - (1 - 2 * j) * (size / 2) * sc2 
             context.save()
-            context.translate((h / 2) * sc4 * (1 - 2 * j), 0)
+            context.translate(-(h / 2) * sc4 * (1 - 2 * j), 0)
             context.fillRect(x, (-size / 2) * sc1, size * sc1, size * sc1)
             context.restore()
         }
