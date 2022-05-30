@@ -49,9 +49,7 @@ class DrawingUtil {
     }
 
     static drawBSRDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
-        context.lineCap = 'round'
-        context.lineWidth = Math.min(w, h) / strokeFactor 
-        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawBlockShiftRotDivide(context, scale)
     }
 }
