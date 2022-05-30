@@ -194,3 +194,25 @@ class BlockShiftRotDivide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsrd : BlockShiftRotDivide = new BlockShiftRotDivide()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsrd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bsrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
