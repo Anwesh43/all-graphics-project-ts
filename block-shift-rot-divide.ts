@@ -39,10 +39,10 @@ class DrawingUtil {
         context.translate(w / 2, h / 2)
         context.rotate(rot * sc3)
         for (let j = 0; j < 2; j++) {
-            const y : number = -(size / 2) * sc1 - (1 - 2 * j) * (size / 2) * sc2 
+            const x : number = -(size / 2) * sc1 - (1 - 2 * j) * (size / 2) * sc2 
             context.save()
             context.translate((h / 2) * sc4 * (1 - 2 * j), 0)
-            context.fillRect((-size / 2) * sc1, y, size * sc1, size * sc1)
+            context.fillRect(x, (-size / 2) * sc1, size * sc1, size * sc1)
             context.restore()
         }
         context.restore()
