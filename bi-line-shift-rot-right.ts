@@ -199,7 +199,28 @@ class BiLineShiftRotRight {
         })
     }
 
-    startUpdaitng(cb : Function) {
+    startUpdating(cb : Function) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    blsrr : BiLineShiftRotRight = new BiLineShiftRotRight()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.blsrr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.blsrr.startUpdating(() => {
+            this.animator.start(() => {
+                this.blsrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
