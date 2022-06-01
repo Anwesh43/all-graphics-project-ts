@@ -25,3 +25,39 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawBiLineShiftRotRight(context : CanvasRenderingContext2D, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        context.save()
+        context.translate(w / 2, h / 2)
+        for (let i = 0; i < 2; i++) {
+            const sci : number = ScaleUtil.divideScale(scale, i, parts)
+            context.save()
+            context.rotate(rot * sc3 * (1 - 2 * i))
+            context.translate(-w / 2 - context.lineWidth / 2 + (w / 2 + context.lineWidth / 2) * sci, 0)
+            DrawingUtil.drawLine(context, 0, 0, 0, size * 0.5 * (1 - 2 * i))
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawBLSRRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawBiLineShiftRotRight(context, scale)
+    }
+}
