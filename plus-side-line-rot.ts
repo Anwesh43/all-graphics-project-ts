@@ -43,11 +43,11 @@ class DrawingUtil {
         context.restore()
     }
 
-    static drawSideLine(context : CanvasRenderingContext2D, size : number, i : number, sc : number) {
+    static drawSideLine(context : CanvasRenderingContext2D, size : number, lineSize : number, i : number, sc : number) {
         context.save()
         context.scale(1 - 2 * i, 1)
         context.translate(-size / 2, 0)
-        DrawingUtil.drawLine(context, 0, 0, 0, size * sc)
+        DrawingUtil.drawLine(context, 0, 0, 0, lineSize * sc)
         context.restore()
     }
 
@@ -63,7 +63,7 @@ class DrawingUtil {
         context.rotate(deg * sc3)
         for (let j = 0; j < 2; j++) {
             DrawingUtil.drawPlusLine(context, size, j, sc1)
-            DrawingUtil.drawSideLine(context, lineSize, j, sc1)
+            DrawingUtil.drawSideLine(context, size, lineSize, j, sc2)
         }
         context.restore()
     }
