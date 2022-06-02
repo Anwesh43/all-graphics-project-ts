@@ -37,6 +37,9 @@ class DrawingUtil {
     }
 
     static drawPlusLine(context : CanvasRenderingContext2D, size : number, i : number, sc : number) {
+        if (sc <= 0) {
+            return 
+        }
         context.save()
         context.rotate(deg * i)
         DrawingUtil.drawLine(context, 0, -size * 0.5 * sc, 0, size * 0.5 * sc)
@@ -44,6 +47,9 @@ class DrawingUtil {
     }
 
     static drawSideLine(context : CanvasRenderingContext2D, size : number, lineSize : number, i : number, sc : number) {
+        if (sc <= 0) {
+            return 
+        }
         context.save()
         context.scale(1 - 2 * i, 1)
         context.translate(-size / 2, 0)
