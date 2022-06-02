@@ -215,3 +215,25 @@ class PlusSideLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pslr : PlusSideLineRot = new PlusSideLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pslr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pslr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pslr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
