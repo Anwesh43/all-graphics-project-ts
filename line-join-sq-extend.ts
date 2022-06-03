@@ -203,3 +203,25 @@ class LineJoinSqExtend {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ljse : LineJoinSqExtend = new LineJoinSqExtend()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.ljse.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ljse.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ljse.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
