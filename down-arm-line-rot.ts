@@ -57,7 +57,7 @@ class DrawingUtil {
 
     static drawDALRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
-        context.lineWidth = Math.min(w, h) / sizeFactor 
+        context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
         DrawingUtil.drawDownArmLineRot(context, scale)
     }
