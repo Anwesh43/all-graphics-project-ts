@@ -202,3 +202,25 @@ class DownArmLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dalr : DownArmLineRot = new DownArmLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dalr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.dalr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dalr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
