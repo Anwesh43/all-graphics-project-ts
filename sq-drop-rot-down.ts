@@ -199,3 +199,25 @@ class SqDropRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sdrd : SqDropRotDown = new SqDropRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sdrd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.sdrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sdrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
