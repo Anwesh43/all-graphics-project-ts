@@ -11,7 +11,7 @@ const strokeFactor : number = 90
 const sizeFactor : number = 4.9
 const sqSizeFactor : number = 8.9 
 const delay : number = 20 
-const rot : number = Math.PI / 2 
+const rot : number = Math.PI
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 const backColor : string = "#BDBDBD"
@@ -46,7 +46,7 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2, h / 2)
         context.rotate(rot * sc2)
-        context.translate(-(w / 2 + size / 2) * (1 - sc1), (h / 2) * sc4)
+        context.translate(-(w / 2 + size / 2) * (1 - sc1), -(h / 2) * sc4)
         DrawingUtil.drawLine(context, -size * 0.5 * (1 - sc3), 0, size * 0.5 * (1 - sc3), 0)
         context.fillRect(-barSize / 2, -barSize, barSize, barSize)
         context.restore()
@@ -56,6 +56,7 @@ class DrawingUtil {
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.lineCap = 'round'
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawSqDropRotDown(context, scale)
     }
 }
