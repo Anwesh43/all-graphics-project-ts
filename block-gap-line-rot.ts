@@ -203,3 +203,25 @@ class BlockGapLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bglr : BlockGapLineRot = new BlockGapLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bglr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bglr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bglr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
