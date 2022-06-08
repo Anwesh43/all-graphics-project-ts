@@ -44,7 +44,8 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2 + (w / 2 + size / 2) * sc4, h / 2)
+        context.rotate(rot * sc3)
         context.save()
         context.translate((-w / 2 - size / 2) * (1 - sc1), 0)
         context.fillRect(-size / 2, -size / 2, size, size)
@@ -60,6 +61,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawBlockGapLineRot(context, scale)
     }
 }
