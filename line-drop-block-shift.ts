@@ -43,13 +43,13 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
         context.translate(w / 2, h / 2)
-        //context.rotate(rot * sc3)
+        context.rotate(rot * sc3)
         for (let i = 0; i < 2; i++) {
             context.save()
             context.scale(1 - 2 * i, 1)
             context.translate((h / 2) * sc4, -h /2 + (h / 2) * sc1)
             DrawingUtil.drawLine(context, size, 0, size, -size)
-            context.fillRect(-size * sc2, -size, size * sc2, size)
+            context.fillRect(size - size * sc2, -size, size * sc2, size)
             context.restore()
         }
         context.restore()
