@@ -180,3 +180,26 @@ class State {
         return this 
     }
  }
+
+ class LineDropBlockShift {
+
+    curr : LDBSNode = new LDBSNode(0)
+    dir : number = 1
+
+    draw(context : CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb : Function) {
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+
+    starrtUpdating(cb : Function) {
+        this.curr.startUpdating(cb)
+    }
+ }
