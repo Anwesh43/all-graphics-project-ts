@@ -207,3 +207,24 @@ class BallCatchThenRotDrop {
     }
 }
 
+class Renderer {
+
+    bctrd : BallCatchThenRotDrop = new BallCatchThenRotDrop()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bctrd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bctrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bctrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
