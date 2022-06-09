@@ -203,3 +203,25 @@ class State {
         this.curr.startUpdating(cb)
     }
  }
+
+ class Renderer {
+
+    ldbs : LineDropBlockShift = new LineDropBlockShift()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ldbs.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ldbs.starrtUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldbs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+ }
