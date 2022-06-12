@@ -204,3 +204,24 @@ class LineAltRot {
     }
 }
 
+class Renderer {
+
+    lar : LineAltRot = new LineAltRot()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.lar.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lar.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lar.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
