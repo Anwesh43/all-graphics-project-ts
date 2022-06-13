@@ -45,13 +45,17 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         context.rotate(deg * sc4)
-        DrawingUtil.drawLine(context, -size * 0.5 * sc1, size / 2, size * 0.5 * sc1, size / 2)
+        if (sc1 > 0) {
+            DrawingUtil.drawLine(context, -size * 0.5 * sc1, size / 2, size * 0.5 * sc1, size / 2)
+        }
         for (let j = 0; j < 2; j++) {
             context.save()
             context.translate(size * 0.5 * (1 - 2 * j), size / 2)
             context.save()
             context.rotate(rot * (1 - 2 * j) * sc2)
-            DrawingUtil.drawLine(context, 0, 0, -(size) * (1 - 2 * j) * Math.floor(sc1), 0)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, -(size) * (1 - 2 * j) * Math.floor(sc1), 0)
+            }
             context.restore()
             DrawingUtil.drawLine(context, 0, 0, -size * (1 - 2 * j) * sc3, -size * sc3)
             context.restore()
