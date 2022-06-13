@@ -11,7 +11,8 @@ const strokeFactor : number = 90
 const sizeFactor : number = 7.9 
 const delay : number = 20
 const backColor : string = "#BDBDBD"
-const rot : number = 2 * Math.PI 
+const rot : number =  Math.PI  / 2
+const deg : number = 2 * Math.PI 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
@@ -42,7 +43,8 @@ class DrawingUtil {
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
+        context.rotate(deg * sc3)
         DrawingUtil.drawLine(context, -size * 0.5 * sc1, size / 2, size * 0.5 * sc1, size / 2)
         for (let j = 0; j < 2; j++) {
             context.save()
@@ -51,7 +53,7 @@ class DrawingUtil {
             context.rotate(rot * (1 - 2 * j) * sc2)
             DrawingUtil.drawLine(context, 0, 0, -(size) * (1 - 2 * j) * Math.floor(sc1), 0)
             context.restore()
-            DrawingUtil.drawLine(context, 0, 0, -size * (1 - 2 * j) * sc3, size * sc3)
+            DrawingUtil.drawLine(context, 0, 0, -size * (1 - 2 * j) * sc3, -size * sc3)
             context.restore()
         }
         context.restore()
