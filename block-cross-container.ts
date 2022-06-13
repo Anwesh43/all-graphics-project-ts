@@ -206,3 +206,25 @@ class BlockCrossContainer {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bcc : BlockCrossContainer = new BlockCrossContainer()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bcc.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bcc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bcc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
