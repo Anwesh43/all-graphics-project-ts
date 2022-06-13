@@ -53,7 +53,7 @@ class DrawingUtil {
             context.translate(size * 0.5 * (1 - 2 * j), size / 2)
             context.save()
             context.rotate(rot * (1 - 2 * j) * sc2)
-            if (sc1 > 0) {
+            if (Math.floor(sc1) > 0) {
                 DrawingUtil.drawLine(context, 0, 0, -(size) * (1 - 2 * j) * Math.floor(sc1), 0)
             }
             context.restore()
