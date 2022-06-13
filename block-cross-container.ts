@@ -44,7 +44,7 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
-        context.rotate(deg * sc3)
+        context.rotate(deg * sc4)
         DrawingUtil.drawLine(context, -size * 0.5 * sc1, size / 2, size * 0.5 * sc1, size / 2)
         for (let j = 0; j < 2; j++) {
             context.save()
