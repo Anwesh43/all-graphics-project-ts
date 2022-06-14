@@ -207,3 +207,25 @@ class SqLineAltMover {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slam : SqLineAltMover = new SqLineAltMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slam.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.slam.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slam.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
