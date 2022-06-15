@@ -204,3 +204,25 @@ class BlockLineAltDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blad : BlockLineAltDown = new BlockLineAltDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blad.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.blad.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blad.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
