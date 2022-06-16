@@ -204,3 +204,25 @@ class PlusSignToSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    psts : PlusSignToSq = new PlusSignToSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.psts.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.psts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.psts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
