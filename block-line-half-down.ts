@@ -203,3 +203,25 @@ class BlockLineHalfDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blhd : BlockLineHalfDown = new BlockLineHalfDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blhd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.blhd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blhd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
