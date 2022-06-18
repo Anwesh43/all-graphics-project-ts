@@ -200,3 +200,25 @@ class SquareSpringBlock {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ssb : SquareSpringBlock = new SquareSpringBlock()
+    animator : Animator =  new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ssb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ssb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ssb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
