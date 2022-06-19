@@ -59,7 +59,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
-        DrawingUtil.drawCLJDNode(context, i, scale)
+        DrawingUtil.drawCrossLineJoinDown(context, scale)
     }
 }
 
