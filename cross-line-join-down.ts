@@ -222,7 +222,7 @@ class Renderer {
         this.cljd.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.cljd.startUpdating(() => {
+                this.cljd.update(() => {
                     this.animator.stop()
                     cb()
                 })
