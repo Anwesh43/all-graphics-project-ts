@@ -48,7 +48,9 @@ class DrawingUtil {
             context.scale(1 - 2 * j, 1)
             context.rotate(rot * sc3)
             context.translate((h / 2 + size / 2) * sc4, 0)
-            DrawingUtil.drawLine(context, 0, -size / 2, 0, -size / 2 + size * sc2)
+            if (sc2 > 0) {
+                DrawingUtil.drawLine(context, 0, -size / 2, 0, -size / 2 + size * sc2)
+            }
             context.fillRect(0, -size / 2, size * 0.5 * sc1, size)
             context.restore()
         }
@@ -58,7 +60,7 @@ class DrawingUtil {
     static drawLSRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
         context.fillStyle = colors[i]
-        context.strokeStyle = colors[i]
+        context.strokeStyle = backColor
         context.lineWidth = Math.min(w, h) / strokeFactor 
         DrawingUtil.drawLineSeparateRect(context, scale)
     }
