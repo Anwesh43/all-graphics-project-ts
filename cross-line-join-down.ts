@@ -199,4 +199,30 @@ class CrossLineJoinDown {
             cb()
         })
     }
+
+    startUpdating(cb : Function) {
+        this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    cljd : CrossLineJoinDown = new CrossLineJoinDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cljd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.cljd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cljd.startUpdating(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
 }
