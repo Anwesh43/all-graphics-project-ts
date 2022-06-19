@@ -181,3 +181,22 @@ class CLJDNode {
         return this 
     }
 }
+
+class CrossLineJoinDown {
+
+    curr : CLJDNode = new CLJDNode(0)
+    dir : number = 0 
+
+    draw(context : CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb : Function) {
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+}
