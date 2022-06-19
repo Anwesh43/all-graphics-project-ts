@@ -189,7 +189,7 @@ class CLJDNode {
 class CrossLineJoinDown {
 
     curr : CLJDNode = new CLJDNode(0)
-    dir : number = 0 
+    dir : number = 1
 
     draw(context : CanvasRenderingContext2D) {
         this.curr.draw(context)
