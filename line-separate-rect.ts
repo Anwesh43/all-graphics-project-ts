@@ -205,3 +205,25 @@ class LineSeparateRect {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsr : LineSeparateRect = new LineSeparateRect()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
