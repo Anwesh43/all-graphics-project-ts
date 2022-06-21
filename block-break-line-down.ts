@@ -48,7 +48,10 @@ class DrawingUtil {
             context.save()
             context.scale(1 - 2 * j, 1)
             DrawingUtil.drawLine(context, 0, 0, 2 * size * sc2, 0)
+            context.save()
+            context.translate(2 * size * sc2, 0)
             context.fillRect(0, -size / 2, size * 0.5 * sc1, size)
+            context.restore()
             context.restore()
         }
         context.restore()
@@ -58,7 +61,8 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
-        DrawingUtil.drawBBLDNode(context, i, scale)
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBlockBreakLineDown(context, scale)
     }
 }
 
