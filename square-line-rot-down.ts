@@ -201,3 +201,25 @@ class SquareLineRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slrd : SquareLineRotDown = new SquareLineRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slrd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.slrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
