@@ -203,3 +203,25 @@ class BlockBreakLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bbld : BlockBreakLineDown = new BlockBreakLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bbld.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bbld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bbld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
