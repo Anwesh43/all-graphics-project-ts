@@ -207,3 +207,25 @@ class BarTHolder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bth : BarTHolder = new BarTHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bth.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bth.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bth.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
