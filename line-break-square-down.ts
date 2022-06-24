@@ -48,7 +48,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            context.rotate(rot * sc3)
+            context.rotate(-rot * sc3)
             DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
             context.fillRect((size - barSize), 0, barSize, barSize * sc2)
             context.restore()
@@ -60,6 +60,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawLineBreakSquareDown(context, scale)
     }
 }
