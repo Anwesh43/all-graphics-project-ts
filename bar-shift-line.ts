@@ -206,3 +206,25 @@ class BarShiftLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsl : BarShiftLine = new BarShiftLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
