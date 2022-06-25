@@ -207,3 +207,25 @@ class ColorBarMidCircle {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    cbmc : ColorBarMidCircle = new ColorBarMidCircle()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cbmc.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.cbmc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cbmc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
