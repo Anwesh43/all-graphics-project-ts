@@ -11,7 +11,7 @@ const strokeFactor : number = 90
 const sizeFactor : number = 8.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
-const rot : number = Math.PI / 2 
+const rot : number = Math.PI
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
@@ -61,6 +61,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawBarShiftLine(context, scale)
     }
 }
