@@ -50,7 +50,7 @@ class DrawingUtil {
         context.fillRect(0, -barSize * sc2, barSize, barSize * sc2)
         context.save()
         context.rotate(rot * sc3)
-        if (sc1 == 0) {
+        if (sc1 > 0) {
             DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
         }
         context.restore()
