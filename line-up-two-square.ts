@@ -210,3 +210,25 @@ class LineUpTwoSquare {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    luts : LineUpTwoSquare = new LineUpTwoSquare()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.luts.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.luts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.luts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
