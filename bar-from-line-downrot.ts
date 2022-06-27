@@ -206,3 +206,25 @@ class BarFromLineDownRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bfldr : BarFromLineDownRot = new BarFromLineDownRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bfldr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bfldr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bfldr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
