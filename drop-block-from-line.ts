@@ -109,6 +109,7 @@ class State {
             this.scale = this.prevScale + this.dir 
             this.dir = 0 
             this.prevScale = 0 
+            cb()
         }
     }
 
