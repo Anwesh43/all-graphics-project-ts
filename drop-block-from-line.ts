@@ -200,3 +200,25 @@ class DropBlockFromLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dbfl : DropBlockFromLine = new DropBlockFromLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dbfl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.dbfl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dbfl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
