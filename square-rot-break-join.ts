@@ -213,3 +213,25 @@ class SquareRotBreakJoin {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    srbj : SquareRotBreakJoin = new SquareRotBreakJoin()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.srbj.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.srbj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.srbj.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
