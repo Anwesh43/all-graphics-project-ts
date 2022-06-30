@@ -56,6 +56,7 @@ class DrawingUtil {
                 context.translate(0, -size * 0.5 * sc2)
                 context.fillRect(-barSize * 0.5 * sc1, -barSize * 0.5 * sc1, barSize * 0.5 * sc1, barSize * 0.5 * sc1)
                 context.restore()
+                DrawingUtil.drawLine(context, 0, 0, 0, -size * 0.5 * sc2)
                 context.restore()
             }
             context.restore()
