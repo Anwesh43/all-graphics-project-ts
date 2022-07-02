@@ -47,7 +47,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             DrawingUtil.drawLine(context, (1 - 2 * j) * shift * sc3, -size * sc1 * 0.5, (1 - 2 * j) * shift  * sc3, size * sc1 * 0.5)
         }
-        context.strokeRect(-size * 0.5 * sc2, -size * 0.5, size * sc2, size)
+        context.strokeRect(-size * 0.5 * sc2, -size * 0.5 * Math.floor(sc1), size * sc2, size * Math.floor(sc1))
         context.restore()
     }
 
