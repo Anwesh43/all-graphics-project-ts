@@ -47,4 +47,12 @@ class DrawingUtil {
         context.strokeRect(-size * 0.5 * sc2, -size * 0.5 * sc2, size * sc2, size * sc2)
         context.restore()
     }
+
+    static drawLITSMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        DrawingUtil.drawLineIncreaseToSquareMid(context, scale)
+    }
 }
