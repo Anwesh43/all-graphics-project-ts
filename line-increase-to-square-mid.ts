@@ -13,7 +13,7 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const shiftFactor : number = 12.9 
+const shiftFactor : number = 2.9 
 
 class ScaleUtil {
 
@@ -41,9 +41,12 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const size : number = Math.min(w, h) / sizeFactor 
+        const shift = size / shiftFactor
         context.save()
-        context.translate(w / 2, h / 2)
-        DrawingUtil.drawLine(context, 0, -size * sc1, 0, size * sc1)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
+        for (let j = 0; j < 2; j++) {
+            DrawingUtil.drawLine(context, (1 - 2 * j) * shift * sc3, -size * sc1 * 0.5, (1 - 2 * j) * shift  * sc3, size * sc1 * 0.5)
+        }
         context.strokeRect(-size * 0.5 * sc2, -size * 0.5 * sc2, size * sc2, size * sc2)
         context.restore()
     }
