@@ -182,7 +182,7 @@ class LSUNode {
     }
 }
 
-class LSquareup {
+class LSquareUp {
 
     curr : LSUNode = new LSUNode(0)
     dir : number = 1
@@ -202,5 +202,27 @@ class LSquareup {
 
     startUpdating(cb : Function) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    lsu : LSquareUp = new LSquareUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsu.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lsu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsu.update(() => {
+                    this.animator.stop()
+                    cb()
+                }) 
+            })
+        })
     }
 }
