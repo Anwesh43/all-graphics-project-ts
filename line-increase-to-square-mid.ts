@@ -198,3 +198,25 @@ class LineIncreaseToSquareMid {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    litsm : LineIncreaseToSquareMid = new LineIncreaseToSquareMid()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.litsm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.litsm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.litsm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
