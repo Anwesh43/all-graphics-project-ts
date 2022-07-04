@@ -198,3 +198,25 @@ class PlusDipLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pdlr : PlusDipLineRot = new PlusDipLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pdlr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.pdlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pdlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
