@@ -206,3 +206,25 @@ class ZBarRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    zbr : ZBarRight = new ZBarRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.zbr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.zbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.zbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
