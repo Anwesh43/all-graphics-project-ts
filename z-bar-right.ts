@@ -49,7 +49,7 @@ class DrawingUtil {
         DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.scale(1 - 2 * j, 1)
+            context.scale(1 - 2 * j, 1 - 2 * j)
             context.fillRect(-size / 2, -size * 0.5 * sc2, barSize, size * 0.5 * sc2)
             context.restore()
         }
