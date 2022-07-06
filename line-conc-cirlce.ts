@@ -26,3 +26,45 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawCircle(context : CanvasRenderingContext2D, x : number, y : number, r : number) {
+        context.beginPath()
+        context.arc(x, y, r, 0, 2 * Math.PI)
+        context.fill()
+    }
+    
+    static drawLineConcCircle(context : CanvasRenderingContext2D, i : number, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const sc5 : number = ScaleUtil.divideScale(scale, 4, parts)
+        const r1 : number = Math.min(w, h) / r1Factor 
+        const r2 : number = Math.min(w, h) / r2Factor 
+        context.save()
+        context.translate(w / 2, h / 2 + (h / 2 + r2) * sc5)
+        context.rotate(deg * sc4)
+        context.fillStyle = colors[i]
+        DrawingUtil.drawCircle(context, 0, 0, r1 * sc1)
+        context.fillStyle = backColor
+        DrawingUtil.drawCircle(context, 0, 0, r2 * sc2)
+        context.strokeStyle = backColor
+        DrawingUtil.drawLine(context, 0, -r1, 0, -r1 - (r2 - r1) * sc3)
+        context.restore()
+    }
+
+    static drawLCCNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        DrawingUtil.drawLineConcCircle(context, i, scale)
+    }
+}
