@@ -210,3 +210,25 @@ class LineConcCircle {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lcc : LineConcCircle = new LineConcCircle()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lcc.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lcc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lcc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
