@@ -26,3 +26,40 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawLineRotBlock(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const barSize : number = Math.min(w, h) / barSizeFactor 
+        context.save()
+        context.translate(w / 2 - (w / 2 + barSize) * sc4, h / 2)
+        context.save()
+        context.rotate(rot * sc2)
+        DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+        context.restore()
+        context.save()
+        context.translate((w / 2) * (1 - sc3), 0)
+        context.fillRect(0, -barSize / 2, barSize, barSize)
+        context.restore()
+        context.restore()
+    }
+
+    static drawLRBNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawLineRotBlock(context, scale)
+    }
+}
