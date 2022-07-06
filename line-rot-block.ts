@@ -205,3 +205,25 @@ class LineRotBlock {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrb : LineRotBlock = new LineRotBlock()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lrb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
