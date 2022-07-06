@@ -8,8 +8,8 @@ const colors : Array<string> = [
 const parts : number = 5 
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
-const r1Factor : number = 12.9 
-const r2Factor : number = 5.9 
+const r1Factor : number = 5.9 
+const r2Factor : number = 12.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
@@ -58,7 +58,7 @@ class DrawingUtil {
         context.fillStyle = backColor
         DrawingUtil.drawCircle(context, 0, 0, r2 * sc2)
         context.strokeStyle = backColor
-        DrawingUtil.drawLine(context, 0, -r1, 0, -r1 - (r2 - r1) * sc3)
+        DrawingUtil.drawLine(context, 0, -r2, 0, -r2 - (r1 - r2) * sc3)
         context.restore()
     }
 
