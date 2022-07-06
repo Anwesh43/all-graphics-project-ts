@@ -51,14 +51,16 @@ class DrawingUtil {
         const r1 : number = Math.min(w, h) / r1Factor 
         const r2 : number = Math.min(w, h) / r2Factor 
         context.save()
-        context.translate(w / 2, h / 2 + (h / 2 + r2) * sc5)
+        context.translate(w / 2, h / 2 + (h / 2 + r1) * sc5)
         context.rotate(deg * sc4)
         context.fillStyle = colors[i]
         DrawingUtil.drawCircle(context, 0, 0, r1 * sc1)
         context.fillStyle = backColor
         DrawingUtil.drawCircle(context, 0, 0, r2 * sc2)
         context.strokeStyle = backColor
-        DrawingUtil.drawLine(context, 0, -r2, 0, -r2 - (r1 - r2) * sc3)
+        if (sc3 > 0) {
+            DrawingUtil.drawLine(context, 0, -r2, 0, -r2 - (r1 - r2) * sc3)
+        }
         context.restore()
     }
 
