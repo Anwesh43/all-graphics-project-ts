@@ -199,3 +199,25 @@ class HalfSquareLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    hslu : HalfSquareLineUp = new HalfSquareLineUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.hslu.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.hslu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.hslu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
