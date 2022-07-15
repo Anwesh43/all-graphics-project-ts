@@ -11,7 +11,7 @@ const strokeFactor : number = 90
 const sizeFactor : number = 4.9 
 const barFactor : number = 11.9 
 const delay : number = 20 
-const deg : number = Math.PI 
+const deg : number = Math.PI / 2
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth
 const h : number = window.innerHeight 
@@ -47,8 +47,12 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc4)
         context.rotate(deg * sc3)
-        DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
-        DrawingUtil.drawLine(context, -size / 2, 0, -size / 2, size * 0.5 * sc2)
+        if (sc1 > 0) {
+            DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+        }
+        if (sc2 > 0) {
+            DrawingUtil.drawLine(context, -size / 2, 0, -size / 2, size * 0.5 * sc2)
+        }
         context.fillRect(size / 2 - barSize, -barSize * sc2, barSize, barSize * sc2)
         context.restore()
     }
