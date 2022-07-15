@@ -200,3 +200,25 @@ class LineSquareHolder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsh : LineSquareHolder = new LineSquareHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsh.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lsh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    } 
+}
