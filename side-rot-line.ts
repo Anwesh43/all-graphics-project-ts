@@ -45,15 +45,19 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
         context.translate(w / 2, h / 2 + (h / 2 + size) * sc5)
-        context.rotate(deg * sc4)
+        context.rotate(rot * sc4)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1 - 2 * j)
-            DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+            }
             context.save()
             context.translate(size / 2, 0)
             context.rotate(-deg * sc3)
-            DrawingUtil.drawLine(context, 0, 0, 0, -size * 0.5 * sc2)
+            if (sc2 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, 0, -size * 0.5 * sc2)
+            }
             context.restore()
             context.restore()
         }
