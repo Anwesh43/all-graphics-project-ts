@@ -209,3 +209,25 @@ class SideRotLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    srl : SideRotLine = new SideRotLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.srl.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.srl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.srl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
