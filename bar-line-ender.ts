@@ -49,7 +49,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.translate(0, -size / 2 + lSize * (1 + j))
-            DrawingUtil.drawLine(context, lSize * sc1, 0, lSize * sc2, 0)
+            DrawingUtil.drawLine(context, lSize * sc2, 0, lSize * sc3, 0)
             context.restore()
         }
         context.restore()
