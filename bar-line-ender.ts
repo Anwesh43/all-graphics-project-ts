@@ -204,3 +204,25 @@ class BarLineEnder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ble : BarLineEnder = new BarLineEnder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ble.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ble.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ble.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
