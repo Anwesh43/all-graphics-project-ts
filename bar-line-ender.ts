@@ -48,8 +48,8 @@ class DrawingUtil {
         context.fillRect(-size / 2 + size * sc4, -size / 2, size * (sc1 - sc4), size)
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.translate(0, -size / 2 + lSize * (1 + j))
-            DrawingUtil.drawLine(context, lSize * sc2, 0, lSize * sc3, 0)
+            context.translate(-size / 2, -size / 2 + lSize * (1 + j))
+            DrawingUtil.drawLine(context, size * sc2, 0, size * sc3, 0)
             context.restore()
         }
         context.restore()
