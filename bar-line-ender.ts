@@ -42,13 +42,14 @@ class DrawingUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const lSize : number = Math.min(w, h) / (lines + 2)
+        console.log("SC1, SC2, SC3, SC4", sc1, sc2, sc3, sc4)
         context.save()
         context.translate(w / 2, h / 2)
-        context.fillRect(-size / 2, -size / 2, size * (sc1 - sc4), size)
+        context.fillRect(-size / 2 + size * sc4, -size / 2, size * (sc1 - sc4), size)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.translate(0, -size / 2 + lSize * (1 + j))
-            DrawingUtil.drawLine(context, 0, 0, 0, lSize * (sc2 - sc3))
+            DrawingUtil.drawLine(context, 0, 0, lSize * (sc2 - sc3), 0)
             context.restore()
         }
         context.restore()
