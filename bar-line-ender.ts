@@ -49,7 +49,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.translate(0, -size / 2 + lSize * (1 + j))
-            DrawingUtil.drawLine(context, 0, 0, lSize * (sc2 - sc3), 0)
+            DrawingUtil.drawLine(context, lSize * sc1, 0, lSize * (sc2), 0)
             context.restore()
         }
         context.restore()
@@ -118,7 +118,7 @@ class State {
     }
 
     startUpdating(cb : Function) {
-        if (this.dir == 9) {
+        if (this.dir == 0) {
             this.dir = 1 - 2 * this.prevScale 
             cb()
         }
