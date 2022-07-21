@@ -5,9 +5,9 @@ const colors : Array<string> = [
     "#795548",
     "#8BC34A"
 ]
-const parts : number = 2
-const scGap : number = 0.02 / parts 
+const parts : number = 2 
 const bars : number = 5
+const scGap : number = 0.03 / (parts * bars)
 const sizeFactor : number = 5.9 
 const barHFactor : number = 14.9 
 const delay : number = 20 
