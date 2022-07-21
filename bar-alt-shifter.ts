@@ -45,7 +45,7 @@ class DrawingUtil {
         context.translate(w / 2, h)
         for (let i = 0; i < bars; i++) {
             const sci1 : number = ScaleUtil.divideScale(sc1, i, bars)
-            const sci2 : number = ScaleUtil.divideScale(sc2, bars - i, bars)
+            const sci2 : number = ScaleUtil.divideScale(sc2, bars - 1 - i, bars)
             context.save()
             context.translate((w / 2 + size) * (1 - 2 * (i % 2)) * sci2, -barSize * i)
             context.fillRect(0, -barSize * sci1, size, barSize * sci1)
