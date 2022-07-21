@@ -99,17 +99,17 @@ class State {
     dir : number = 0 
     prevScale : number = 0 
 
-    update(cb : Function) {
+    update(cb : (a : number) => void) {
         this.scale += scGap * this.dir 
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir 
             this.dir = 0 
             this.prevScale = this.scale 
-            cb()
+            cb(this.prevScale)
         }
     }
 
-    startUpdating(cb : Function) {
+    startUpdating(cb : () => void) {
         if (this.dir == 0) {
             this.dir = 1 - 2 * this.prevScale 
             cb()
@@ -177,4 +177,27 @@ class BASNode {
         cb()
         return this 
     } 
+}
+
+class BarAltShifter {
+
+    curr : BASNode = new BASNode(0)
+    dir : number = 1
+
+    draw(context : CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb : (a : number) => void) {
+        this.curr.update((k : number) => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb(k)
+        })
+    }
+
+    startUpdating(cb : () => void) {
+        this.curr.startUpdating(cb)
+    }
 }
