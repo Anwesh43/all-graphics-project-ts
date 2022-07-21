@@ -201,3 +201,25 @@ class BarAltShifter {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bas : BarAltShifter = new BarAltShifter()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bas.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bas.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bas.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
