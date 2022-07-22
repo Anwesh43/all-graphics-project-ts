@@ -180,3 +180,26 @@ class LSRNode {
         return this 
     }
 }
+
+class LineSqRotator {
+
+    curr : LSRNode = new LSRNode(0)
+    dir : number = 1
+
+    update(cb : (a : number) => void) {
+        this.curr.update((it : number) => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb(it)
+        })
+    }
+
+    startUpdating(cb : () => void) {
+        this.curr.startUpdating(cb)
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+}
