@@ -25,3 +25,39 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawLineSqRotator(context : CanvasRenderingContext2D, scale : number) {
+        const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
+        const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
+        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
+        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        const size : number = Math.min(w, h)/ sizeFactor 
+        context.save()
+        context.translate(w / 2 + (w / 2 + size) * sc4, h / 2)
+        context.rotate(deg * sc3)
+        DrawingUtil.drawLine(context, -size  * sc1, 0, size * sc1, 0)
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1)
+            DrawingUtil.drawLine(context, size, size / 10, size, size / 10 + size * 0.9 * sc2)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawLSRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawLineSqRotator(context, scale)
+    }
+}
