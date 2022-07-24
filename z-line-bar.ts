@@ -211,3 +211,25 @@ class ZLineBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    zlb : ZLineBar = new ZLineBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.zlb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.zlb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.zlb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
