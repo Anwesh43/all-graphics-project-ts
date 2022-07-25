@@ -9,7 +9,7 @@ const parts : number = 4
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 11.9 
-const barSizeFactor : number = 4.9 
+const barSizeFactor : number = 2.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
 const rot : number = Math.PI / 2
@@ -55,7 +55,9 @@ class DrawingUtil {
             context.translate((size) * sc2, 0)
             context.fillRect(-uBar / 2, -uBar / 2, uBar, uBar)
             context.restore()
-            DrawingUtil.drawLine(context, 0, 0, size * sc2, 0)
+            if (sc2 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, size * sc2, 0)
+            }
             context.restore()
         }
         context.restore()
