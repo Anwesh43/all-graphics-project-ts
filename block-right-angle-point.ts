@@ -211,3 +211,25 @@ class Animator {
         this.curr.startUpdating(cb)
     }
  }
+
+ class Renderer {
+
+    brap : BlockRightAnglePoint = new BlockRightAnglePoint()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.brap.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.brap.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brap.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+ }
