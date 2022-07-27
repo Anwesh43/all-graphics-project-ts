@@ -52,7 +52,9 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2 + (w / 2 + size) * sc4 , h / 2)
         context.rotate(rot * sc3)
-        DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+        if (sc1 > 0) {
+            DrawingUtil.drawLine(context, -size * 0.5 * sc1, 0, size * 0.5 * sc1, 0)
+        }
         for (let i = 0; i < 2; i++) {
             context.save()
             context.scale(1 - 2 * i, 1)
@@ -60,7 +62,9 @@ class DrawingUtil {
             DrawingUtil.drawCircle(context, 0, 0, ballR * sc2)
             context.restore()
         }
-        DrawingUtil.drawLine(context, 0, -size / 10, 0, -size / 10 - size * 0.5 * sc2)
+        if (sc2 > 0) { 
+            DrawingUtil.drawLine(context, 0, -size / 10, 0, -size / 10 - size * 0.5 * sc2)
+        }
         context.restore()
     }
 
