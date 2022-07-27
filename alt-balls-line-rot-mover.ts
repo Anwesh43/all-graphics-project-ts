@@ -214,3 +214,25 @@ class AltBallsLineRotMover {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ablrm : AltBallsLineRotMover = new AltBallsLineRotMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ablrm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ablrm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ablrm.update(() => {
+                    cb()
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
