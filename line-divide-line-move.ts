@@ -205,3 +205,25 @@ class LineDivideLineMove {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldlm : LineDivideLineMove = new LineDivideLineMove()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ldlm.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.ldlm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldlm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
