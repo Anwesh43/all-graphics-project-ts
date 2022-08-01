@@ -53,7 +53,7 @@ class ScaleUtil {
         context.translate(w / 2, h / 2)
         context.rotate(-deg * sc3)
         context.save()
-        context.translate(-w /2 + (w / 2) * sc3 + (h / 2) * sc4, 0)
+        context.translate(-w /2 + (w / 2) * sc2 - (h / 2) * sc4, 0)
         DrawingUtil.drawLine(context, 0, 0, -size, 0)
         context.restore()
         DrawingUtil.drawCircle(context, 0, 0, r * (sc1 - sc4))
