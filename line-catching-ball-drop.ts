@@ -49,6 +49,7 @@ class ScaleUtil {
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const r : number = Math.min(w, h) / rFactor 
+        console.log("SC1, SC2, SC3, SC4", sc1, sc2, sc3, sc4)
         context.save()
         context.translate(w / 2, h / 2)
         context.rotate(-deg * sc3)
