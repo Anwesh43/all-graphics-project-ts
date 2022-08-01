@@ -211,3 +211,25 @@ class LineCatchingBallDrop {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lcbd : LineCatchingBallDrop = new LineCatchingBallDrop()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lcbd.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lcbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lcbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
