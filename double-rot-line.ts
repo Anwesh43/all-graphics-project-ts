@@ -209,3 +209,25 @@ class DoubleRotLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    drl : DoubleRotLine = new DoubleRotLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.drl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.drl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.drl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
