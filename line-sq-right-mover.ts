@@ -41,6 +41,7 @@ class DrawingUtil {
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
         const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
+        console.log(sc1, sc2, sc3, sc4)
         context.save()
         context.translate(w / 2 + (w / 2 + size) * sc4, h / 2)
         for (let j = 0; j < 2; j++) {
