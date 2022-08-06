@@ -6,7 +6,7 @@ const colors : Array<string> = [
     "#43A047"
 ]
 const parts : number = 4
-const scGap : number = 0.04 / parts 
+const scGap : number = 0.03 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 6.9 
 const delay : number = 20 
@@ -46,8 +46,10 @@ class DrawingUtil {
         context.translate(w / 2 + (w / 2 + size) * sc4, h / 2)
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.rotate(3 * rot * sc2)
-            DrawingUtil.drawLine(context, 0, 0, -size * sc1, 0)
+            context.rotate(3 * rot * j * sc2)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, -size * sc1, 0)
+            }
             context.fillRect(-size, 0, size, size * j * sc3)
             context.restore()
         }
