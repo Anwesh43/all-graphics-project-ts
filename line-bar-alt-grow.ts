@@ -38,7 +38,7 @@ class DrawingUtil {
 
     static drawLineBarAltGrow(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
-        const barSize : number = Math.min(w, h) / sizeFactor 
+        const barSize : number = Math.min(w, h) / barFactor 
         const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
         const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
@@ -47,7 +47,9 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2, h / 2 + (h / 2) * sc5)
         context.rotate(rot * sc3)
-        DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
+        if (sc1 > 0) {
+            DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
+        }
         for (let j = 0; j < 2; j++) {
             const sc2j : number = ScaleUtil.divideScale(scale, 1 + 2 * j, parts)
             context.save()
