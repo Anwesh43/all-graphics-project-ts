@@ -209,3 +209,25 @@ class LineBarAltGrow {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbag : LineBarAltGrow = new LineBarAltGrow()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbag.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbag.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbag.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
