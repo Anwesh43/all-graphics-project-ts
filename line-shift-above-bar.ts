@@ -203,3 +203,25 @@ class LineShiftAboveBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsab : LineShiftAboveBar = new LineShiftAboveBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsab.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsab.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsab.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
