@@ -48,7 +48,7 @@ class DrawingUtil {
         DrawingUtil.drawLine(context, -size / 2, 0, size / 2, 0)
         context.restore()
         context.save()
-        context.translate(w / 2 + size / 2 - (w / 2 + size / 2) * sc3 + (h / 2 + size / 2) * sc3, 0)
+        context.translate(w / 2 + size / 2 - (w / 2 + size / 2) * sc1 + (h / 2 + size / 2) * sc3, 0)
         context.fillRect(-size / 2, -size / 2, size, size)
         context.restore()
         context.restore()
