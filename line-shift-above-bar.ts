@@ -44,7 +44,7 @@ class DrawingUtil {
         context.translate(w / 2, h / 2)
         context.rotate(rot * sc2)
         context.save()
-        context.translate(-w / 2 - size / 2 + (w / 2 + size / 2) * sc1 - (h / 2 + size / 2) * sc3, 0)
+        context.translate(-w / 2 - size / 2 + (w / 2 + size / 2) * sc1 - (h / 2 + size / 2) * sc3, -size / 3)
         DrawingUtil.drawLine(context, -size / 2, 0, size / 2, 0)
         context.restore()
         context.save()
