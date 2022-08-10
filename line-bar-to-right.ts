@@ -56,7 +56,7 @@ class DrawingUtil {
             context.scale(1, 1 - 2 * j)
             context.save()
             context.rotate(rot * sc2)
-            if (sc1 > 0) {
+            if (sc2 > 0) {
                 DrawingUtil.drawLine(context, 0, 0, -barSize * Math.floor(sc1), 0)
             }
             context.restore()
