@@ -208,8 +208,9 @@ class LineBarToRight {
             this.curr = this.curr.getNext(this.dir, () => {
                 this.dir *= -1 
             })
+
+            cb()
         })
-        cb()
  
     }
 
