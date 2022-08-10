@@ -213,3 +213,25 @@ class LineBarToRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbtr : LineBarToRight  = new LineBarToRight()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.lbtr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbtr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbtr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
