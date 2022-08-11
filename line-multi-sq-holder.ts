@@ -210,3 +210,25 @@ class LineMultiSqHolder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lmsh : LineMultiSqHolder = new LineMultiSqHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lmsh.draw(context)
+    } 
+
+    handleTap(cb : () => void) {
+        this.lmsh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lmsh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
