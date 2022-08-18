@@ -207,3 +207,25 @@ class LineSqStackDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lssd : LineSqStackDown = new LineSqStackDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+
+    }
+
+    handleTap(cb  : () => void) {
+        this.lssd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lssd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
