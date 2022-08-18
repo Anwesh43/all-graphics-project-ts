@@ -50,7 +50,9 @@ class DrawingUtil {
             context.save()
             context.scale(1 - 2 * j, 1 - 2 * j)
             context.translate(-size / 2, barSize / 2)
-            DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, size * sc1, 0)
+            }
             context.fillRect(0, -barSize * sc2, barSize, barSize * sc2)
             context.restore()
         }
@@ -114,7 +116,7 @@ class State {
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir 
             this.dir = 0 
-            this.prevScale = 0 
+            this.prevScale = this.scale
             cb()
         }
     }
