@@ -214,3 +214,25 @@ class LineParallelJoiner {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpj : LineParallelJoiner = new LineParallelJoiner()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lpj.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lpj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpj.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
