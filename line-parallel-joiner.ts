@@ -91,4 +91,17 @@ class Stage {
             this.context.fillRect(0, 0, w, h)
         }
     }
+
+    handleTap() {
+        this.canvas.onmousedown = () => {
+
+        }
+    }
+
+    static init() {
+        const stage : Stage = new Stage()
+        stage.initCanvas()
+        stage.render()
+        stage.handleTap()
+    }
 }
