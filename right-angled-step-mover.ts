@@ -202,3 +202,25 @@ class RightAngledStepMover {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rasm : RightAngledStepMover = new RightAngledStepMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rasm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rasm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rasm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
