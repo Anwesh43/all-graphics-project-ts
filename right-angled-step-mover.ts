@@ -38,16 +38,16 @@ class DrawingUtil {
     static drawRightAngledStepMover(context : CanvasRenderingContext2D, scale : number) {
         const sc1 : number = ScaleUtil.divideScale(scale, 0, parts)
         const sc2 : number = ScaleUtil.divideScale(scale, 1, parts)
-        const sc3 : number = ScaleUtil.divideScale(scale, 2, parts)
-        const sc4 : number = ScaleUtil.divideScale(scale, 3, parts)
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
         context.translate(w / 2, h / 2)
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(rot * sc2 * j)
-            context.translate(0, -(h / 2 + (w / 2 - h / 2) * j) * ScaleUtil.divideScale(scale, 2 + (1 - j), parts))
-            DrawingUtil.drawLine(context, 0, 0, 0, -size * sc1)
+            context.translate(0, -(context.lineWidth + h / 2 + (w / 2 - h / 2) * j) * ScaleUtil.divideScale(scale, 2 + (1 - j), parts))
+            if (sc1 > 0) {
+                DrawingUtil.drawLine(context, 0, 0, 0, -size * sc1)
+            }
             context.restore()
         }
         context.restore()
