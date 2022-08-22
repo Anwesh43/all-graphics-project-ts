@@ -34,7 +34,7 @@ class DrawingUtil {
         context.stroke()
     }
 
-    static drawFarFromMiddle(context : CanvasRenderingContext2D, scale : number) {
+    static drawFarFromMiddleT(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const divideSc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         context.save()
@@ -56,11 +56,11 @@ class DrawingUtil {
         context.restore()
     }
 
-    static drawFFMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+    static drawFFMTNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
-        DrawingUtil.drawFarFromMiddle(context, scale)
+        DrawingUtil.drawFarFromMiddleT(context, scale)
     }
 }
 
@@ -140,5 +140,47 @@ class Animator {
             this.animated = false 
             clearInterval(this.interval)
         }
+    }
+}
+
+class FFMTNode {
+
+    prev : FFMTNode 
+    next : FFMTNode
+    state : State = new State()
+    
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new FFMTNode(this.i + 1)
+            this.prev.next = this 
+        }
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawFFMTNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : FFMTNode {
+        var curr : FFMTNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
     }
 }
