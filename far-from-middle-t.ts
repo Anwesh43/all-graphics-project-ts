@@ -160,7 +160,7 @@ class FFMTNode {
     addNeighbor() {
         if (this.i < colors.length - 1) {
             this.next = new FFMTNode(this.i + 1)
-            this.prev.next = this 
+            this.next.prev = this 
         }
     }
 
