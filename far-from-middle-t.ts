@@ -50,7 +50,7 @@ class DrawingUtil {
             DrawingUtil.drawLine(context, -size, 0, -size + size * divideSc(0), 0)
             context.restore()
             context.save()
-            context.translate(size + (w / 4 - size) * (1 - divideSc(2)), 0)
+            context.translate((w / 4) * (1 - divideSc(2)), 0)
             DrawingUtil.drawLine(context, 0, -size * 0.5 * divideSc(1), 0, size * 0.5 * divideSc(1))
             context.restore()
             context.restore()
