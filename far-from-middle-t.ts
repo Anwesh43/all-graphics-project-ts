@@ -207,3 +207,25 @@ class FarFromMiddleT {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ffmt : FarFromMiddleT = new FarFromMiddleT()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ffmt.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ffmt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ffmt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
