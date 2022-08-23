@@ -37,7 +37,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             const barH : number = (size) * (1 - dsc(1)) * (1 - j) + size * j * dsc(1)
             context.save()
-            context.translate(w / 2 + barW * (j - 1), 0)
+            context.translate(barW * (j - 1), 0)
             context.fillRect(0, -barH, barW, barH)
             context.restore()
         }
