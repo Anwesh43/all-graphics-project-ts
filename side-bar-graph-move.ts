@@ -191,3 +191,25 @@ class SideBarGraphMove {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sbgm : SideBarGraphMove = new SideBarGraphMove()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sbgm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sbgm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sbgm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
