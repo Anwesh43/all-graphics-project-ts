@@ -202,3 +202,25 @@ class LineRotSqDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrsd : LineRotSqDown = new LineRotSqDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrsd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
