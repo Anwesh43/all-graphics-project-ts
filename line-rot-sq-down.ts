@@ -50,7 +50,7 @@ class DrawingUtil {
         context.restore()
         context.save()
         context.translate(0, (h / 2) * dsc(2))
-        context.fillRect(0, 0, size * dsc(0), size)
+        context.fillRect(-context.lineWidth / 2, 0, (context.lineWidth + size) * dsc(0), size)
         context.restore()
         context.restore()
     }
