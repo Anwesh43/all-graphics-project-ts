@@ -207,3 +207,25 @@ class BarRectRotSide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    brrs : BarRectRotSide = new BarRectRotSide()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.brrs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.brrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
