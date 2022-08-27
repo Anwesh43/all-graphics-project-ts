@@ -201,3 +201,25 @@ class ChairTLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ctld : ChairTLineDown = new ChairTLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ctld.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ctld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ctld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
