@@ -41,11 +41,15 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         const barSize : number = Math.min(w, h) / barFactor
         context.save()
-        context.translate(w / 2, h / 2)
+        context.translate(w / 2, h / 2 + (h / 2 + size) * dsc(3))
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(-deg * j * dsc(1))
             DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
+            context.restore()
+            context.save()
+            context.translate((size - barSize) * j, 0)
+            context.fillRect(0, 0, barSize, barSize * dsc(2))
             context.restore()
         }
         context.restore()
