@@ -27,3 +27,34 @@ class ScaleUtil {
     }
 }
 
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawChairTLineDown(context : CanvasRenderingContext2D, scale : number) {
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        const barSize : number = Math.min(w, h) / barFactor
+        context.save()
+        context.translate(w / 2, h / 2)
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.rotate(-deg * j * dsc(1))
+            DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
+            context.restore()
+        }
+        context.restore()
+    }
+
+    static drawCTLDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawChairTLineDown(context, scale)
+    }
+} 
