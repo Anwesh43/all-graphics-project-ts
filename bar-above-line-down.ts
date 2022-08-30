@@ -198,3 +198,25 @@ class BarAboveLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bald : BarAboveLineDown = new BarAboveLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bald.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bald.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bald.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    } 
+}
