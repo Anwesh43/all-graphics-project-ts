@@ -1,7 +1,7 @@
 const colors : Array<string> = [
     "#4A148C",
     "#004D40",
-    "#DD2C00",
+    "#03DAC6",
     "#D50000",
     "#43A047"
 ]
