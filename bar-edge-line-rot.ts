@@ -215,12 +215,13 @@ class Renderer {
 
     handleTap(cb : () => void) {
         this.belr.startUpdating(() => {
-            this.animator.start(() => [
+            this.animator.start(() => {
+                cb()
                 this.belr.update(() => {
                     this.animator.stop()
                     cb()
                 })
-            ])
+            })
         })
     }
 }
