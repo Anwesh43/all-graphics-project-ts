@@ -199,3 +199,24 @@ class BarEdgeLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    belr : BarEdgeLineRot = new BarEdgeLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.belr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.belr.startUpdating(() => {
+            this.animator.start(() => [
+                this.belr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            ])
+        })
+    }
+}
