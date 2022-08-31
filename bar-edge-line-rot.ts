@@ -45,7 +45,7 @@ class DrawingUtil {
         
         DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
         context.save()
-        context.rotate(rot * dsc(2))
+        context.rotate(-rot * dsc(2))
         context.fillRect(-barW / 2, -size * dsc(1), barW, size * dsc(1))
         context.restore()
         context.restore()
@@ -55,6 +55,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawBarEdgeLineRot(context, scale)
     }
 }
