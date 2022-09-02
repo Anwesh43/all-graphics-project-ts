@@ -37,6 +37,7 @@ class DrawingUtil {
     }
 
     static drawBarOnLineJump(context : CanvasRenderingContext2D, scale : number) {
+        console.log("Scale", scale)
         const size : number = Math.min(w, h) / sizeFactor 
         const sqSize : number = Math.min(w, h) / sqSizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
