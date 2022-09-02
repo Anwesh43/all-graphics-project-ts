@@ -209,3 +209,25 @@ class BarOnLineJump {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bolj : BarOnLineJump = new BarOnLineJump()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bolj.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bolj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bolj.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
