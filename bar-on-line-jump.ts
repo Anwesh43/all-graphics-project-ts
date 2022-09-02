@@ -39,7 +39,7 @@ class DrawingUtil {
     static drawBarOnLineJump(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const sqSize : number = Math.min(w, h) / sqSizeFactor 
-        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, 0, parts)
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         context.save()
         context.translate(w / 2, h / 2)
         for (let j = 0; j < 2; j++) {
@@ -62,7 +62,7 @@ class DrawingUtil {
     static drawBOLJNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
         context.strokeStyle = colors[i]
-        context.fillStyle = backColor 
+        context.fillStyle = colors[i] 
         context.lineWidth = Math.min(w, h) / strokeFactor 
         DrawingUtil.drawBarOnLineJump(context, scale)
     }
