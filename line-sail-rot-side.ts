@@ -50,6 +50,7 @@ class DrawingUtil {
     }
 
     static drawLSRSNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        console.log("Scale", scale)
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
