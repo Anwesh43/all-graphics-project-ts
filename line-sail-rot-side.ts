@@ -157,6 +157,7 @@ class LSRSNode {
     }
 
     draw(context : CanvasRenderingContext2D) {
+        console.log("State updated", this.state.scale)
         DrawingUtil.drawLSRSNode(context, this.i, this.state.scale)
     }
 
