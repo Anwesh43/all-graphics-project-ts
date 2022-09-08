@@ -215,8 +215,10 @@ class Renderer {
     }
 
     handleTap(cb : () => void) {
+        console.log("Started", )
         this.lsrs.startUpdating(() => {
             this.animator.start(() => {
+                console.log("animator start")
                 cb()
                 this.lsrs.update(() => {
                     this.animator.stop()
