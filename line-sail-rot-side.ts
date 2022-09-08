@@ -158,6 +158,7 @@ class LSRSNode {
 
     draw(context : CanvasRenderingContext2D) {
         console.log("State updated", this.state.scale)
+        console.log("LSRSNode", "draw")
         DrawingUtil.drawLSRSNode(context, this.i, this.state.scale)
     }
 
@@ -188,6 +189,7 @@ class LineSailRotSide {
     dir : number = 1
 
     draw(context : CanvasRenderingContext2D) {
+        console.log("LINE_SAIL_ROT_SIDE", "draw")
         this.curr.draw(context)
     }
 
@@ -212,6 +214,7 @@ class Renderer {
     animator : Animator = new Animator()
 
     render(context : CanvasRenderingContext2D) {
+        console.log("RENDERER", "draw")
         this.lsrs.draw(context)
     }
 
