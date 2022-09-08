@@ -72,6 +72,7 @@ class Stage {
     }
 
     render() {
+        console.log("STAGE_RENDERING", this.context)
         if (this.context) {
             this.context.fillStyle = backColor 
             this.context.fillRect(0, 0, w, h)
@@ -222,7 +223,6 @@ class Renderer {
         console.log("Started", )
         this.lsrs.startUpdating(() => {
             this.animator.start(() => {
-                console.log("animator start")
                 cb()
                 this.lsrs.update(() => {
                     this.animator.stop()
