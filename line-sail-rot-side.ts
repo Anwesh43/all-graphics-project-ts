@@ -199,3 +199,25 @@ class LineSailRotSide {
     }
 
 }
+
+class Renderer {
+
+    lsrs : LineSailRotSide = new LineSailRotSide()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsrs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
