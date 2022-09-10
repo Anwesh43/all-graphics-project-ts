@@ -203,3 +203,24 @@ class CrossLineSquareHolder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderr {
+    clsh : CrossLineSquareHolder = new CrossLineSquareHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.clsh.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.clsh.startUpdating(() => [
+            this.animator.start(() => {
+                cb()
+                this.clsh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        ])
+    }
+}
