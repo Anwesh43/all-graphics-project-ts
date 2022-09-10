@@ -26,3 +26,38 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawCrossLineSquare(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
+        context.save()
+        context.translate(w / 2, h / 2 + (h / 2) * dsc(5))
+        context.rotate(deg * dsc(4))
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.rotate(rot * (1 - dsc(2)))
+            context.translate(size * 0.5 * dsc(1), 0)
+            DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
+            context.restore()
+        }
+        context.fillRect(-size / 2, -size * dsc(3), size, size * dsc(3))
+        context.restore()
+    }
+
+    static drawCLSNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.fillStyle = colors[i]
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawCrossLineSquare(context, scale)
+    }
+}
