@@ -201,3 +201,25 @@ class BarAboveRotLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    barl : BarAboveRotLine = new BarAboveRotLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.barl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.barl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.barl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
