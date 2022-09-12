@@ -8,7 +8,7 @@ const colors : Array<string> = [
 const parts : number = 5 
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
-const sizeFactor : number = 11.2 
+const sizeFactor : number = 4.9  
 const delay : number = 20 
 const backColor : string = "#bdbdbd"
 const rot : number = Math.PI / 2
@@ -55,7 +55,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
-        context.fillStyle = backColor
+        context.fillStyle = colors[i]
         DrawingUtil.drawBarAboveRotLine(context, scale)
     }
 }
