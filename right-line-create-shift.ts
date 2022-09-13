@@ -220,6 +220,10 @@ class Renderer {
         this.rlcs.startUpdating(() => {
             this.animator.start(() => {
                 cb()
+                this.rlcs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
             })
         })
     }
