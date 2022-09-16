@@ -207,3 +207,25 @@ class PerpLineSquareUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    plsu : PerpLineSquareUp = new PerpLineSquareUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.plsu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.plsu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.plsu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
