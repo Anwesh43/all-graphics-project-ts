@@ -5,8 +5,8 @@ const colors : Array<string> = [
     "#D50000",
     "#43A047"
 ]
-const parts : number = 4 
-const scGap : number = 0.04 / parts 
+const parts : number = 6
+const scGap : number = 0.05 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 5.9 
 const delay : number = 20 
@@ -23,5 +23,44 @@ class ScaleUtil {
 
     static divideScale(scale : number, i : number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+    static drawPerpLineSquareUp(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts) 
+        context.save()
+        context.translate(w / 2, h / 2 - (h / 2) * dsc(5))
+        context.save()
+        context.rotate(-rot * dsc(3))
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.translate(size * (1 - 2 * j) * dsc(2), 0)
+            DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
+            context.restore()
+        }
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.rotate(rot * (1 - 2 * j) * dsc(1))
+            context.restore()
+        }
+        context.restore()
+        context.fillRect(-size, -size * dsc(4), 2 * size, size)
+        context.restore()
+    }
+
+    static drawPLSUNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawPerpLineSquareUp(context, scale)
     }
 }
