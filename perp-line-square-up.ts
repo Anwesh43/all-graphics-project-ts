@@ -53,7 +53,7 @@ class DrawingUtil {
             context.restore()
         }
         context.restore()
-        context.fillRect(-size, -size * dsc(4), 2 * size, size)
+        context.fillRect(-size, -size * dsc(4), 2 * size, size * dsc(4))
         context.restore()
     }
 
@@ -61,6 +61,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawPerpLineSquareUp(context, scale)
     }
 }
