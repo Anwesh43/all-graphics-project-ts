@@ -142,3 +142,45 @@ class Animator {
         }
     }
 }
+
+class PLSUNode {
+
+    prev : PLSUNode 
+    next : PLSUNode     
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new PLSUNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawPLSUNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : PLSUNode {
+        var curr : PLSUNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
