@@ -25,3 +25,33 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawSquareLineTriRot(context : CanvasRenderingContext2D, scale : number) {
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        context.save()
+        context.translate(w / 2 + (w / 2 + size) * dsc(4) , h / 2)
+        context.rotate(rot * dsc(3))
+        context.fillRect(-size / 2, -size * dsc(0), size, size * dsc(0))
+        DrawingUtil.drawLine(context, size / 2, 0, size / 2, size * dsc(1))
+        DrawingUtil.drawLine(context, size / 2, size, size / 2 - size * dsc(2), size - size * dsc(2))
+        context.restore()
+    }
+
+    static drawSLTRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        context.strokeStyle = colors[i]
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        DrawingUtil.drawSquareLineTriRot(context, scale)
+    }
+}
