@@ -197,3 +197,25 @@ class SquareLineTriRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sltr : SquareLineTriRot = new SquareLineTriRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sltr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sltr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sltr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
