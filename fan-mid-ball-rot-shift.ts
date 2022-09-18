@@ -199,3 +199,25 @@ class FanMidBallRotShift {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    fmbrs : FanMidBallRotShift = new FanMidBallRotShift()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.fmbrs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.fmbrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.fmbrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
