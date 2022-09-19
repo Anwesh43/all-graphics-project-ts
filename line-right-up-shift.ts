@@ -42,8 +42,8 @@ class DrawingUtil {
         context.translate(w / 2 + (w / 2) * dsc(3), h / 2)
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.rotate(-rot * dsc(2))
-            DrawingUtil.drawLine(context, 0, -size * dsc(1), size * dsc(0), -size * dsc(1))
+            context.rotate(-rot * dsc(1) * j)
+            DrawingUtil.drawLine(context, 0, -size * dsc(2), size * dsc(0), -size * dsc(2))
             context.restore()
         }
         context.restore()
