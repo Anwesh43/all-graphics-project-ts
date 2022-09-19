@@ -199,3 +199,25 @@ class LineRightUpShift {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrus : LineRightUpShift = new LineRightUpShift()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrus.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrus.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrus.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
