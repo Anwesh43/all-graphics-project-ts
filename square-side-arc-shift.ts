@@ -45,7 +45,7 @@ class DrawingUtil {
         context.rotate(-rot * dsc(2))
         context.fillRect(-size, -size / 2, size * dsc(0), size)
         for (let j = 0; j < 2; j++) {
-            DrawingUtil.drawCircle(context, 0, -h / 2  -r + (h / 2 + size / 2) * dsc(0) - (size - r) * dsc(3), r)
+            DrawingUtil.drawCircle(context, r, -h / 2  -r + (h / 2 + size / 2) * dsc(0) - (size - r) * dsc(3) * j, r)
         }
         context.restore()
     }
