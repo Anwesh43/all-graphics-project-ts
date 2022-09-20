@@ -6,10 +6,10 @@ const colors : Array<string> = [
     "#43A047"
 ]
 const parts : number = 5
-const scGap : number = 0.04 / parts 
+const scGap : number = 0.03 / parts 
 const sizeFactor : number = 3.9 
 const rFactor : number = 28.2 
-const delay : number = 20 
+const delay : number = 22
 const backColor : string = "#BDBDBD"
 const strokeFactor : number = 90 
 const rot : number = Math.PI / 2
