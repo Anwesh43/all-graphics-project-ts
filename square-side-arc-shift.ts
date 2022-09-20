@@ -39,7 +39,7 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor
         const r : number = Math.min(w, h) / rFactor  
         const dsc : (number) => number = (scale : number) : number => ScaleUtil.divideScale(scale, 0, parts)
-        console.log("SCALE", scale)
+       
         context.save()
         context.translate(w / 2, h / 2 - (h / 2 + size) * dsc(3))
         context.rotate(-rot * dsc(2))
@@ -52,6 +52,7 @@ class DrawingUtil {
 
     static drawSSASNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.fillStyle = colors[i] 
+        console.log("SCALE", scale, colors[i])
         DrawingUtil.drawSquareSideArcShift(context, scale)
     }
 }
