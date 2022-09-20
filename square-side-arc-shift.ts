@@ -9,7 +9,7 @@ const parts : number = 5
 const scGap : number = 0.04 / parts 
 const sizeFactor : number = 5.9 
 const rFactor : number = 22.2 
-const dealy : number = 20 
+const delay : number = 20 
 const backColor : string = "#BDBDBD"
 const strokeFactor : number = 90 
 const rot : number = Math.PI / 2
@@ -107,6 +107,26 @@ class State {
     startUpdating(cb : () => void) {
         if (this.dir == 0) {
             this.dir = 1 - 2 * this.prevScale 
+        }
+    }
+}
+
+class Animator {
+
+    animated : boolean = false 
+    interval : number 
+
+    start(cb : () => void) {
+        if (!this.animated) {
+            this.animated = true 
+            this.interval = setInterval(cb, delay)
+        }
+    }
+
+    stop() {
+        if (this.animated) {
+            this.animated = false 
+            clearInterval(this.interval)
         }
     }
 }
