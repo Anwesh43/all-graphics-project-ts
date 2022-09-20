@@ -130,3 +130,45 @@ class Animator {
         }
     }
 }
+
+class SSASNode {
+
+    prev : SSASNode
+    next : SSASNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new SSASNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawSSASNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : SSASNode {
+        var curr : SSASNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
