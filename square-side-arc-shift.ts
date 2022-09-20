@@ -195,3 +195,25 @@ class SquareSideArcShift {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ssas : SquareSideArcShift = new SquareSideArcShift()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ssas.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ssas.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ssas.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
