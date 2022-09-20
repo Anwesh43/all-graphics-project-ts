@@ -112,6 +112,7 @@ class State {
     startUpdating(cb : () => void) {
         if (this.dir == 0) {
             this.dir = 1 - 2 * this.prevScale 
+            cb()
         }
     }
 }
