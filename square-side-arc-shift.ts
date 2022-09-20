@@ -41,7 +41,7 @@ class DrawingUtil {
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale,i , parts)
        
         context.save()
-        context.translate(w / 2, h / 2 - (h / 2 + size) * dsc(3))
+        context.translate(w / 2, h / 2 - (h / 2 + size) * dsc(4))
         context.rotate(-rot * dsc(2))
         context.fillRect(-size, -size / 2, size * dsc(0), size)
         for (let j = 0; j < 2; j++) {
