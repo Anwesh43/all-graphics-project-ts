@@ -200,3 +200,25 @@ class HorizToVertByRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    htvr : HorizToVertByRot = new HorizToVertByRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.htvr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.htvr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.htvr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
