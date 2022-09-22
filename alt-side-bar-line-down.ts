@@ -206,3 +206,25 @@ class AltSideBarLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    asbld : AltSideBarLineDown = new AltSideBarLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.asbld.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.asbld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.asbld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
