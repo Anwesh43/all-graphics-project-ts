@@ -63,6 +63,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.fillStyle = colors[i]
+        context.strokeStyle = colors[i]
         DrawingUtil.drawAltSideBarLineDown(context, scale)
     }
 }
