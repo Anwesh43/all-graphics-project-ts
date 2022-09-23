@@ -210,3 +210,25 @@ class PlusAboveSquareRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pasrd : PlusAboveSquareRotDown = new PlusAboveSquareRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pasrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.pasrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pasrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
