@@ -52,7 +52,7 @@ class DrawingUtil {
     
 
     static drawCircleArrowLauncher(context : CanvasRenderingContext2D, scale : number) {
-        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, 0, parts)
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
         const r : number = Math.min(w, h) / sizeFactor 
         const size : number = Math.min(w, h) / triSizeFactor
         context.save()
