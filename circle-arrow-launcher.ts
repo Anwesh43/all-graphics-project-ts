@@ -214,3 +214,25 @@ class CircleArrowLauncher {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    cal : CircleArrowLauncher = new CircleArrowLauncher()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cal.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.cal.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cal.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
