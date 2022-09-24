@@ -5,8 +5,8 @@ const colors : Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts : number = 4
-const scGap : number = 0.04 / parts 
+const parts : number = 6
+const scGap : number = 0.05 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 4.9 
 const backColor : string = "#BDBDBD"
@@ -57,11 +57,12 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / triSizeFactor
         context.save()
         context.translate(w / 2, h / 2)
-        DrawingUtil.drawCircle(context, 0, (h / 2 + r) * dsc(4), r * dsc(0))
+        context.rotate(Math.PI * dsc(3))
+        DrawingUtil.drawCircle(context, 0, (h / 2 + r) * dsc(5), r * dsc(0))
         for (let j = 0 ; j < 2; j++) {
             context.save()
             context.scale(1 - 2 * j, 1)
-            DrawingUtil.drawTriArrow(context, -w / 2 + (w / 2 - r) * dsc(2) - (w / 2 + size) * dsc(3), 0, size, dsc(1), dsc(2))
+            DrawingUtil.drawTriArrow(context, -w / 2 + (w / 2 - r) * dsc(2) - (w / 2 + size) * dsc(4), 0, size, dsc(1), dsc(2))
             context.restore()
         }
         context.restore()
