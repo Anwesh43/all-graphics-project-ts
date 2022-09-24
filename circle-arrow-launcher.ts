@@ -6,7 +6,7 @@ const colors : Array<string> = [
     "#00C853"
 ]
 const parts : number = 6
-const scGap : number = 0.05 / parts 
+const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 11.9 
 const backColor : string = "#BDBDBD"
