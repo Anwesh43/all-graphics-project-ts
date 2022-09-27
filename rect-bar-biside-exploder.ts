@@ -201,3 +201,25 @@ class RectBarBiSideExploder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rbbse : RectBarBiSideExploder = new RectBarBiSideExploder()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.rbbse.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rbbse.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rbbse.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    } 
+}
