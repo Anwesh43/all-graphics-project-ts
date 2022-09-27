@@ -31,7 +31,7 @@ class DrawingUtil {
         context.save()
         context.translate(0, 0)
         context.rotate(rot)
-        context.fillRect(-size * 0.5 * sc1, size, size * sc1, size)
+        context.fillRect(-size * 0.5 * sc1, -size, size * sc1, size)
         
         context.fillRect(-size * 0.5 * sc1, -2 * size, size * sc1, size)
         context.restore()
