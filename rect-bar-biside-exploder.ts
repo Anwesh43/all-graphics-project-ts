@@ -46,7 +46,7 @@ class DrawingUtil {
             const n : number = Math.floor(j / 2)
             const ki : number = (1 - k)
             context.save()
-            context.translate((w / 2 + size / 2) * (1 - 2 * n) * ki * dsc(2), -(h / 2 + size / 2) * k * dsc(3))
+            context.translate((w / 2 + size) * (1 - 2 * n) * ki * dsc(2), -(h / 2 + size) * k * dsc(3))
             DrawingUtil.drawBar(context, size, dsc(0), (j - 1) * dsc(1) * rot)
             context.restore()
         }
