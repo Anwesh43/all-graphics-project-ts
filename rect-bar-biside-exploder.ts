@@ -55,7 +55,6 @@ class DrawingUtil {
 
     static drawRBBSENode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.fillStyle = colors[i] 
-        context.fillRect(0, 0, w, h)
         DrawingUtil.drawRectBarBiSideExploder(context, scale)
     }
 }
