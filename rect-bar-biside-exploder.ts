@@ -41,7 +41,7 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number)  : number => ScaleUtil.divideScale(scale, i, parts)
         context.save()
-        context.translate(w / 2, h)
+        context.translate(w / 2, h - size / 2)
         for (let j = 0; j < 3; j++) {
             const k : number = j % 2 
             const n : number = Math.floor(j / 2)
