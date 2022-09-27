@@ -29,10 +29,11 @@ class DrawingUtil {
 
     static drawBar(context  : CanvasRenderingContext2D, size : number, sc1 : number, rot : number) {
         context.save()
-        context.translate(0, -size / 2)
-        context.fillRect(-size * 0.5 * sc1, -size / 2, size * sc1, size)
+        context.translate(0, 0)
         context.rotate(rot)
-        context.fillRect(-size * 0.5 * sc1, -1.5 * size, size * sc1, size)
+        context.fillRect(-size * 0.5 * sc1, size, size * sc1, size)
+        
+        context.fillRect(-size * 0.5 * sc1, -2 * size, size * sc1, size)
         context.restore()
     }
 
