@@ -41,7 +41,7 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2, h / 2 - (h / 2 + size) * dsc(3))
         context.rotate(rot * dsc(2))
-        context.fillRect(-size * 0.5 * dsc(0), size * 0.5 * dsc(0), size * dsc(0), size * dsc(0))
+        context.fillRect(-size * 0.5 * dsc(0), -size * 0.5 * dsc(0), size * dsc(0), size * dsc(0))
         for (let j = 0; j < 2; j++) {
             context.save()
             context.scale(1, 1 - 2 * j)
