@@ -203,3 +203,25 @@ class SquareLineFromCorner {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slfc : SquareLineFromCorner = new SquareLineFromCorner()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slfc.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slfc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slfc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
