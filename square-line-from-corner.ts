@@ -29,6 +29,9 @@ class ScaleUtil {
 class DrawingUtil {
 
     static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return 
+        }
         context.beginPath()
         context.moveTo(x1, y1)
         context.lineTo(x2, y2)
@@ -39,7 +42,7 @@ class DrawingUtil {
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
         const size : number = Math.min(w, h) / sizeFactor 
         context.save()
-        context.translate(w / 2, h / 2 - (h / 2 + size) * dsc(3))
+        context.translate(w / 2, h / 2 - (h / 2 + size + context.lineWidth / 2) * dsc(3))
         context.rotate(rot * dsc(2))
         context.fillRect(-size * 0.5 * dsc(0), -size * 0.5 * dsc(0), size * dsc(0), size * dsc(0))
         for (let j = 0; j < 2; j++) {
