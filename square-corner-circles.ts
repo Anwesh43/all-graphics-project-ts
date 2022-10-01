@@ -26,3 +26,35 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawCircle(context : CanvasRenderingContext2D, x : number, y : number, r : number) {
+        context.beginPath()
+        context.arc(x, y, r, 0, 2 * Math.PI)
+        context.fill()
+    }
+
+    static drawSquareCornerCircle(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const r: number = Math.min(w, h) / rFactor 
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
+        context.save()
+        context.translate(w / 2, h / 2 - (h / 2 + size + r) * dsc(3))
+        context.rotate(deg)
+        context.fillRect(-size * 0.5 * dsc(0), -size * 0.5 * dsc(0), size * dsc(0), size * dsc(0))
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.translate(size / 2 + r, -(size - r) * (1 - 2 * j))
+            DrawingUtil.drawCircle(context, 0, 0, r * dsc(1))
+            context.restore()
+        }
+        DrawingUtil.drawCircle(context, -size / 2 - r, 0, r * dsc(1))
+        context.restore()
+    }
+
+    static drawSCCNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawSquareCornerCircle(context, scale)
+    }
+}
