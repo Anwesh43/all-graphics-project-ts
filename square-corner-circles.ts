@@ -46,7 +46,7 @@ class DrawingUtil {
         context.fillRect(-size * 0.5 * dsc(0), -size * 0.5 * dsc(0), size * dsc(0), size * dsc(0))
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.translate(size / 2 + r, (size / 2 + r) * (1 - 2 * j))
+            context.translate(size / 2 + r, (size / 2) * (1 - 2 * j))
             DrawingUtil.drawCircle(context, 0, 0, r * dsc(1))
             context.restore()
         }
