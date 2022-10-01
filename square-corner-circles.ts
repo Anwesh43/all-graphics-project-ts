@@ -201,3 +201,24 @@ class SquareCornerCircle {
     }
 }
 
+class Renderer {
+
+    scc : SquareCornerCircle = new SquareCornerCircle()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.scc.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.scc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.scc.update(() =>{
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
