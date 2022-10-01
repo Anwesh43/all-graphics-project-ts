@@ -42,11 +42,11 @@ class DrawingUtil {
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
         context.save()
         context.translate(w / 2, h / 2 - (h / 2 + size + r) * dsc(3))
-        context.rotate(deg)
+        context.rotate(deg * dsc(2))
         context.fillRect(-size * 0.5 * dsc(0), -size * 0.5 * dsc(0), size * dsc(0), size * dsc(0))
         for (let j = 0; j < 2; j++) {
             context.save()
-            context.translate(size / 2 + r, -(size - r) * (1 - 2 * j))
+            context.translate(size / 2 + r, (size + r) * (1 - 2 * j))
             DrawingUtil.drawCircle(context, 0, 0, r * dsc(1))
             context.restore()
         }
