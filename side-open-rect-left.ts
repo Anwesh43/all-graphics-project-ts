@@ -202,3 +202,25 @@ class SideOpenRectLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sorl : SideOpenRectLeft = new SideOpenRectLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sorl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sorl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sorl.update(() => {
+                    cb()
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
