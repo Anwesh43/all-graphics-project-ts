@@ -203,3 +203,25 @@ class LineRotAboveBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrab : LineRotAboveBar = new LineRotAboveBar()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.lrab.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrab.update(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrab.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
