@@ -58,6 +58,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawLineRotAboveBar(context, scale)
     } 
 }
@@ -218,7 +219,7 @@ class Renderer {
     }
 
     handleTap(cb : () => void) {
-        this.lrab.update(() => {
+        this.lrab.startUdpating(() => {
             this.animator.start(() => {
                 cb()
                 this.lrab.update(() => {
