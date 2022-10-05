@@ -43,10 +43,13 @@ class DrawingUtil {
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         context.save()
         context.translate(w / 2 + (w / 2 + size) * dsc(3), h / 2)
-        context.rotate(rot * dsc(2))
+        context.rotate(-rot * dsc(2))
         for (let j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1)
             DrawingUtil.drawLine(context, 0, 0, -size * 0.5 * dsc(0) , -size * 0.5 * dsc(0))
             DrawingUtil.drawLine(context, -size / 2, -size / 2, -size / 2, -size / 2 + size * dsc(1))
+            context.restore()
         }
         context.restore()
     }
