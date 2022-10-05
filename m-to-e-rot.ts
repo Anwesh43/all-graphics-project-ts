@@ -25,3 +25,36 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) *  n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1  - y2) < 0.1) {
+            return 
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawMToERot(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        context.save()
+        context.translate(w / 2 + (w / 2 + size) * dsc(3), h / 2)
+        context.rotate(rot * dsc(2))
+        for (let j = 0; j < 2; j++) {
+            DrawingUtil.drawLine(context, 0, 0, -size * 0.5 * dsc(0) , -size * 0.5 * dsc(0))
+            DrawingUtil.drawLine(context, -size / 2, -size / 2, -size / 2, -size / 2 + size * dsc(1))
+        }
+        context.restore()
+    }
+
+    static drawMTERNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawMToERot(context, scale)
+    }
+}
