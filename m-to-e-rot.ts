@@ -200,3 +200,25 @@ class MToERot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mter : MToERot = new MToERot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.mter.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.mter.startUpdating(() => {
+            this.animator.start(() => {
+                cb()  
+                this.mter.update(() => {
+                    this.animator.stop()
+                    cb()
+                })  
+            })
+        })
+    }
+}
