@@ -205,3 +205,25 @@ class LineBlockSquareMover {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbsm : LineBlockSquareMover = new LineBlockSquareMover()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbsm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbsm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbsm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
