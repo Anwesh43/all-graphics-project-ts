@@ -203,3 +203,25 @@ class MidLineSqRot {
         this.curr.draw(context)
     }
 }
+
+class Renderer {
+
+    mlsr : MidLineSqRot = new MidLineSqRot()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.mlsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.mlsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mlsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
