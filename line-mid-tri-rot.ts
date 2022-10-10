@@ -40,6 +40,7 @@ class DrawingUtil {
     }
 
     static drawLineMidTriRot(context : CanvasRenderingContext2D, scale : number) {
+        console.log("SCALE", scale)
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         const size : number = Math.min(w, h) / sizeFactor 
         const triSize : number = Math.min(w, h) / triSizeFactor
