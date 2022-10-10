@@ -12,7 +12,7 @@ const backColor : string = "#BDBDBD"
 const rot : number = Math.PI / 2 
 const strokeFactor : number = 90 
 const sizeFactor : number = 5.9
-const triSizeFactor : number = 11.2 
+const triSizeFactor : number = 21.2 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
