@@ -205,3 +205,25 @@ class LineMidTriRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lmtr : LineMidTriRot = new LineMidTriRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lmtr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lmtr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lmtr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
