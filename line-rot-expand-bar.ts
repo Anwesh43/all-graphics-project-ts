@@ -201,3 +201,25 @@ class Animator {
         }
     }
 }
+
+class Renderer {
+
+    animator : Animator = new Animator()
+    lreb : LineRotExpand = new LineRotExpand()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lreb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lreb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lreb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
