@@ -47,6 +47,7 @@ class DrawingUtil {
             DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(0))
             context.restore()
         }
+        context.fillRect(-size * dsc(2), -size / 2, size * dsc(2), size / 2)
         context.restore()
     }
 
