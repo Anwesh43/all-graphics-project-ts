@@ -209,3 +209,25 @@ class LineArcRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    larl : LineArcRotLeft = new LineArcRotLeft()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.larl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.larl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.larl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
