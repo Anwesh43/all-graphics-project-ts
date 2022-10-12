@@ -55,7 +55,7 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2 - (w / 2 + size) * dsc(3), h / 2)
         context.rotate(rot * dsc(2))
-        DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
+        DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
         DrawingUtil.drawArc(context, size / 2, 0, size / 2, 180, 180, dsc(1))
         context.restore()
     }
