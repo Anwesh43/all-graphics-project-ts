@@ -207,3 +207,25 @@ class BiLineMiniBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blmbr : BiLineMiniBar = new BiLineMiniBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blmbr.draw(context)
+    }
+    
+    handleTap(cb : () => void) {
+        this.blmbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blmbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
