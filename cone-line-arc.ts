@@ -61,7 +61,8 @@ class DrawingUtil {
         context.translate(w / 2, h / 2 - (h / 2) * dsc(3))
         context.rotate(rot * dsc(2))
         for (let j = 0; j < 2; j++) {
-            DrawingUtil.drawLine(context, 0, 0, -(size / 3) * dsc(0), -size * dsc(0))
+    
+            DrawingUtil.drawLine(context, 0, 0, -(size / 3) * dsc(0) * (1 - 2 * j), size - size * dsc(0))
         }
         DrawingUtil.drawEllipse(context, 0, 0, size / 3, ch, dsc(1))
         context.restore()
