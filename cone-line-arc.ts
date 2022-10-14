@@ -58,7 +58,7 @@ class DrawingUtil {
         const ch : number = Math.min(w, h) / coneHFactor
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
         context.save()
-        context.translate(w / 2, h / 2 - (h / 2) * dsc(3))
+        context.translate(w / 2, h / 2 + (h / 2 + size + ch) * dsc(3))
         context.rotate(rot * dsc(2))
         for (let j = 0; j < 2; j++) {
     
