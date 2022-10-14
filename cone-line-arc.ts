@@ -216,3 +216,25 @@ class ConeLineArc {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    cla : ConeLineArc = new ConeLineArc()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cla.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.cla.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cla.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
