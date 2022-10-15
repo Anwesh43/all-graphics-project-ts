@@ -203,3 +203,25 @@ class LineShiftMirrorRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsmr : LineShiftMirrorRot = new LineShiftMirrorRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsmr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsmr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsmr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
