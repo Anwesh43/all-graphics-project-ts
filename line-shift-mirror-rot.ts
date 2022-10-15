@@ -41,6 +41,7 @@ class DrawingUtil {
     static drawLineShiftMirrorRot(context : CanvasRenderingContext2D, scale : number) {
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
         const size : number = Math.min(w, h) / sizeFactor 
+        console.log("SCALE", scale)
         context.save()
         context.translate(w / 2 + (w / 2 + size) * dsc(4), h / 2)
         context.rotate(rot * dsc(3))
