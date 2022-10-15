@@ -60,7 +60,7 @@ class DrawingUtil {
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
         context.fillStyle = colors[i]
-        DrawingUtil.drawLSMRNode(context, i, scale)
+        DrawingUtil.drawLineShiftMirrorRot(context, scale)
     }
 }
 
