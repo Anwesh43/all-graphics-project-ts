@@ -26,3 +26,40 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    } 
+
+    static drawRotMidBarRect(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const barW : number = Math.min(w, h) / barWFactor 
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        context.save()
+        context.translate(w / 2, h / 2 + (h / 2 + size) * dsc(4))
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.scale(1 - 2 * j, 1)
+            DrawingUtil.drawLine(context, -barW / 2, 0, -barW / 2 - (size / 2 - barW / 2) * dsc(j * 3), 0)
+            context.restore()
+        }
+        context.save()
+        context.rotate(rot * dsc(2))
+        context.fillRect(-barW / 2, -size * dsc(1), barW, size * dsc(1))
+        context.restore()
+        context.restore()
+    }
+
+    static drawRMBRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        DrawingUtil.drawRotMidBarRect(context, scale)
+    }
+}
