@@ -205,3 +205,25 @@ class RotMidBarRect {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rmbr : RotMidBarRect = new RotMidBarRect()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rmbr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rmbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rmbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
