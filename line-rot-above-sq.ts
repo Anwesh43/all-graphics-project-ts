@@ -206,3 +206,25 @@ class LineRotAboveSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lras : LineRotAboveSq = new LineRotAboveSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lras.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lras.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lras.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
