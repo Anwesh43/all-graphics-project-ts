@@ -52,11 +52,11 @@ class DrawingUtil {
             context.rotate(rot * dsc(2))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, -w / 2 + (w / 2) * dsc(1), -size * 0.5 + size * j, () => {
-                    DrawingUtil.drawLine(context, 0, 0, 0, -size)
+                    DrawingUtil.drawLine(context, 0, 0, -size, 0)
                 })
             }
             DrawingUtil.drawXY(context, 0, -h / 2 + (h / 2 + size / 2) * dsc(0), () => {
-                context.fillRect(0, 0, size, size)
+                context.fillRect(0, -size / 2, size, size)
             })
         })
     }
@@ -65,6 +65,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.strokeStyle = colors[i]
         context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.fillStyle = colors[i]
         DrawingUtil.drawParallelSquareSweeper(context, scale)
     }
 }
