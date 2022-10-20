@@ -211,3 +211,25 @@ class ParallelSquareSweeper {
     }
 
 }
+
+class Renderer {
+
+    pss : ParallelSquareSweeper = new ParallelSquareSweeper()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pss.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.pss.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pss.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
