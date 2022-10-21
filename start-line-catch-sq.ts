@@ -123,7 +123,7 @@ class State {
     }
 }
 
-class Animaotr {
+class Animator {
 
     animated : boolean = false 
     interval : number 
@@ -205,5 +205,27 @@ class StartLineCatchSq {
     
     startUpdating(cb : () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    slcs : StartLineCatchSq = new StartLineCatchSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slcs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slcs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slcs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
