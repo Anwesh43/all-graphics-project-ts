@@ -209,3 +209,25 @@ class VertHorizLineT {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    vhlt : VertHorizLineT = new VertHorizLineT()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.vhlt.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.vhlt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.vhlt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
