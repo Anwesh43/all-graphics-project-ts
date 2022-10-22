@@ -65,7 +65,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
-        DrawingUtil.drawVHLTNode(context, i, scale)
+        DrawingUtil.drawVertHorizLineToT(context, scale)
     }
 }
 
