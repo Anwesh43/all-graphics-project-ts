@@ -53,7 +53,7 @@ class DrawingUtil {
         const lSize : number = Math.min(w, h) / lineFactor 
         DrawingUtil.drawXY(context, w / 2, h  * (1 - dsc(3)), () => {
             DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(1))
-            DrawingUtil.drawXY(context, 0, -size / 4, () => {
+            DrawingUtil.drawXY(context, 0, -size + size / 4, () => {
                 DrawingUtil.drawLine(context, rSize / 2, 0, rSize / 2, lSize * (dsc(1) - dsc(2)))
                 context.fillRect(0, -size * 0.25 * dsc(0), rSize, size * 0.25 * dsc(0))
             })
