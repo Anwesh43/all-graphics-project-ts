@@ -208,3 +208,25 @@ class RocketLauncherLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rll : RocketLauncherLine = new RocketLauncherLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rll.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rll.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rll.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
