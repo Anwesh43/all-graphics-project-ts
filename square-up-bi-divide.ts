@@ -203,3 +203,25 @@ class SquareUpBiDivide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    subd : SquareUpBiDivide = new SquareUpBiDivide()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.subd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.subd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.subd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
