@@ -200,3 +200,25 @@ class BarRotBreakDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    brbd : BarRotBreakDown = new BarRotBreakDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.brbd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.brbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
