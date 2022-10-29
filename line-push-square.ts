@@ -186,7 +186,7 @@ class LPSNode {
     }
 }
 
-class LinePushSquarre {
+class LinePushSquare {
 
     curr : LPSNode = new LPSNode(0)
     dir : number = 1
@@ -206,5 +206,27 @@ class LinePushSquarre {
     
     startUpdating(cb : () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    lps : LinePushSquare = new LinePushSquare()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lps.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lps.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lps.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
