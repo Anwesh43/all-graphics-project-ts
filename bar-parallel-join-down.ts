@@ -209,3 +209,25 @@ class BarParallelJoinDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bpjd : BarParallelJoinDown = new BarParallelJoinDown() 
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.bpjd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bpjd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bpjd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
