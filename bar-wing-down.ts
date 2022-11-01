@@ -213,3 +213,25 @@ class BarWingDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bwd : BarWingDown = new BarWingDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bwd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bwd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bwd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
