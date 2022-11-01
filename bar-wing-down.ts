@@ -7,7 +7,7 @@ const colors : Array<string> = [
 ]
 const parts : number = 4 
 const scGap : number = 0.04 / parts 
-const deg : number = Math.PI / 3 
+const deg : number = Math.PI / 6
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
 const sizeFactor : number = 4.9 
