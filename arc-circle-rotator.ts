@@ -72,10 +72,12 @@ class DrawingUtil {
         context.rotate(-rot * 0.5 * dsc(2))
         
         DrawingUtil.drawLineArc(context, size, start , start + sweep * dsc(1))
-        context.save()
-        context.rotate(rot * dsc(1))
-        DrawingUtil.drawCircle(context, 0, -size - r, r * dsc(0))
-        context.restore()
+        for (let j = 0; j < 2; j++) {
+            context.save()
+            context.rotate(rot * dsc(1) * j)
+            DrawingUtil.drawCircle(context, 0, -size - r, r * dsc(0))
+            context.restore()
+        }
         context.restore()
     } 
 
