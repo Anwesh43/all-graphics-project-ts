@@ -75,7 +75,7 @@ class DrawingUtil {
         for (let j = 0; j < 2; j++) {
             context.save()
             context.rotate(rot * dsc(1) * j)
-            DrawingUtil.drawCircle(context, 0, -size - r, r * dsc(0))
+            DrawingUtil.drawCircle(context, 0, -size, r * dsc(0))
             context.restore()
         }
         context.restore()
