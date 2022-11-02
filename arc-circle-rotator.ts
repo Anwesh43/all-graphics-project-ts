@@ -226,3 +226,25 @@ class ArcCircleRotator {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    acr : ArcCircleRotator = new ArcCircleRotator()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.acr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.acr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.acr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
