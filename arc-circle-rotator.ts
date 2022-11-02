@@ -66,7 +66,7 @@ class DrawingUtil {
         context.save()
         context.translate(w / 2, h / 2 - (h  / 2) * dsc(3))
         
-        context.rotate(rot * 0.5 * dsc(2))
+        context.rotate(-rot * 0.5 * dsc(2))
         
         DrawingUtil.drawLineArc(context, size, -rot, rot * (dsc(1) - 1))
         context.save()
