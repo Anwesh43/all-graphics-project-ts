@@ -55,6 +55,7 @@ class DrawingUtil {
             } else {
                 context.lineTo(x, y)
             }
+            console.log(`${x}, ${y}`)
         }
         context.stroke()
     }
