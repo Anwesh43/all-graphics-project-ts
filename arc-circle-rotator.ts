@@ -69,7 +69,7 @@ class DrawingUtil {
         
         context.rotate(-rot * 0.5 * dsc(2))
         
-        DrawingUtil.drawLineArc(context, size, -rot, rot * (dsc(1) - 1))
+        DrawingUtil.drawLineArc(context, size, 270 , 270 + 270 * dsc(1))
         context.save()
         context.rotate(rot * dsc(1))
         DrawingUtil.drawCircle(context, 0, -size - r, r * dsc(0))
