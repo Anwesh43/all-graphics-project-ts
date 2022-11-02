@@ -48,8 +48,8 @@ class DrawingUtil {
     static drawLineArc(context : CanvasRenderingContext2D, r : number, start : number, end : number) {
         context.beginPath()
         for (let j = start; j <= end; j++) {
-            const x : number = r * Math.cos(j * Math.PI / 180)
-            const y : number = r * Math.sin(j * Math.PI / 180)
+            const x : number = r * Math.cos(j * (Math.PI / 180))
+            const y : number = r * Math.sin(j * (Math.PI / 180))
             if (j == start) {
                 context.moveTo(x, y)
             } else {
