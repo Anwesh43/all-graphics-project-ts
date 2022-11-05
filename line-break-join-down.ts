@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#795548",
     "#8BC34A"
 ]
-const parts : number = 4
+const parts : number = 5
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
 const sizeFactor : number = 4.9 
@@ -50,12 +50,12 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         const lSize : number = size / lSizeFactor 
-        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + lSize) * dsc(3), () => {
-            context.rotate(rot * (1 - dsc(2)))
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + lSize) * dsc(4), () => {
+            context.rotate((Math.PI) * dsc(1) +rot * (1 - dsc(3)))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
                     context.scale(1 - 2 * j, 1 - 2 * j)
-                    DrawingUtil.drawXY(context, 0, (size / 2 - lSize) * (1 - dsc(1)) , () => {
+                    DrawingUtil.drawXY(context, 0, (size / 2 - lSize) * (1 - dsc(2)) , () => {
                         DrawingUtil.drawLine(context, 0, 0, 0, lSize * dsc(0))
                     })
                 })
