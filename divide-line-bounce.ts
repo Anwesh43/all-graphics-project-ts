@@ -5,8 +5,8 @@ const colors : Array<string> = [
     "#795548",
     "#8BC34A"
 ]
-const parts : number = 4
-const scGap : number = 0.04 / parts 
+const parts : number = 3
+const scGap : number = 0.02 / parts 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
 const rot : number = Math.PI / 4 
