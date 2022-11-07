@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#795548",
     "#8BC34A"
 ]
-const rot : number = Math.PI / 2 - Math.PI / 12 
+const rot : number = Math.PI / 3  
 const parts : number = 4
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
