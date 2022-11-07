@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#795548",
     "#8BC34A"
 ]
-const rot : number = Math.PI / 3  
+const rot : number = Math.PI - Math.PI / 12   
 const parts : number = 4
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90 
@@ -52,7 +52,7 @@ class DrawingUtil {
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
                     context.rotate(rot * dsc(1) * (1 - 2 * j))
-                    DrawingUtil.drawLine(context, 0, 0, -size * dsc(0), 0)
+                    DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
                 })
             }
         })
