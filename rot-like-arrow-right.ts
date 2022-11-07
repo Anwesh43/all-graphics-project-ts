@@ -207,3 +207,25 @@ class RotLineArrowRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlar : RotLineArrowRight = new RotLineArrowRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rlar.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rlar.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlar.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
