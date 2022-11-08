@@ -134,7 +134,7 @@ class Animator {
     animated : boolean = false 
     interval : number 
 
-    sart(cb : () => void) {
+    start(cb : () => void) {
         if (!this.animated) {
             this.animated = true 
             this.interval = setInterval(cb, delay)
@@ -211,5 +211,26 @@ class LineRotDropSquare {
 
     startUpdating(cb : () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    lrds : LineRotDropSquare = new LineRotDropSquare()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrds.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrds.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrds.update(() => {
+                    this.animator.stop()
+                })
+            })
+        })
     }
 }
