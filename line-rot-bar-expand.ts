@@ -196,3 +196,26 @@ class LineRotBarExpand {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrbe : LineRotBarExpand = new  LineRotBarExpand()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.lrbe.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrbe.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrbe.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+
+}
