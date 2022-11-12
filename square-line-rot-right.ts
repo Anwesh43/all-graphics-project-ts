@@ -25,3 +25,45 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return 
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawSquareLineRotRight(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+            DrawingUtil.drawXY(context, 0, (h / 2) * dsc(3), () => {
+                context.fillRect(0, 0, size, size * dsc(0))
+            })
+            DrawingUtil.drawXY(context, size + (w / 2) * dsc(2), 0, () => {
+                context.rotate(-rot * dsc(1))
+                DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(0))
+            })
+        })
+    }
+
+    static drawSLRRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        context.lineCap = 'round'
+        DrawingUtil.drawSquareLineRotRight(context, scale)
+    }
+}
