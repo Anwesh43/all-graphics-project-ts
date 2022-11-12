@@ -180,7 +180,7 @@ class SLRRNode {
     }
 
     getNext(dir : number, cb :() => void) : SLRRNode {
-        var curr : SLRRNode = this.next 
+        var curr : SLRRNode = this.prev 
         if (dir == 1) {
             curr = this.next 
         }
