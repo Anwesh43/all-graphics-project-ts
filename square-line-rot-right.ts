@@ -210,3 +210,25 @@ class SquareLineRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slrr : SquareLineRotRight = new SquareLineRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slrr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
