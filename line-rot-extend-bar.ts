@@ -210,3 +210,24 @@ class LineRotExtendBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lreb : LineRotExtendBar = new LineRotExtendBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lreb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lreb.startUpdating(() => {
+            this.animator.start(() => {
+                this.lreb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
