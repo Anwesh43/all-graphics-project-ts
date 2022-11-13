@@ -51,8 +51,8 @@ class DrawingUtil {
                     context.scale(1 - 2 * j, 1 - 2 * j)
                     DrawingUtil.drawXY(context, -size / 2, (h / 2) * dsc(3), () => {
                         DrawingUtil.drawXY(context, 0, 0, () => {
-                            context.rotate(-rot * dsc(1))
-                            DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
+                            context.rotate(rot * dsc(1))
+                            DrawingUtil.drawLine(context, 0, 0, 0, -size * 0.5 * dsc(0))
                         })
                         context.fillRect(0, -size * dsc(2), size / 2, size * dsc(2))
                     })
