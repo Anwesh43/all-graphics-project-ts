@@ -204,3 +204,25 @@ class ParallelLineToDrop {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pltd : ParallelLineToDrop = new ParallelLineToDrop()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pltd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.pltd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pltd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
