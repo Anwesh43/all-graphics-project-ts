@@ -209,3 +209,25 @@ class LineSqRotTaker {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsrt : LineSqRotTaker = new LineSqRotTaker()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsrt.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsrt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsrt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
