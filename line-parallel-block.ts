@@ -198,3 +198,25 @@ class LineParallelBlock {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpb : LineParallelBlock = new LineParallelBlock()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lpb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lpb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
