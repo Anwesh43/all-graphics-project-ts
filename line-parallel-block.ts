@@ -126,7 +126,7 @@ class Animator {
     
     start(cb : () => void) {
         if (!this.animated) {
-            this.animated = false 
+            this.animated = true 
             this.interval = setInterval(cb, delay)
         }
     }
