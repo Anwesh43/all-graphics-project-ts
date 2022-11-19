@@ -206,3 +206,25 @@ class LineCornerSquareRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lcsrd : LineCornerSquareRotDown = new LineCornerSquareRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lcsrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lcsrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lcsrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
