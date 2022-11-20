@@ -216,3 +216,24 @@ class LineBreakRotTriLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+    lbrtl : LineBreakRotTriLine = new LineBreakRotTriLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbrtl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbrtl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbrtl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
