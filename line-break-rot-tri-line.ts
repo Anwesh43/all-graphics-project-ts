@@ -46,7 +46,7 @@ class DrawingUtil {
     }
 
     static drawLineBreakRotTriLine(context : CanvasRenderingContext2D, scale : number) {
-        const size : number = Math.min(w, h) / strokeFactor 
+        const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2 + (w / 2 + size) * dsc(3), h / 2, () => {
             for (let j = 0; j < 2; j++) {
