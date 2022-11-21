@@ -181,7 +181,7 @@ class BVERNode {
 
 class BarVertExpandRot {
 
-    curr : BVERNode 
+    curr : BVERNode = new BVERNode(0)
     dir : number = 1
 
     draw(context : CanvasRenderingContext2D) {
