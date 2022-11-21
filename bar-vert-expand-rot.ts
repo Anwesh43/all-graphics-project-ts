@@ -196,3 +196,25 @@ class BarVertExpandRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bver : BarVertExpandRot = new BarVertExpandRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bver.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bver.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bver.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
