@@ -37,7 +37,7 @@ class DrawingUtil {
 
     static drawVertExpandRot(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
-        const barH : number = Math.min(w, h) / barHFactor 
+        const barH : number = size / barHFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(4), () => {
             context.rotate(rot * dsc(3))
