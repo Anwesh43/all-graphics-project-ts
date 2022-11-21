@@ -56,11 +56,12 @@ class DrawingUtil {
 
 class Stage {
 
-    canvas : HTMLCanvasElement 
+    canvas : HTMLCanvasElement
     context : CanvasRenderingContext2D | null 
     renderer : Renderer = new Renderer()
 
     initCanvas() {
+        this.canvas = document.createElement('canvas')
         this.canvas.width = w 
         this.canvas.height = h 
         this.context = this.canvas.getContext('2d')
