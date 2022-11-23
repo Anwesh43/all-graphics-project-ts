@@ -210,3 +210,25 @@ class RotRightToSquare {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rrts : RotRightToSquare = new RotRightToSquare()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rrts.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rrts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rrts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
