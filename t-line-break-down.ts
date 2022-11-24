@@ -187,3 +187,26 @@ class TLBDNode {
         return this 
     }
 }
+
+class TLineBreakDown {
+
+    curr : TLBDNode = new TLBDNode(0)
+    dir : number = 1
+
+    draw(context : CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb : () => void) {
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+    
+    startUpdating(cb : () => void) {
+        this.curr.startUpdating(cb)
+    }
+}
