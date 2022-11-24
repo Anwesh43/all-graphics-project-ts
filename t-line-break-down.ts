@@ -210,3 +210,26 @@ class TLineBreakDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    animator : Animator = new Animator()
+    tlbd : TLineBreakDown = new TLineBreakDown()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tlbd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.tlbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tlbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+
+}
