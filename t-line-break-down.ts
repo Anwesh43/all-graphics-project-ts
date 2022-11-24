@@ -145,3 +145,45 @@ class Animator {
         }
     }
 }
+
+class TLBDNode {
+
+    next : TLBDNode 
+    prev : TLBDNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new TLBDNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+    
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawTLBDNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : TLBDNode {
+        var curr : TLBDNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
