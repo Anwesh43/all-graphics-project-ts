@@ -207,3 +207,25 @@ class BreakLineDivideRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bldr : BreakLineDivideRot = new BreakLineDivideRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bldr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bldr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bldr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
