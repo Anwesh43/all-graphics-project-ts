@@ -49,7 +49,7 @@ class DrawingUtil {
     static drawBreakLineDivideRot(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, 0, () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 + size) * dsc(3), h / 2, 0, () => {
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, rot * (2 - j) * (1 - 2 * j) * dsc(j + 1), () => {
                     DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(0) * (1 - 2 * j))
