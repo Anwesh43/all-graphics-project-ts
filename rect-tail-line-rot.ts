@@ -207,3 +207,25 @@ class RectTailLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rtlr : RectTailLineRot = new RectTailLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rtlr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rtlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rtlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
