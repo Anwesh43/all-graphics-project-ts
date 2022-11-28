@@ -209,3 +209,25 @@ class JoinSlantLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    jsld : JoinSlantLineDown = new JoinSlantLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.jsld.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.jsld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.jsld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
