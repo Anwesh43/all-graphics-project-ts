@@ -25,3 +25,36 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+   
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawCircle(context : CanvasRenderingContext2D, x : number, y : number, r : number) {
+        context.beginPath()
+        context.arc(x, y, r, 0, 2 * Math.PI)
+        context.fill()
+    }
+
+    static drawCircleBarExtender(context : CanvasRenderingContext2D, scale : number) {
+        const barSize : number = Math.min(w, h) / barSizeFactor
+        const circleSize : number = Math.min(w, h) / circleSizeFactor 
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+            DrawingUtil.drawXY(context, -(w / 2 + circleSize) * (1 - dsc(0)), 0, () => {
+                DrawingUtil.drawCircle(context, 0, 0, circleSize)
+            })
+            context.fillRect(0, -circleSize / 2, barSize * dsc(1), circleSize)
+        })
+    }
+
+    static drawCBENode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawCircleBarExtender(context, scale)
+    }
+}
