@@ -148,7 +148,7 @@ class CBENode {
     state : State = new State()
 
     constructor(private i : number) {
-
+        this.addNeighbor()
     }
 
     addNeighbor() {
