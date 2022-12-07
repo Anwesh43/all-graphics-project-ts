@@ -45,7 +45,8 @@ class DrawingUtil {
         const barSize : number = Math.min(w, h) / barSizeFactor
         const circleSize : number = Math.min(w, h) / circleSizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + circleSize) * dsc(3), () => {
+            context.rotate(rot * dsc(2))
             DrawingUtil.drawXY(context, -(w / 2 + circleSize) * (1 - dsc(0)), 0, () => {
                 DrawingUtil.drawCircle(context, 0, 0, circleSize)
             })
