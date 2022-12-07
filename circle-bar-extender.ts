@@ -200,3 +200,25 @@ class CircleBarExtender {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    cbe : CircleBarExtender = new CircleBarExtender()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cbe.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.cbe.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cbe.update(() => {
+                    cb()
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
