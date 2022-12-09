@@ -206,3 +206,25 @@ class LinePerpRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lprr : LinePerpRotRight = new LinePerpRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lprr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lprr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lprr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
