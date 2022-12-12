@@ -198,3 +198,25 @@ class RotLineBarSide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlbs : RotLineBarSide = new RotLineBarSide()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rlbs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rlbs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlbs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
