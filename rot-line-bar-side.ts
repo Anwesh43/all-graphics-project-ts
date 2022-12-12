@@ -53,7 +53,7 @@ class DrawingUtil {
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
         context.fillStyle = colors[i]
-        DrawingUtil.drawRLBSNode(context, i, scale)
+        DrawingUtil.drawRotLineBarSide(context, scale)
     }
 }
 
