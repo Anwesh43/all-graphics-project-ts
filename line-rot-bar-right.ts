@@ -180,3 +180,26 @@ class LRBRNode  {
         return this 
     }
 }
+
+class LineRotBarRight {
+
+    currr : LRBRNode = new LRBRNode(0)
+    dir : number = 1
+
+    draw(context : CanvasRenderingContext2D) {
+        this.currr.draw(context)
+    }
+
+    update(cb : () => void) {
+        this.currr.update(() => {
+            this.currr = this.currr.getNext(this.dir, () => [
+                this.dir *=  -1
+            ])
+            cb()
+        })
+    }
+
+    startUpdating(cb : () => void) {
+        this.currr.startUpdating(cb)
+    }
+}
