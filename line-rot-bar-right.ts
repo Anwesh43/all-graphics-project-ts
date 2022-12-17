@@ -98,3 +98,24 @@ class Stage {
         stage.handleTap()
     }
 }
+
+class State {
+
+    scale : number = 0 
+    dir : number = 0 
+    prevScale : number = 0 
+
+    update(cb : () => void) {
+        if (this.scale == 0) {
+            this.scale = 1 - 2 * this.prevScale 
+            cb()
+        }
+    }
+
+    startUpdating(cb : () => void) {
+        if (this.dir == 0) {
+            this.dir = 1 - 2 * this.prevScale 
+            cb()
+        }
+    }
+}
