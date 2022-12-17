@@ -56,12 +56,14 @@ class DrawingUtil {
             })
             context.fillRect(0, -size / 2, size * dsc(2), size)
         })
+        console.log("SCALE", dsc(0), dsc(1), dsc(2), dsc(3))
     }
 
     static drawLRBRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawLineRotBarRight(context, scale)
     }
 }
