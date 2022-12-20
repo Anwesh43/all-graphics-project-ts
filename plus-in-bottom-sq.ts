@@ -211,3 +211,25 @@ class PlusInBottomSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pibs : PlusInBottomSq = new PlusInBottomSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.pibs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.pibs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pibs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
