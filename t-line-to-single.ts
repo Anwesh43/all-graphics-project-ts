@@ -213,3 +213,25 @@ class TLineToSingle {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tlts : TLineToSingle = new TLineToSingle()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tlts.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.tlts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tlts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
