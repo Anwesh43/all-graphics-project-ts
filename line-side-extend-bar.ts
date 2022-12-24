@@ -205,3 +205,25 @@ class LineSideExtendBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lseb : LineSideExtendBar = new LineSideExtendBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lseb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lseb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lseb.update(() => {
+                    cb()
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
