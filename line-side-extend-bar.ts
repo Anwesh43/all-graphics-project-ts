@@ -10,7 +10,7 @@ const parts : number = 5
 const scGap : number = 0.04 / parts 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
-const strokeFactor : number = 20 
+const strokeFactor : number = 70 
 const rot : number = Math.PI / 2
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
@@ -51,7 +51,7 @@ class DrawingUtil {
             DrawingUtil.drawXY(context, 0, -size / 2, () => {
                 DrawingUtil.drawLine(context, 0, 0, size * dsc(1), 0)
             })
-            context.fillRect(0, 0, size * 0.5 * dsc(2), size)
+            context.fillRect(0, 0, size * 0.5 * dsc(2), size / 2)
         })
     }
     
