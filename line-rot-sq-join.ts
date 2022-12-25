@@ -218,3 +218,25 @@ class LineRotSqJoin {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+    
+    lrsj : LineRotSqJoin = new LineRotSqJoin()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrsj.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrsj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrsj.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
