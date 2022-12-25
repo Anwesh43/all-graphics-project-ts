@@ -48,6 +48,7 @@ class DrawingUtil {
     static drawLineRotSqJoin(context : CanvasRenderingContext2D, scale : number) {
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         const size : number = Math.min(w, h) / sizeFactor 
+        console.log("SCALE", scale)
         DrawingUtil.drawXY(context, w / 2 + (w / 2 + size) * dsc(5), h / 2, () => {
             context.rotate(rot * dsc(4))
             for (let j = 0; j < 2; j++) {
