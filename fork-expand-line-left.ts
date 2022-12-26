@@ -214,3 +214,25 @@ class ForkExpandLineLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    fell : ForkExpandLineLeft = new ForkExpandLineLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.fell.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.fell.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.fell.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
