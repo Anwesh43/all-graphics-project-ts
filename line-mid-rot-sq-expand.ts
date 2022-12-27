@@ -209,3 +209,25 @@ class LineMidRotSqExpand {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lmrse : LineMidRotSqExpand = new LineMidRotSqExpand()
+    animator : Animator = new Animator()
+
+    draw(context : CanvasRenderingContext2D) {
+        this.lmrse.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lmrse.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lmrse.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
