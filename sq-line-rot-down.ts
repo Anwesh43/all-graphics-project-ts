@@ -209,3 +209,25 @@ class SqLineRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slrd : SqLineRotDown = new SqLineRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
