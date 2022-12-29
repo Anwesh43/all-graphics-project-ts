@@ -213,3 +213,25 @@ class SquareUpLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sulr : SquareUpLineRot = new SquareUpLineRot()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.sulr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sulr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sulr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
