@@ -66,7 +66,8 @@ class DrawingUtil {
     static drawDSERNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
         context.strokeStyle = colors[i]
-        context.lineWidth = Math.min(w, h) / sizeFactor 
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.fillStyle = colors[i] 
         DrawingUtil.drawDoubleSqExpandRot(context, scale)
     }
 }
