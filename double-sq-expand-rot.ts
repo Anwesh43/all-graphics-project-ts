@@ -128,7 +128,7 @@ class State {
     }
 }
 
-class Animaotor {
+class Animator {
 
     animated : boolean = false 
     interval : number 
@@ -210,5 +210,27 @@ class DoubleSqExpandRot {
 
     startUpdating(cb : () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    dser : DoubleSqExpandRot = new DoubleSqExpandRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dser.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.dser.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dser.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
