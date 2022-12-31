@@ -210,3 +210,25 @@ class LineSlantRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsr : LineSlantRight = new LineSlantRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
