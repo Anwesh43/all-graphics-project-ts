@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#D50000",
     "#43A047"
 ]
-const parts : number = 6
+const parts : number = 5
 const scGap : number = 0.05 / parts 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
@@ -62,8 +62,8 @@ class DrawingUtil {
     static drawLineRotArcDown(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2 + size) * dsc(5), () => {
-            context.rotate(rot * dsc(4))
+        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2 + 2 * size) * dsc(3), () => {
+            context.rotate(rot * dsc(3))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
                     context.rotate(deg * rad * dsc(1) * j)
