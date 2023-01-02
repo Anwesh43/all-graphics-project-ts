@@ -15,7 +15,7 @@ const strokeFactor : number = 90
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 const deg : number = 270
-const start : number = 180 
+const start : number = 270 
 const rad : number = Math.PI / 180 
 
 class ScaleUtil {
@@ -70,8 +70,8 @@ class DrawingUtil {
                     DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
                 })
             }
-            DrawingUtil.drawArc(context, 0, 0, size / 5, start, deg * dsc(2))
-            context.fillRect(-size * dsc(3), 0, size * dsc(3), size)
+            DrawingUtil.drawArc(context, 0, 0, size / 5, start, deg * dsc(1))
+            context.fillRect(-size * dsc(3), 0, size * dsc(2), size)
         })
     }
     
