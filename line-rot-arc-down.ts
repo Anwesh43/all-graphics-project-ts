@@ -226,3 +226,24 @@ class LineRotArcDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrad : LineRotArcDown = new LineRotArcDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrad.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrad.startUpdating(() => {
+            this.animator.start(() => {
+                this.lrad.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
