@@ -71,7 +71,7 @@ class DrawingUtil {
                 })
             }
             DrawingUtil.drawArc(context, 0, 0, size / 5, start, deg * dsc(1))
-            context.fillRect(-size * dsc(3), 0, size * dsc(2), size)
+            context.fillRect(-size * dsc(2), -size, size * dsc(2), size)
         })
     }
     
