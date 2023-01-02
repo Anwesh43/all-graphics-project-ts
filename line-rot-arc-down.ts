@@ -5,11 +5,11 @@ const colors : Array<string> = [
     "#D50000",
     "#43A047"
 ]
-const parts : number = 5
-const scGap : number = 0.04 / parts 
+const parts : number = 6
+const scGap : number = 0.05 / parts 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
-const rot : number = -Math.PI / 4
+const rot : number = -3 * Math.PI / 4
 const sizeFactor : number = 4.9 
 const strokeFactor : number = 90 
 const w : number = window.innerWidth 
