@@ -220,3 +220,25 @@ class LineHalfCircRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lhcr : LineHalfCircRight = new LineHalfCircRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lhcr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lhcr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lhcr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
