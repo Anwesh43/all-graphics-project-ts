@@ -63,10 +63,10 @@ class DrawingUtil {
     static drawLineHalfCircRight(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), h / 2, () => {
             context.rotate(rot * dsc(2))
             DrawingUtil.drawLine(context, -size * 0.5 * dsc(0), 0, size * 0.5 * dsc(0), 0)
-            DrawingUtil.drawArc(context, 0, 0, size / 2, 180, 180)
+            DrawingUtil.drawArc(context, 0, 0, size / 2, 180, 180 * dsc(1))
         }) 
     }
 
