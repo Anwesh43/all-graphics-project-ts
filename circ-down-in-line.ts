@@ -216,3 +216,25 @@ class CircDownInLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    cdil : CircDownInLine = new CircDownInLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cdil.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.cdil.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cdil.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
