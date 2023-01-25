@@ -213,3 +213,25 @@ class CircleLineBarRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    clbr : CircleLineBarRot = new CircleLineBarRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.clbr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.clbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.clbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
