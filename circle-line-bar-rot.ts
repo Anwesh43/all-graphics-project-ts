@@ -187,9 +187,13 @@ class CLBRNode {
     
     getNext(dir : number, cb : () => void) : CLBRNode {
         var curr : CLBRNode = this.prev 
+        if (dir == 1) {
+            curr = this.next
+        }
         if (curr) {
             return curr 
         }
+
         cb()
         return this 
     }
