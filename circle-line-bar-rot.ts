@@ -61,7 +61,7 @@ class DrawingUtil {
             DrawingUtil.drawCircle(context, 0, 0, r * dsc(0))
             DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(1)), 0, () => {
                 DrawingUtil.drawLine(context, 0, 0, size, 0)
-                context.fillRect(-size * 0.5, -size * 0.5 * dsc(2), size, size * dsc(2))
+                context.fillRect(0, -size * 0.5 * dsc(2), size, size * dsc(2))
             })
         })
     }
