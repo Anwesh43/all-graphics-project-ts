@@ -210,3 +210,25 @@ class BlockMidRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bmru : BlockMidRotUp = new BlockMidRotUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bmru.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bmru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bmru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
