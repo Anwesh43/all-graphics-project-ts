@@ -209,3 +209,25 @@ class LineSlantBlockDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsbd : LineSlantBlockDown = new LineSlantBlockDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsbd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
