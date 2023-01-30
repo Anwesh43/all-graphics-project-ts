@@ -211,3 +211,25 @@ class SlantLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sld : SlantLineDown = new SlantLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sld.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
