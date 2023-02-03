@@ -196,3 +196,25 @@ class SquareBiSideMover {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    animator : Animator = new Animator()
+    sbsm : SquareBiSideMover = new SquareBiSideMover()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sbsm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sbsm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sbsm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
