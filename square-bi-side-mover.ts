@@ -50,7 +50,8 @@ class DrawingUtil {
     }
 
     static drawSBSMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
-        context.fillStyle = backColor 
+        console.log("SCALE", scale)
+        context.fillStyle = colors[i] 
         DrawingUtil.drawSquareBiSideMover(context, scale)
     } 
 }
