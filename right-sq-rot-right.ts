@@ -51,9 +51,9 @@ class DrawingUtil {
         const startX : number = w / 2
         const startY : number = h / 2 - size 
         DrawingUtil.drawXY(context, startX, startY, () => {
-            DrawingUtil.drawLine(context, (w / 2 + size / 2) * (1 - dsc(1)), 0, (w / 2 + size / 2) * (1 - dsc(0)), 0)
+            DrawingUtil.drawLine(context, -(w / 2 + size / 2) * (1 - dsc(1)), 0, -(w / 2 + size / 2) * (1 - dsc(0)), 0)
             DrawingUtil.drawLine(context, 0, size * dsc(2), 0, size * dsc(1))
-            DrawingUtil.drawLine(context, (w / 2) * dsc(4), 0, (w / 2) * dsc(3), 0)
+            DrawingUtil.drawLine(context, (w / 2) * dsc(4), size, (w / 2) * dsc(3), size)
         })
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), h / 2, () => {
             context.rotate(rot * dsc(2))
