@@ -215,3 +215,24 @@ class DiagLineBlock {
     }
 }
 
+class Renderer {
+
+    dlb : DiagLineBlock = new DiagLineBlock()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dlb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.dlb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
