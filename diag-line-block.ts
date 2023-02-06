@@ -214,3 +214,4 @@ class DiagLineBlock {
         this.curr.startUpdating(cb)
     }
 }
+
