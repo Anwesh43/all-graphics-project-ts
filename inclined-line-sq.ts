@@ -213,3 +213,25 @@ class InclinedLineSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ils : InclinedLineSq = new InclinedLineSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ils.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ils.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ils.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
