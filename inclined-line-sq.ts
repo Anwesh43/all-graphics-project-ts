@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#D50000",
     "#43A047"
 ]
-const parts : number = 4
+const parts : number = 6
 const scGap : number = 0.04 / parts 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
@@ -54,7 +54,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2 - (w / 2 + size) * dsc(5), h / 2, () => {
             DrawingUtil.drawXY(context, 0, 0, () => {
                 context.rotate(-rot * (1 - dsc(4)))
-                DrawingUtil.drawLine(context, 0, 0, size, 0)
+                DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
             })
             DrawingUtil.drawXY(context, a * Math.cos(rot), -a * Math.sin(rot), () => {
                 context.rotate(rot * (1 - dsc(3)))
