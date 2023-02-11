@@ -24,3 +24,28 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+interface Dimension {
+    w : number, 
+    h : number
+}
+
+class DimensionController {
+
+    private static w : number = window.innerWidth
+    private static h : number = window.innerHeight 
+    
+    static handleResize() {
+        window.onresize = () => {
+            DimensionController.w = window.innerWidth 
+            DimensionController.h = window.innerHeight 
+        }
+    }
+
+    static getDimension() : Dimension {
+        return {
+            w : DimensionController.w, 
+            h : DimensionController.h
+        }
+    }
+}
