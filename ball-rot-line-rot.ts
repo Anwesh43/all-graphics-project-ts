@@ -246,3 +246,25 @@ class BallRotLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    brl : BallRotLineRot = new BallRotLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.brl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.brl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
