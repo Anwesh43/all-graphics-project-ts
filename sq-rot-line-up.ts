@@ -48,12 +48,12 @@ class DrawingUtil {
     static drawSqRotLineUp(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2 + size) * dsc(3), () => {
             DrawingUtil.drawXY(context, - w / 2 + (w / 2) * dsc(0), 0, () => {
                 context.rotate(deg * dsc(1))
                 context.fillRect(-size, -size, size, size)
             })
-            DrawingUtil.drawXY(context, 0, h / 2 - (h / 2) * dsc(2), () => {
+            DrawingUtil.drawXY(context, size / 2, h / 2 - (h / 2) * dsc(2), () => {
                 DrawingUtil.drawLine(context, 0, 0, 0, size)
             })
         })
