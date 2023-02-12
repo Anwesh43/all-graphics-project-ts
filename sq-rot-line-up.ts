@@ -209,3 +209,25 @@ class SRLUNode {
         this.curr.startUpdating(cb)
     }
  }
+
+ class Renderer {
+
+    srlu : SqRotLineUp = new SqRotLineUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.srlu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.srlu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.srlu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+ }
