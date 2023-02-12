@@ -161,7 +161,7 @@ class SRLUNode {
 
     addNeighbor() {
         if (this.i < colors.length - 1) {
-            this.next = new SRLUNode(this.i )
+            this.next = new SRLUNode(this.i + 1)
             this.next.prev = this 
         }
     }
