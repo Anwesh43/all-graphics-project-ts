@@ -23,6 +23,45 @@ class ScaleUtil {
 
     static divideScale(scale : number, i : number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }   
+}
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
     }
-    
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawRightMidRotLine(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) : number =>
+            ScaleUtil.divideScale(scale, i, parts)
+        
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3) , () => {
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, 0, 0, () => {
+                    context.rotate((2 * Math.PI - rot) * dsc(1) * j)
+                    DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
+                })
+            }
+            DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(2))
+        })
+    }
+
+    static drawRMRLNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawRightMidRotLine(context, scale)
+    }
 }
