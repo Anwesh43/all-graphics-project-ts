@@ -54,7 +54,7 @@ class DrawingUtil {
                     DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
                 })
             }
-            DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(2))
+            DrawingUtil.drawLine(context, size / 2, 0, size / 2, size * dsc(2))
         })
     }
 
