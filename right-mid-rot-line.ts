@@ -207,3 +207,25 @@ class RightMidRotLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rmrl : RightMidRotLine = new RightMidRotLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rmrl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rmrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rmrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
