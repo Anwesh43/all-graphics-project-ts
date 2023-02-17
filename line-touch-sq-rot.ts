@@ -204,3 +204,25 @@ class LineTouchSqRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ltsr : LineTouchSqRot = new LineTouchSqRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ltsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ltsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ltsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
