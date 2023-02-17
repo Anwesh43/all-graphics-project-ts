@@ -115,7 +115,7 @@ class State {
         }
     }
 
-    startupdating(cb : () => void) {
+    startUpdating(cb : () => void) {
         if (this.dir == 0) {
             this.dir = 1 - 2 * this.prevScale 
             cb() 
@@ -140,5 +140,44 @@ class Animator {
             this.animated = false 
             clearInterval(this.interval)
         }
+    }
+}
+
+class LTSRNode {
+
+    prev : LTSRNode 
+    next : LTSRNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawLTSRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : LTSRNode {
+        var curr : LTSRNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
     }
 }
