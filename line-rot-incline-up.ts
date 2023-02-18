@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawLineRotInclineUp(context : CanvasRenderingContext2D, scale : number) {
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         const size : number = Math.min(w, h) / sizeFactor 
-        DrawingUtil.drawXY(context, w / 2, h / 2  * (1 - dsc(3)), () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2  * (1 - dsc(2)), () => {
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, -size * Math.cos(rot) * (1 - 2 * j), 0, () => {
                     context.rotate(rot * dsc(1) * (1 - 2 * j))   
