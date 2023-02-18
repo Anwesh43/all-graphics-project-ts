@@ -207,3 +207,25 @@ class LineRotInclineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lriu : LineRotInclineUp = new LineRotInclineUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lriu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lriu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lriu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
