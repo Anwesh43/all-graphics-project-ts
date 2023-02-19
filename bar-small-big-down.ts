@@ -197,3 +197,25 @@ class BarSmallBigDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsbd : BarSmallBigDown = new BarSmallBigDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsbd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bsbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
