@@ -14,6 +14,7 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
+const sqSizeFactor : number = 3.2
 
 class ScaleUtil {
 
@@ -41,7 +42,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3), () => {   
             DrawingUtil.drawXY(context, -w / 2 + (w / 2) * dsc(0), 0, () => {
                 context.rotate(rot * dsc(2))
-                context.fillRect(-size / 4, -size / 4, size / 4, size / 4)
+                context.fillRect(-size / sqSizeFactor, -size / sqSizeFactor, size / sqSizeFactor, size / sqSizeFactor)
             })
             DrawingUtil.drawXY(context, w / 2 * (1 - dsc(0)), 0, () => {
                 context.rotate(rot * dsc(1))
