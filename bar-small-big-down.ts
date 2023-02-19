@@ -14,3 +14,4 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
+
