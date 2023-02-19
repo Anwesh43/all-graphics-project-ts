@@ -14,7 +14,7 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const sqSizeFactor : number = 3.2
+const sqSizeFactor : number = 2.3
 
 class ScaleUtil {
 
