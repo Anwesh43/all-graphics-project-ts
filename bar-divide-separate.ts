@@ -25,3 +25,33 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawBarDivideSeparate(context : CanvasRenderingContext2D, scale : number) {
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        DrawingUtil.drawXY(context, w * 0.5 * dsc(1), size / 2 + (h / 2 - size / 2) * dsc(1) , () => {
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, 0, 0, () => {
+                    context.scale(1, 1 - 2 * j)
+                    context.rotate(rot * dsc(2))
+                    context.fillRect(0, h * 0.5 * dsc(3), size * dsc(0), size / 2)
+                })
+            }
+            
+        })
+    }
+
+    static drawBDSNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBarDivideSeparate(context, scale)
+    }
+}
