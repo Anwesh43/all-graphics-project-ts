@@ -197,3 +197,25 @@ class BarDivideSeparate {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bds : BarDivideSeparate = new BarDivideSeparate()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bds.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bds.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bds.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
