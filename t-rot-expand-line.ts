@@ -208,3 +208,25 @@ class TRotExpandLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    trel : TRotExpandLine = new TRotExpandLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.trel.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.trel.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.trel.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
