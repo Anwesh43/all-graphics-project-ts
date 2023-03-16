@@ -53,6 +53,7 @@ class DrawingUtil {
                 const totalRot : number = (j >  0 ? rot * dsc(1) : 0) + (j > 1 ? rot * dsc(2) : 0)
                 DrawingUtil.drawXY(context, 0, 0, () => {
                     context.rotate(totalRot)
+                    DrawingUtil.drawLine(context, 0, 0, 0, size)
                 })
             }
         })
