@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawRotMultiLine(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2 -(h / 2 + size / 2) * (1 - dsc(0)) + (h / 2) * dsc(3), () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 -( h / 2 + size) * (1 - dsc(0)) + (h / 2) * dsc(3), () => {
             for (let j = 0; j <= 2; j++) {
                 const totalRot : number = (j >  0 ? rot * dsc(1) : 0) + (j > 1 ? rot * dsc(2) : 0)
                 DrawingUtil.drawXY(context, 0, 0, () => {
