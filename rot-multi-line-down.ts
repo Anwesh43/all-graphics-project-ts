@@ -207,3 +207,25 @@ class RotMultiLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rml : RotMultiLine = new RotMultiLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rml.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rml.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rml.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
