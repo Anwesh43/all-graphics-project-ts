@@ -46,11 +46,11 @@ class DrawingUtil {
         context.restore()
     }
 
-    static drawAllBarToMid(context : CanvasRenderingContext2D, scale : number) {
+    static drawAllBarToMid(context : CanvasRenderingContext2D, scale : number, dir : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const barH : number = Math.min(w, h) / hBarFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3), () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3) * dir, () => {
             context.rotate(rot * dsc(2))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
@@ -63,7 +63,7 @@ class DrawingUtil {
 
     static drawABTMNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.fillStyle = colors[i]
-        DrawingUtil.drawAllBarToMid(context, scale)
+        DrawingUtil.drawAllBarToMid(context, scale, 1 - 2 * (i % 2))
     }
 }
 
