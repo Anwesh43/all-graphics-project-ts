@@ -187,7 +187,7 @@ class ABTMNode {
     }
 }
 
-class AllBarToMid {
+class AltBarToMid {
 
     curr : ABTMNode = new ABTMNode(0)
     dir : number = 1
@@ -207,5 +207,26 @@ class AllBarToMid {
 
     startUpdating(cb : () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+    abtm : AltBarToMid = new AltBarToMid()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.abtm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.abtm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.abtm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
