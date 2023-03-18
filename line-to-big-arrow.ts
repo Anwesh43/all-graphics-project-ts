@@ -208,3 +208,25 @@ class LineToBigArrow {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbta : LineToBigArrow = new LineToBigArrow()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbta.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbta.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbta.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+ }
