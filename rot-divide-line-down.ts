@@ -50,8 +50,10 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3), () => {
             for (let j = 0; j < 2; j++) {
-                context.rotate((rot / (j + 1)) * (2 * j - 1) * dsc(j + 1))
-                DrawingUtil.drawLine(context, 0, 0, -size * dsc(0), 0)
+                DrawingUtil.drawXY(context, 0, 0, () => {
+                    context.rotate((rot / (j + 1)) * (2 * j - 1) * dsc(j + 1))
+                    DrawingUtil.drawLine(context, 0, 0, -size * dsc(0), 0)
+                })
             }
         })
     }
