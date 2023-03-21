@@ -45,10 +45,8 @@ class DrawingUtil {
         })
     }
 
-    static drawSLDRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
-        context.lineCap = 'round'
-        context.lineWidth = Math.min(w, h) / strokeFactor 
-        context.strokeStyle = colors[i]
+    static drawSLDRNode(context : CanvasRenderingContext2D, i : number, scale : number) { 
+        context.fillStyle = colors[i]
         DrawingUtil.drawSquareLeftDown(context, scale)
     }
 }
