@@ -193,3 +193,25 @@ class SquareLeftDownRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sldr : SquareLeftDownRot = new SquareLeftDownRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sldr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sldr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sldr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
