@@ -37,6 +37,7 @@ class DrawingUtil {
 
     static drawSquareLeftDown(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
+        console.log("SCALE", scale)
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2 + (w / 2 - size) * dsc(2), h / 2 + (h / 2) * dsc(1), () => {
             context.rotate(-rot * dsc(3))
