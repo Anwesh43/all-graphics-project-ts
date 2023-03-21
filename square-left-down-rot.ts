@@ -44,7 +44,7 @@ class DrawingUtil {
         })
     }
 
-    static drawSLDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+    static drawSLDRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
@@ -126,5 +126,47 @@ class Animator {
             this.animated = false 
             clearInterval(this.interval)
         }
+    }
+}
+
+class SLDRNode {
+
+    prev : SLDRNode 
+    next : SLDRNode 
+    state : State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new SLDRNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawSLDRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : SLDRNode {
+        var curr : SLDRNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
     }
 }
