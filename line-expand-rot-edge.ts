@@ -203,3 +203,25 @@ class LineExpandRotEdge {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lere : LineExpandRotEdge = new LineExpandRotEdge()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lere.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lere.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lere.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
