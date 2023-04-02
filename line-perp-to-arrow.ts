@@ -112,7 +112,7 @@ class State {
 
     scale : number = 0 
     dir : number = 0 
-    prevScale : number 
+    prevScale : number = 0
 
     update(cb : () => void) {
         this.scale += scGap * this.dir 
