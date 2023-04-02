@@ -189,7 +189,7 @@ class LPTANode {
     }
 }
 
-class LinePeropToArrow {
+class LinePerpToArrow {
 
     curr : LPTANode = new LPTANode(0)
     dir : number = 1
@@ -209,5 +209,26 @@ class LinePeropToArrow {
 
     startUpdating(cb : () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    lpta : LinePerpToArrow = new LinePerpToArrow()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lpta.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lpta.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpta.startUpdating(() => {
+                    this.animator.stop()
+                })
+            })
+        })
     }
 }
