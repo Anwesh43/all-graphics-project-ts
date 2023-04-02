@@ -230,8 +230,9 @@ class Renderer {
         this.lpta.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.lpta.startUpdating(() => {
+                this.lpta.update(() => {
                     this.animator.stop()
+                    cb()
                 })
             })
         })
