@@ -49,6 +49,7 @@ class DrawingUtil {
     static drawLinePerpToArrow(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        console.log("SCALE", scale)
         DrawingUtil.drawXY(context, w / 2 - (w / 2 + size) * dsc(3), h / 2, () => {
             context.rotate(deg * dsc(2))
             DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(0)), 0, () => {
