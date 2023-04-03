@@ -61,7 +61,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3), () => {
             DrawingUtil.drawXY(context, 0, 0, () => {
                 context.globalAlpha = 1 - alphaDec * dsc(1)
-                DrawingUtil.drawCircle(context, 0, 0, size * dsc(1))
+                DrawingUtil.drawCircle(context, 0, 0, size * dsc(0))
             })
             DrawingUtil.drawXY(context, 0, 0, () => {
                 context.globalAlpha = 1
