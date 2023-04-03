@@ -37,7 +37,7 @@ class DrawingUtil {
     static drawStrokeCircle(context : CanvasRenderingContext2D, cx : number, cy : number, r : number, deg : number) {
         context.beginPath()
         for (let j = 0; j <= deg; j++) {
-            const x : number = cx + r * Math.cos(j * deg * Math.PI / 180)
+            const x : number = cx + r * Math.cos(j * Math.PI / 180)
             const y : number = cy + r * Math.sin(j * Math.PI / 180)
             if (j == 0) {
                 context.moveTo(x, y)
