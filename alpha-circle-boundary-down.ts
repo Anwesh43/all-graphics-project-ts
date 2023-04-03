@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts : number = 4
+const parts : number = 2 * 4
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90
 const sizeFactor : number = 4.9 
@@ -57,7 +57,7 @@ class DrawingUtil {
 
     static drawAlphaCircleBoundaryDown(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor
-        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i * 2, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3), () => {
             DrawingUtil.drawXY(context, 0, 0, () => {
                 context.globalAlpha = 1 - alphaDec * dsc(1)
