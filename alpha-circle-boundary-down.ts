@@ -25,3 +25,56 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawCircle(context : CanvasRenderingContext2D, x : number, y : number, r : number) {
+        context.beginPath()
+        context.arc(x, y, r, 0, 2 * Math.PI)
+        context.fill()
+    }
+
+    static drawStrokeCircle(context : CanvasRenderingContext2D, cx : number, cy : number, r : number, deg : number) {
+        context.beginPath()
+        for (let j = 0; j <= deg; j++) {
+            const x : number = cx + r * Math.cos(j * deg * Math.PI / 180)
+            const y : number = cy + r * Math.sin(j * Math.PI / 180)
+            if (j == 0) {
+                context.moveTo(x, y)
+            } else {
+                context.lineTo(x, y)
+            }
+        }
+        context.stroke()
+    }
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawAlphaCircleBoundaryDown(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+            DrawingUtil.drawXY(context, 0, 0, () => {
+                context.globalAlpha = 1 - alphaDec * dsc(1)
+                DrawingUtil.drawCircle(context, 0, 0, size * dsc(1))
+            })
+            DrawingUtil.drawXY(context, 0, 0, () => {
+                context.globalAlpha = 1
+                DrawingUtil.drawStrokeCircle(context, 0, 0, size, 360 * dsc(2))
+            })
+        })       
+    }
+
+    static drawACBDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        DrawingUtil.drawAlphaCircleBoundaryDown(context, scale)
+    }
+}
