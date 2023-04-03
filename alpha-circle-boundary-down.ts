@@ -220,3 +220,25 @@ class AlphaCircleBoundaryDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    acbd : AlphaCircleBoundaryDown = new AlphaCircleBoundaryDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.acbd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.acbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.acbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
