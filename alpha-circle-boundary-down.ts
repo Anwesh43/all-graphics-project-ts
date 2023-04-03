@@ -10,7 +10,7 @@ const scGap : number = 0.04 / parts
 const strokeFactor : number = 90
 const sizeFactor : number = 4.9 
 const delay : number = 20 
-const backcolor : string = "#BDBDBD"
+const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 const alphaDec : number = 0.6
@@ -76,5 +76,38 @@ class DrawingUtil {
         context.fillStyle = colors[i]
         context.lineWidth = Math.min(w, h) / strokeFactor 
         DrawingUtil.drawAlphaCircleBoundaryDown(context, scale)
+    }
+}
+
+class Stage {
+
+    canvas : HTMLCanvasElement = document.createElement('canvas')
+    context : CanvasRenderingContext2D | null 
+
+    initCanvas() {
+        this.canvas.width = w 
+        this.canvas.height = h 
+        this.context = this.canvas.getContext('2d')
+        document.body.appendChild(this.canvas)
+    }
+
+    render() {
+        if (this.context) {
+            this.context.fillStyle = backColor 
+            this.context.fillRect(0, 0, w, h)
+        }
+    }
+
+    handleTap() {
+        this.canvas.onmousedown = () => {
+
+        }
+    }
+
+    static init() {
+        const stage : Stage = new Stage()
+        stage.initCanvas()
+        stage.render()
+        stage.handleTap()
     }
 }
