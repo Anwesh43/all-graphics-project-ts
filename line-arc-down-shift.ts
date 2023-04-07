@@ -121,7 +121,7 @@ class Stage {
 class State {
 
     scale : number = 0 
-    dir : number = 0 
+    dir : number = 1
     prevScale : number = 0 
 
     update(cb : () => void) {
