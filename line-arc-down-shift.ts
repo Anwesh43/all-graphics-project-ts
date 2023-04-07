@@ -225,7 +225,7 @@ class LineArcDownShift {
     }
 
     startUpdating(cb : () => void) {
-        this.startUpdating(cb)
+        this.curr.startUpdating(cb)
     }
 }
 
