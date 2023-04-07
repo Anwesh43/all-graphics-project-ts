@@ -224,3 +224,25 @@ class LineArcDownShift {
         this.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lads : LineArcDownShift = new LineArcDownShift()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lads.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lads.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lads.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
