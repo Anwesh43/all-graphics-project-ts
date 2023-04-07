@@ -195,7 +195,7 @@ class LADSNode {
     getNext(dir : number, cb : () => void) : LADSNode {
         var curr : LADSNode = this.prev 
         if (dir == 1) {
-            curr = this.prev 
+            curr = this.next 
         }
         if (curr) {
             return curr 
