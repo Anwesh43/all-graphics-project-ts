@@ -62,14 +62,14 @@ class DrawingUtil {
     static drawLineArcDownShift(context : CanvasRenderingContext2D, scale : number) {
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         const size : number = Math.min(w, h) / sizeFactor 
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(4), () => {
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, (size / 2) * (1 - j) * dsc(3), 0, () => {
                    context.rotate(rot * dsc(1) * j)
                    DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
                 })
             }
-            DrawingUtil.drawArc(context, size / 2, 0, size / 2, 180 * dsc(1))
+            DrawingUtil.drawArc(context, size / 2, 0, size / 2, 180 * dsc(2))
         }) 
     }
 
