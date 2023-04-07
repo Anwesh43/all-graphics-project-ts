@@ -121,7 +121,7 @@ class Stage {
 class State {
 
     scale : number = 0 
-    dir : number = 1
+    dir : number = 0
     prevScale : number = 0 
 
     update(cb : () => void) {
@@ -137,8 +137,6 @@ class State {
     startUpdating(cb : () => void) {
         if (this.dir == 0) {
             this.dir = 1 - 2 * this.prevScale 
-            this.scale = 0
-            this.prevScale = this.scale 
             cb()
         }
     }
