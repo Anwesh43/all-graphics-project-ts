@@ -25,3 +25,58 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return 
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawArc(context : CanvasRenderingContext2D, cx : number, cy : number, r : number, deg : number) {
+        context.beginPath()
+        for (let i = 0; i <= deg; i++) {
+            const x : number = cx + r * Math.cos(i *  Math.PI / 180)
+            const y : number = cy + r * Math.sin(i * Math.PI / 180)
+            if (i == 0) {
+                context.moveTo(x, y)
+            } else {
+                context.lineTo(x, y)
+            }
+        }
+        context.stroke()
+    }
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLineArcDownShift(context : CanvasRenderingContext2D, scale : number) {
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, (size / 2) * (1 - j) * dsc(3), 0, () => {
+                   context.rotate(rot * dsc(1) * j)
+                   DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
+                })
+            }
+            DrawingUtil.drawArc(context, size / 2, 0, size / 2, 180 * dsc(1))
+        }) 
+    }
+
+    static drawLADSNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawLineArcDownShift(context, scale)
+    }
+}
