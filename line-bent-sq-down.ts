@@ -207,3 +207,25 @@ class LineBentSqDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbsd : LineBentSqDown = new LineBentSqDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbsd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
