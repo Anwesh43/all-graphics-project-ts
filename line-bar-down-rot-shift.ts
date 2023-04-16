@@ -49,7 +49,7 @@ class DrawingUtil {
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
         const size : number = Math.min(w, h) / sizeFactor
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), h / 2, () => {
-            context.rotate(rot * dsc(2))
+            context.rotate(-rot * dsc(2))
             DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, size / 2, 0, () => {
@@ -66,6 +66,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawLineBarDownRotShift(context, scale)
     }
 }
