@@ -207,3 +207,25 @@ class LineRotShiftLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrsl : LineRotShiftLine = new LineRotShiftLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrsl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
