@@ -207,3 +207,25 @@ class LineSqShiftRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lssr : LineSqShiftRot = new LineSqShiftRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lssr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lssr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lssr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
