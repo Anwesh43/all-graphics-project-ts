@@ -210,3 +210,25 @@ class BreakBarLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bbld : BreakBarLineDown = new BreakBarLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bbld.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bbld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bbld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
