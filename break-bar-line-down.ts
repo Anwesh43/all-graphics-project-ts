@@ -11,7 +11,7 @@ const strokeFactor : number = 90
 const sizeFactor : number = 4.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
-const rot : number = Math.PI / 4 
+const rot : number = Math.PI / 6
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawBreakBarLineDown(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3), () => {
             DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
