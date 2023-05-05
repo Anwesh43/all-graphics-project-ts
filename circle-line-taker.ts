@@ -212,3 +212,25 @@ class CircleLineTaker {
         this.clt.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    clt : CircleLineTaker = new CircleLineTaker()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.clt.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.clt.startUpdating(() => {
+            this.animator.start(() =>{
+                cb()
+                this.clt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
