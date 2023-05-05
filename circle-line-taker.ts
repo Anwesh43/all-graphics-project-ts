@@ -189,3 +189,26 @@ class CLTNode {
         return this 
     }
 }
+
+class CircleLineTaker {
+
+    clt : CLTNode = new CLTNode(0)
+    dir : number = 1
+
+    draw(context : CanvasRenderingContext2D) {
+        this.clt.draw(context)
+    }
+
+    update(cb : () => void) {
+        this.clt.update(() => {
+            this.clt = this.clt.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+
+    startUpdating(cb : () => void) {
+        this.clt.startUpdating(cb)
+    }
+}
