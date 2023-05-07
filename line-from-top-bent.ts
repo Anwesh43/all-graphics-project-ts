@@ -203,3 +203,25 @@ class LineFromTopBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lftb  : LineFromTopBent = new LineFromTopBent()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lftb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lftb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lftb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
