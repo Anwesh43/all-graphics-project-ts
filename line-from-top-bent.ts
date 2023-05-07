@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawLineFromTopBent(context : CanvasRenderingContext2D, scale : number) {
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts) 
         const size : number = Math.min(w, h) / sizeFactor 
-        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), -h / 2 + (h / 2) * dsc(1), () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), (h / 2) * dsc(1), () => {
             context.rotate(rot * dsc(2))
             DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(0))
         })
