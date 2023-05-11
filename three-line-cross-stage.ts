@@ -51,7 +51,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
             for (let j = 0; j < 3; j++) {
                 DrawingUtil.drawXY(context, -size / 2 - (w / 2 + size / 2) * dsc(4 - j), -size / 2 + size * 0.5 * j, () => {
-                    context.rotate(rot * 0.5 * dsc(1))
+                    context.rotate(rot * 0.25 * dsc(1))
                     DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
                 })
             }
