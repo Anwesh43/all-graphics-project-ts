@@ -207,3 +207,25 @@ class ThreeLineCrossStage {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tlc : ThreeLineCrossStage = new ThreeLineCrossStage()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tlc.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.tlc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tlc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
