@@ -207,3 +207,25 @@ class LineBarRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbrr : LineBarRotRight = new LineBarRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbrr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
