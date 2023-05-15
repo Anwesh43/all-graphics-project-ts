@@ -207,3 +207,25 @@ class RotLineToCorner {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rtlc : RotLineToCorner = new RotLineToCorner()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rtlc.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rtlc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rtlc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
