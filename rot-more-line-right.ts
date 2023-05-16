@@ -45,7 +45,7 @@ class DrawingUtil {
         context.restore()
     }
 
-    static drawLineBarRotRight(context : CanvasRenderingContext2D, scale : number) {
+    static drawRotMoreLineRight(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), h / 2, () => {
@@ -65,7 +65,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
-        DrawingUtil.drawLineBarRotRight(context, scale)
+        DrawingUtil.drawRotMoreLineRight(context, scale)
     }
 }
 
@@ -142,5 +142,47 @@ class Animator {
             this.animated = false 
             clearInterval(this.interval)
         }
+    }
+}
+
+class RMLRNode {
+
+    prev : RMLRNode 
+    next : RMLRNode
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new RMLRNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawRMLRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : RMLRNode {
+        var curr : RMLRNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
     }
 }
