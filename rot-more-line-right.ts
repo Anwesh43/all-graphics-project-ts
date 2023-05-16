@@ -209,3 +209,25 @@ class RotMoreLineRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rmlr : RotMoreLineRight = new RotMoreLineRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rmlr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rmlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rmlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
