@@ -46,7 +46,7 @@ class DrawingUtil {
         context.stroke()
     }
 
-    static drawArrowSplitDown(context : CanvasRenderingContext2D, scale : number) {
+    static drawArrowSplitLineDown(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(4), () => {
@@ -68,7 +68,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
-        DrawingUtil.drawArrowSplitDown(context, scale)
+        DrawingUtil.drawArrowSplitLineDown(context, scale)
     }
 }
 
@@ -146,5 +146,47 @@ class Animator {
             this.animated = false 
             clearInterval(this.interval)
         }
+    }
+}
+
+class ASLDNode {
+
+    prev : ASLDNode 
+    next : ASLDNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i  < colors.length - 1) {
+            this.next = new ASLDNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawASLDNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : ASLDNode {
+        var curr : ASLDNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
     }
 }
