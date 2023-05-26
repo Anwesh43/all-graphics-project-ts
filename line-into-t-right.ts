@@ -206,3 +206,25 @@ class LineIntoTRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    litr : LineIntoTRight = new LineIntoTRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.litr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.litr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.litr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
