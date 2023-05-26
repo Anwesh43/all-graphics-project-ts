@@ -156,7 +156,10 @@ class LITRNode {
     state : State = new State()
 
     addNeighbor() {
-
+        if (this.i < colors.length - 1) {
+            this.next = new LITRNode(this.i + 1)
+            this.next.prev = this 
+        }
     }
 
     constructor(private i : number) {
