@@ -208,3 +208,25 @@ class LineSqExpandRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lser : LineSqExpandRot = new LineSqExpandRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lser.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lser.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lser.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
