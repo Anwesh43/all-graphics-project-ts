@@ -207,3 +207,25 @@ class LineRotDivideRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrdr : LineRotDivideRight = new LineRotDivideRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrdr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrdr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrdr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
