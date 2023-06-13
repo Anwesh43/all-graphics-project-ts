@@ -208,3 +208,25 @@ class MultiRotLineShift {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mrls : MultiRotLineShift = new MultiRotLineShift()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.mrls.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.mrls.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mrls.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
