@@ -228,6 +228,7 @@ class Renderer {
     handleTap(cb : () => void) {
         this.lbsd.startUpdating(() => {
             this.animator.start(() => {
+                cb()
                 this.lbsd.update(() => {
                     cb()
                     this.animator.stop()
