@@ -210,3 +210,24 @@ class LineBreakSqDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbsd : LineBreakSqDown = new LineBreakSqDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbsd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbsd.startUpdating(() => {
+            this.animator.start(() => {
+                this.lbsd.update(() => {
+                    cb()
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
