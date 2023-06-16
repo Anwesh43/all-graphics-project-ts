@@ -211,3 +211,25 @@ class SqBiLineShrink {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sbls : SqBiLineShrink = new SqBiLineShrink()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sbls.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sbls.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sbls.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
