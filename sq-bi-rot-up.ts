@@ -209,3 +209,25 @@ class SqBiRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sbru : SqBiRotUp = new SqBiRotUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sbru.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sbru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sbru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
