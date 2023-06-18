@@ -206,3 +206,25 @@ class BarRightDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    brd : BarRightDown = new BarRightDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.brd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.brd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
