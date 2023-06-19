@@ -209,3 +209,25 @@ class BiBrickDownRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bbdr : BiBrickDownRot = new BiBrickDownRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bbdr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bbdr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bbdr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
