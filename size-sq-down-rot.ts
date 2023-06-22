@@ -206,3 +206,25 @@ class SizeSqDownRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ssdr : SizeSqDownRot = new SizeSqDownRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ssdr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ssdr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ssdr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
