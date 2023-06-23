@@ -197,3 +197,25 @@ class RectBiRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rbrd : RectBiRotDown = new RectBiRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rbrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rbrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rbrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
