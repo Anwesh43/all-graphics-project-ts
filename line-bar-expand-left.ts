@@ -206,3 +206,25 @@ class LineBarExpandLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbel : LineBarExpandLeft = new LineBarExpandLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbel.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbel.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbel.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
