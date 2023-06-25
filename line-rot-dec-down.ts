@@ -209,3 +209,25 @@ class LineRotDecDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrdd : LineRotDecDown = new LineRotDecDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrdd.draw(context)
+    }
+    
+    handleTap(cb : () => void) {
+        this.lrdd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrdd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
