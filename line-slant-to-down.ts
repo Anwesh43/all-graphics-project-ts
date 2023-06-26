@@ -207,3 +207,25 @@ class LineSlantToDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lstd : LineSlantToDown = new LineSlantToDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lstd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lstd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lstd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
