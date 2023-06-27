@@ -196,3 +196,25 @@ class SingleSqToBigSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sstbs : SingleSqToBigSq = new SingleSqToBigSq()
+    animator: Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sstbs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sstbs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sstbs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
