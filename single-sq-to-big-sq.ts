@@ -41,8 +41,8 @@ class DrawingUtil {
             context.rotate(rot * dsc(4))
             for (let j = 0; j < 4; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
-                    const factor : number = j == 0 ? 1 : Math.floor(dsc(j - 1))
-                    context.rotate(rot * (factor - 1) + rot * dsc(j))
+                    const factor : number = j == 0 ? 1 : Math.floor(dsc(j - 1)) * (j - 1)
+                    context.rotate(rot * (factor - 1)  + rot * dsc(j))
                     context.fillRect(0, -size * dsc(0), size * dsc(0), size * dsc(0))
                 })
             }
