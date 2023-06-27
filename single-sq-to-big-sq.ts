@@ -24,3 +24,33 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawSingleSqToBigSq(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(4), () => {
+            context.rotate(rot * dsc(4))
+            for (let j = 0; j < 4; j++) {
+                DrawingUtil.drawXY(context, 0, 0, () => {
+                    const factor : number = j == 0 ? 1 : Math.floor(dsc(j - 1))
+                    context.rotate(rot * (factor - 1) + rot * dsc(j))
+                    context.fillRect(0, -size * dsc(0), size * dsc(0), size * dsc(0))
+                })
+            }
+        })
+    }
+
+    static drawSSTBSNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawSingleSqToBigSq(context, scale)
+    }
+}
