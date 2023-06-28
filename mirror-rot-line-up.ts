@@ -207,3 +207,25 @@ class MirrorRotLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mrlu : MirrorRotLineUp = new MirrorRotLineUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.mrlu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.mrlu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mrlu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
