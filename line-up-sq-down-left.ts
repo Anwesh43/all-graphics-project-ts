@@ -209,3 +209,25 @@ class LineUpSqDownLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lusdl : LineUpSqDownLeft = new LineUpSqDownLeft()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.lusdl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lusdl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lusdl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
