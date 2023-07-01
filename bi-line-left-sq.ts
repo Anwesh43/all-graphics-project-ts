@@ -210,3 +210,25 @@ class BiLineLeftSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blls : BiLineLeftSq = new BiLineLeftSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blls.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.blls.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blls.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
