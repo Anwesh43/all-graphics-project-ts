@@ -211,3 +211,25 @@ class SqBiLineSlantDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sblsd : SqBiLineSlantDown = new SqBiLineSlantDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sblsd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sblsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sblsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
