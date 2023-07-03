@@ -214,3 +214,25 @@ class TakeSqLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    animator : Animator = new Animator()
+    tsl : TakeSqLine = new TakeSqLine()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tsl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.tsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
