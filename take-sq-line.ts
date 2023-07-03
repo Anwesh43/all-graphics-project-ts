@@ -69,6 +69,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawTakeSqLine(context, scale)
     }
 }
