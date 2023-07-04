@@ -46,6 +46,7 @@ class DrawingUtil {
     }
 
     static drawZLineSqRot(context : CanvasRenderingContext2D, scale : number) {
+        console.log("SCALE", scale)
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2 + (w / 2 + size) * dsc(4), h / 2, () => {
@@ -67,6 +68,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawZLineSqRot(context, scale)
     }
 }
