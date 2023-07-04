@@ -29,7 +29,7 @@ class ScaleUtil {
 class DrawingUtil {
 
     static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
-        if (Math.abs(x1 - x2) < 0.1) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
             return 
         }
         context.beginPath()
@@ -55,7 +55,7 @@ class DrawingUtil {
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
                     context.scale(1 - 2 * j, 1 - 2 * j)
-                    DrawingUtil.drawXY(context, 0, size / 2, () => {
+                    DrawingUtil.drawXY(context, 0, size / 2 + (h / 2 - size / 2) * (1 - dsc(1)), () => {
                         context.rotate(-rot * dsc(2))
                         DrawingUtil.drawLine(context, 0, 0, 0, size) 
                     })
