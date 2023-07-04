@@ -212,3 +212,25 @@ class ZLineSqRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    zlsr : ZLineSqRot = new ZLineSqRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.zlsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.zlsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.zlsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
