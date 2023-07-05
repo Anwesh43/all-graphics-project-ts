@@ -147,3 +147,45 @@ class Animator {
         }
     }
 }
+
+class SLRUNode {
+
+    prev : SLRUNode 
+    next : SLRUNode 
+    state : State = new State()
+    
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new SLRUNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawSLRUNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) {
+        var curr : SLRUNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
