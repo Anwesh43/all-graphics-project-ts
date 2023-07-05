@@ -212,3 +212,25 @@ class SlantLineRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slru : SlantLineRotUp = new SlantLineRotUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slru.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
