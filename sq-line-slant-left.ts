@@ -207,3 +207,25 @@ class SqLineSlantLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    animator : Animator = new Animator()
+    slsl : SqLineSlantLeft = new SqLineSlantLeft()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.slsl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
