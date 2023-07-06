@@ -122,3 +122,23 @@ class State {
         }
     }
 }
+
+class Animator {
+
+    animated : boolean = false 
+    interval : number 
+
+    start(cb : () => void) {
+        if (!this.animated) {
+            this.animated = false 
+            clearInterval(this.interval)
+        }
+    }
+
+    stop() {
+        if (this.animated) {
+            this.animated = false 
+            clearInterval(this.interval)
+        }
+    }
+}
