@@ -48,6 +48,7 @@ class DrawingUtil {
     static drawVertLinePie(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        console.log("Scale", scale)
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(3), () => {
             DrawingUtil.drawLine(context, -size / 2, 0, -size / 2 + size * dsc(1), 0)
             for (let j = 0; j < 2; j++) {
