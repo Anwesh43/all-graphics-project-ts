@@ -211,3 +211,25 @@ class VertLinePie {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    vlp : VertLinePie = new VertLinePie()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.vlp.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.vlp.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.vlp.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
