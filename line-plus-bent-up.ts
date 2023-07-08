@@ -23,7 +23,7 @@ class ScaleUtil {
     }
 
     static divideScale(scale : number, i : number, n : number) : number {
-        return Math.min(1 / n)
+        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
 
