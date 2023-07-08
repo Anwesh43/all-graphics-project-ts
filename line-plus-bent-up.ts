@@ -49,7 +49,7 @@ class DrawingUtil {
     static drawLinePlusBentUp(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2 + size / 2 + context.lineWidth) * dsc(3), () => {
             DrawingUtil.drawLine(context, 0, -size / 2, 0, -size / 2 + size * dsc(0))
             DrawingUtil.drawXY(context, 0, 0, () => {
                 context.rotate(-rot * (1 - dsc(1)))
@@ -57,7 +57,7 @@ class DrawingUtil {
                     DrawingUtil.drawXY(context, 0, 0, () => {
                         context.scale(1 - 2 * j, 1)
                         context.rotate(deg * dsc(2))
-                        DrawingUtil.drawLine(context, 0, 0, size * Math.floor(dsc(0)), 0)
+                        DrawingUtil.drawLine(context, 0, 0, size * 0.5 * Math.floor(dsc(0)), 0)
                     })
                 }
             })
