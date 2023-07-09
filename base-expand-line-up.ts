@@ -46,17 +46,29 @@ class DrawingUtil {
         context.restore()
     }
 
+    static rotate(context : CanvasRenderingContext2D, rot : number, cb : () => void) {
+        context.save()
+        context.translate(0, 0)
+        context.rotate(rot)
+        cb()
+        context.restore()
+    }
+
     static drawBaseExpandLineUp(context : CanvasRenderingContext2D, scale : number) {
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         const bisect : (arg0 : number, arg1 : number) => number = (scale : number, i : number) : number => ScaleUtil.divideScale(scale, i, 2)
         const size : number = Math.min(w, h) / sizeFactor 
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2 + size) * dsc(3), () => {
             DrawingUtil.drawXY(context, (w / 2) * (1 - bisect(dsc(1), 0)), 0, () => {
                 context.rotate(rot * bisect(dsc(1), 1))
-                DrawingUtil.drawLine(context, 0, 0, size, 0)
+                for (let j = 0; j < 2; j++) {
+                    DrawingUtil.rotate(context, deg * (1 - 2 * j), () => {
+                        DrawingUtil.drawLine(context, 0, 0, size, 0)
+                    })
+                }
             })
-            DrawingUtil.drawXY(context, -w * 0.5 * (1 - bisect(dsc(1), 0)), 0, () => {
-                context.rotate(rot * bisect(dsc(1), 1))
+            DrawingUtil.drawXY(context, -w * 0.5 * (1 - bisect(dsc(0), 0)), 0, () => {
+                context.rotate(rot * bisect(dsc(0), 1))
                 DrawingUtil.drawLine(context, 0, 0, -size, 0)
             })
         })
