@@ -210,3 +210,25 @@ class BaseExpandLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    belu : BaseExpandLineUp = new BaseExpandLineUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.belu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.belu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.belu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
