@@ -208,3 +208,25 @@ class LineHoldSqDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lhsd : LineHoldSqDown = new LineHoldSqDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lhsd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lhsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lhsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
