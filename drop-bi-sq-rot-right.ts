@@ -212,3 +212,25 @@ class DropBiSqRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dbsrr : DropBiSqRotRight = new DropBiSqRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dbsrr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.dbsrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dbsrr.startUpdating(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
