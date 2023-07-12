@@ -233,7 +233,7 @@ class Renderer {
         this.dbsrr.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.dbsrr.startUpdating(() => {
+                this.dbsrr.update(() => {
                     this.animator.stop()
                     cb()
                 })
