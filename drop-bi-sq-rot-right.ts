@@ -47,6 +47,7 @@ class DrawingUtil {
     }
 
     static drawDropBiSqRotRight(context : CanvasRenderingContext2D, scale : number) {
+        console.log("SCALE", scale)
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         const sqSize : number = Math.min(w, h) / sqSizeFactor
