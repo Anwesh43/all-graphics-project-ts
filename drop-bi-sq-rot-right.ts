@@ -149,3 +149,43 @@ class Animator {
         }
     }
 }
+
+class DBSRRNode {
+
+    prev : DBSRRNode 
+    next : DBSRRNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        this.next = new DBSRRNode(this.i + 1)
+        this.next.prev = this 
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawDBSRRNode(context, this.i, this.state.scale) 
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : DBSRRNode {
+        var curr : DBSRRNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
