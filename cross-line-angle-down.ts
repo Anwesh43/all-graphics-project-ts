@@ -214,3 +214,25 @@ class CrossLineAngleDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    clad : CrossLineAngleDown = new CrossLineAngleDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.clad.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.clad.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.clad.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
