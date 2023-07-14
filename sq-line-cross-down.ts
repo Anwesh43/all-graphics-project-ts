@@ -210,3 +210,25 @@ class SqLineCrossDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slcd : SqLineCrossDown = new SqLineCrossDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slcd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slcd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slcd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
