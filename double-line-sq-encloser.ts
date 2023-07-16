@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawDoubleLineSqEncloser(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size / 2) * dsc(3), () => {
+        DrawingUtil.drawXY(context, w / 2 - (w / 2 + size / 2) * dsc(3), h / 2, () => {
             context.rotate(rot * dsc(2))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, -size / 3 + 2 * (size / 3) * j, -h / 2 + (h / 2) * dsc(0), () => {
