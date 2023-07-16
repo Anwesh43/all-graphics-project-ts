@@ -211,3 +211,25 @@ class DoubleLineSqEncloser {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dlse : DoubleLineSqEncloser = new DoubleLineSqEncloser()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dlse.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.dlse.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlse.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
