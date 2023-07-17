@@ -213,3 +213,25 @@ class SqRotLineJoin {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    srlj : SqRotLineJoin = new SqRotLineJoin()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.srlj.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.srlj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.srlj.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
