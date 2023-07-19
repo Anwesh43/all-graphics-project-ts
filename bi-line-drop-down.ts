@@ -62,5 +62,11 @@ class DrawingUtil {
         })
     }
 
-    static 
+    static drawBLDDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBiLineDropDown(context, scale)
+    }
 }
