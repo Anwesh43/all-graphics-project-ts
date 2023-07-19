@@ -212,3 +212,25 @@ class BiLineDropDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bldd : BiLineDropDown = new BiLineDropDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bldd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bldd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bldd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
