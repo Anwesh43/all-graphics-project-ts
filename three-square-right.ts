@@ -194,3 +194,25 @@ class ThreeSquareRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tsr : ThreeSquareRight = new ThreeSquareRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.tsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.tsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
