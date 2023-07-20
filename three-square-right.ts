@@ -40,7 +40,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2 + (w / 2 + 1.5 * size) * dsc(3), h / 2, () => {
             context.rotate(rot * dsc(2))
             for (let i = 0; i < 3; i++) {
-                DrawingUtil.drawXY(context, (-w / 2 - size / 2) * (1 - dsc(0)), (h / 2 - size / 2) * (1 - dsc(1)) * i, () => {
+                DrawingUtil.drawXY(context, (-w / 2 - size / 2) * (1 - dsc(0)), (h / 2 - size / 2) * (1 - dsc(1)) * (i - 1), () => {
                     context.fillRect(-size / 2, -size / 2, size, size)
                 })
             }
