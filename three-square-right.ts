@@ -24,3 +24,31 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawThreeSquareRight(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 + 1.5 * size) * dsc(3), h / 2, () => {
+            context.rotate(rot * dsc(2))
+            for (let i = 0; i < 3; i++) {
+                DrawingUtil.drawXY(context, (-w / 2 - size / 2) * (1 - dsc(0)), (h / 2 - size / 2) * (1 - dsc(1)) * i, () => {
+                    context.fillRect(-size / 2, -size / 2, size, size)
+                })
+            }
+        })
+    }
+
+    static drawTSRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawThreeSquareRight(context, scale)
+    }
+}
