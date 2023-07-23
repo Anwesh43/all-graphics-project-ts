@@ -210,3 +210,25 @@ class LineRectLeftMove {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrlm : LineRectLeftMove = new LineRectLeftMove()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrlm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrlm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrlm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
