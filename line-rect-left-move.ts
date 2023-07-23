@@ -11,7 +11,7 @@ const strokeFactor : number = 90
 const sizeFactor : number = 4.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
-const rot : number = Math.PI / 2 
+const rot : number = Math.PI 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
@@ -49,11 +49,12 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         const sqSize : number = size / 4
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 + size) * dsc(3), h / 2, () => {
             DrawingUtil.drawXY(context, -w / 2 + (w / 2) * dsc(0), 0, () => {
                 DrawingUtil.drawLine(context, 0, 0, -size, 0)
             })
             DrawingUtil.drawXY(context, 0, -h / 2 + (h / 2) * dsc(1), () => {
+                context.rotate(rot * dsc(2))
                 context.fillRect(-sqSize, -sqSize, sqSize, sqSize)
             })
         })
