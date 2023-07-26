@@ -208,3 +208,25 @@ class BigShortLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsld : BigShortLineDown = new BigShortLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsld.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bsld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsld.update(()  => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
