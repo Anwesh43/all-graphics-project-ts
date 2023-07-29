@@ -212,3 +212,25 @@ class BiLineSqDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blsd : BiLineSqDown = new BiLineSqDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blsd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.blsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
