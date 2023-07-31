@@ -48,7 +48,7 @@ class DrawingUtil {
 
     static drawLineDownRotArrow(context : CanvasRenderingContext2D, scale : number) {
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        const size : number = Math.min(w, h) / strokeFactor 
+        const size : number = Math.min(w, h) / sizeFactor 
         DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2 + size) * dsc(3), () => {
             context.rotate(deg * dsc(1))
             for (let j = 0; j < 2; j++) {
