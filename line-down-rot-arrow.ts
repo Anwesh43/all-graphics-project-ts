@@ -209,3 +209,25 @@ class LineDownRotArrow {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldra : LineDownRotArrow = new LineDownRotArrow()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ldra.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ldra.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldra.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
