@@ -24,3 +24,32 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.divideScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawDoubleDeckerSqRight(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 + size) * dsc(3) , h / 2, () => {
+            
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, 0, -h / 2 + (h / 2) * dsc(0) - size * dsc(2), () => {
+                    context.rotate(rot * dsc(1) * j)
+                    context.fillRect(0, -size, size, size)
+                })
+            }
+        })
+    }
+
+    static drawDDSRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawDoubleDeckerSqRight(context, scale)
+    }
+}
