@@ -194,3 +194,25 @@ class DoubleDeckerSqRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ddsr : DoubleDeckerSqRight = new DoubleDeckerSqRight()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.ddsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ddsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ddsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
