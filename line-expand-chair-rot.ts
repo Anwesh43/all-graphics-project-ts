@@ -6,7 +6,7 @@ const colors : Array<string> = [
     "#00C853"
 ]
 const parts : number = 4
-const scGap : number = 0.04 
+const scGap : number = 0.04 / parts
 const strokeFactor : number = 90 
 const sizeFactor : number = 4.9 
 const delay : number = 20 
@@ -56,7 +56,7 @@ class DrawingUtil {
                     const y : number = size * 0.25 * dsc(1)
                     context.scale(1, 1 - 2 * j)
                     DrawingUtil.drawLine(context, 0, 0, 0, -y)
-                    DrawingUtil.drawLine(context, 0, -y, 0, -size * dsc(0))
+                    DrawingUtil.drawLine(context, 0, -y, -size * dsc(0), -y)
                 })
             }
         })
