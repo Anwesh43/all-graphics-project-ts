@@ -211,3 +211,25 @@ class LineExpandChairRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lecr : LineExpandChairRot = new LineExpandChairRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lecr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lecr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lecr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
