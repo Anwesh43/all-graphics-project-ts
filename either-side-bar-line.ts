@@ -212,3 +212,25 @@ class EitherSideBarLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    esbl : EitherSideBarLine = new EitherSideBarLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.esbl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.esbl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.esbl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
