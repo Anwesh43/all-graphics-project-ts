@@ -154,7 +154,7 @@ class LSMUNode {
     state : State = new State()
 
     addNeighbor() {
-
+        this.addNeighbor()
     }
 
     constructor(private i : number) {
