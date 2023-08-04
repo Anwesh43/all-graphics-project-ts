@@ -11,7 +11,7 @@ const strokeFactor : number = 90
 const sizeFactor : number = 4.9 
 const delay : number = 20 
 const backColor : string = "#BDBDBD"
-const rot : number = Math.PI / 2
+const rot : number = Math.PI
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
 
