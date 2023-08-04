@@ -204,3 +204,25 @@ class LineSqMiddleUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsmu : LineSqMiddleUp = new LineSqMiddleUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsmu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsmu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsmu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
