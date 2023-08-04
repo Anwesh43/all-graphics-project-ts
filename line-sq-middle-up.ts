@@ -154,7 +154,10 @@ class LSMUNode {
     state : State = new State()
 
     addNeighbor() {
-        this.addNeighbor()
+       if (this.i < colors.length - 1) {
+           this.next = new LSMUNode(this.i + 1)
+           this.next.prev = this 
+       }
     }
 
     constructor(private i : number) {
