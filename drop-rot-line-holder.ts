@@ -209,3 +209,25 @@ class DropRotLineHolder {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    drlh : DropRotLineHolder = new DropRotLineHolder()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.drlh.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.drlh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.drlh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
