@@ -213,3 +213,25 @@ class LineBlockRightUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbru : LineBlockRightUp = new LineBlockRightUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbru.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
