@@ -55,7 +55,7 @@ class DrawingUtil {
             })
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, -size / 4 + (size * 0.5 * j), () => {
-                    DrawingUtil.drawLine(context, 0, 0, -size * 0.5 * dsc(1), 0)
+                    DrawingUtil.drawLine(context, 0, 0, -size * dsc(1), 0)
                 })
             }
         })
@@ -65,6 +65,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawSqBiLineRotRight(context, scale)
     }
 }
