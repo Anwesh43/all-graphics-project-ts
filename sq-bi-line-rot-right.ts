@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawSqBiLineRotRight(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 + size) * dsc(3), h / 2, () => {
             DrawingUtil.drawXY(context, 0, 0, () => {
                 context.rotate(rot * dsc(2))
                 context.fillRect(-size * 0.5 * dsc(0), -size / 4, size * 0.5 * dsc(0), size / 2)
