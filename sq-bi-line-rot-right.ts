@@ -210,3 +210,25 @@ class SqBiLineRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sblrr : SqBiLineRotRight = new SqBiLineRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sblrr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sblrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sblrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
