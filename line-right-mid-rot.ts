@@ -215,3 +215,25 @@ class LineRightMidRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrmr : LineRightMidRot = new LineRightMidRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrmr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrmr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrmr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
