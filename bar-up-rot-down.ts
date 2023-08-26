@@ -190,3 +190,25 @@ class BarUpRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    burd : BarUpRotDown = new BarUpRotDown()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.burd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.burd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.burd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
