@@ -203,3 +203,25 @@ class LineRotUpLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrul : LineRotUpLeft = new LineRotUpLeft()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.lrul.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrul.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrul.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
