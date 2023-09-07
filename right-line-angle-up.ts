@@ -207,3 +207,25 @@ class RightLineAngleUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlau : RightLineAngleUp = new RightLineAngleUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rlau.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rlau.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlau.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
