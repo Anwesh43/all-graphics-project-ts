@@ -210,3 +210,25 @@ class LineBiSqRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbsr : LineBiSqRot = new LineBiSqRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
