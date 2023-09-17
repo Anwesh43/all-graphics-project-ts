@@ -25,3 +25,34 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawSqBreakLeftRot(context : CanvasRenderingContext2D, scale : number) {
+        const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
+        const size : number = Math.min(w, h) / sizeFactor 
+        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2) * dsc(3), () => {
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, 0, 0, () => {
+                    context.scale(1 - 2 * j, 1)
+                    context.rotate(-rot * dsc(2))
+                    DrawingUtil.drawXY(context, (w / 2 - size) * dsc(1), 0, () => {
+                        context.fillRect(0, 0, size / 2, size)
+                    })
+                })
+            }
+        })
+    }
+
+    static drawSBLRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawSqBreakLeftRot(context, scale)
+    }
+}
