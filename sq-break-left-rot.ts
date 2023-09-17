@@ -199,3 +199,25 @@ class SqBreakLeftRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sblr : SqBreakLeftRot = new SqBreakLeftRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sblr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sblr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sblr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
