@@ -42,9 +42,9 @@ class DrawingUtil {
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
                     context.scale(1 - 2 * j, 1)
-                    context.rotate(-rot * dsc(2))
                     DrawingUtil.drawXY(context, (w / 2 - size) * dsc(1), 0, () => {
-                        context.fillRect(0, 0, size / 2, size)
+                        context.rotate(-rot * dsc(2))
+                        context.fillRect(0, 0, size / 2, size * dsc(0))
                     })
                 })
             }
