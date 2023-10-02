@@ -210,3 +210,25 @@ class RotLineLeftMove {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rllm : RotLineLeftMove = new RotLineLeftMove()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.rllm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rllm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rllm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
