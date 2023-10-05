@@ -13,7 +13,8 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const rot : number = Math.PI / 2
 const w : number = window.innerWidth 
-const h : number = window.innerHeight 
+const h : number = window.innerHeight
+const lineColor : string = "#212121" 
 
 class ScaleUtil {
 
@@ -27,6 +28,13 @@ class ScaleUtil {
 }
 
 class DrawingUtil {
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
 
     static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
         context.save()
@@ -204,6 +212,9 @@ class Renderer {
     animator : Animator = new Animator()
     
     render(context : CanvasRenderingContext2D) {
+        context.strokeStyle = lineColor 
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        DrawingUtil.drawLine(context, 0, h / 2, w, h / 2)
         this.rsrr.draw(context)
     }
 
