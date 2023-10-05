@@ -25,3 +25,29 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawRectShrinkRotRight(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), h / 2, () => {
+            context.rotate(rot * dsc(2))
+            DrawingUtil.drawXY(context, -w * 0.5 * (1 - dsc(0)), 0, () => {
+                context.fillRect(-size + size * 0.5 * dsc(1), -size, size - size * 0.5 * dsc(1), size)
+            })
+        })
+    }
+
+    static drawRSRRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawRectShrinkRotRight(context, scale)
+    }
+}
