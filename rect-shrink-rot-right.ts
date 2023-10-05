@@ -193,3 +193,25 @@ class RectShrinkRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rsrr : RectShrinkRotRight = new RectShrinkRotRight()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.rsrr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rsrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rsrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
