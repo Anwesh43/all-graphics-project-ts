@@ -213,8 +213,10 @@ class Renderer {
     
     render(context : CanvasRenderingContext2D) {
         context.strokeStyle = lineColor 
-        context.lineWidth = Math.min(w, h) / strokeFactor
-        DrawingUtil.drawLine(context, 0, h / 2, w, h / 2)
+        DrawingUtil.drawXY(context, 0, h / 2 + context.lineWidth / 2, () => {
+            context.lineWidth = Math.min(w, h) / strokeFactor
+            DrawingUtil.drawLine(context, 0, 0, w, 0)
+        })
         this.rsrr.draw(context)
     }
 
