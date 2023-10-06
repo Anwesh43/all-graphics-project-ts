@@ -54,7 +54,7 @@ class DrawingUtil {
                 context.fillRect(0, 0, size, size * dsc(0))
             })
             DrawingUtil.drawXY(context, -w * 0.5 * (1 - dsc(1) + dsc(3)), 0, () => {
-                DrawingUtil.drawLine(context, 0, 0, -size * dsc(1), 0)
+                DrawingUtil.drawLine(context, 0, 0, -size, 0)
             })
         })
     }
