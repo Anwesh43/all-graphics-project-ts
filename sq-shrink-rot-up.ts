@@ -191,3 +191,25 @@ class SqShrinkRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ssru : SqShrinkRotUp = new SqShrinkRotUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ssru.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ssru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ssru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
