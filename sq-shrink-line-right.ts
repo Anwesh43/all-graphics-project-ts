@@ -206,3 +206,25 @@ class SqShrinkLineRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sslr : SqShrinkLineRight = new SqShrinkLineRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sslr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sslr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sslr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
