@@ -209,5 +209,26 @@ class BentLineToStraightRight {
     startUpdating(cb : () => void) {
         this.curr.startUpdating(cb)
     }
+}
 
+class Renderer {
+
+    blsr : BentLineToStraightRight = new BentLineToStraightRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.blsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
 }
