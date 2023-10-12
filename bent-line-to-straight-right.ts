@@ -64,6 +64,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        console.log("SCALE", scale)
         DrawingUtil.drawBentLineToStraightRight(context, scale)
     }
 }
@@ -112,7 +113,7 @@ class State {
     prevScale : number = 0 
 
     update(cb : () => void) {
-        console.log(this.scale)
+        
         this.scale += scGap * this.dir 
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir 
