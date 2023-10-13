@@ -191,3 +191,25 @@ class SqFillRotDown {
         this.curr.startUdpating(cb)
     }
 }
+
+class Renderer {
+
+    sfrd : SqFillRotDown = new SqFillRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sfrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sfrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sfrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
