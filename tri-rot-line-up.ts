@@ -210,3 +210,25 @@ class TriRotLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Render {
+
+    trlu : TriRotLineUp = new TriRotLineUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.trlu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.trlu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.trlu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
