@@ -211,3 +211,25 @@ class LinePerpRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    animator : Animator = new Animator()
+    lprd : LinePerpRotDown = new LinePerpRotDown()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lprd.draw(context)    
+    }
+
+    handleTap(cb : () => void) {
+        this.lprd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lprd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
