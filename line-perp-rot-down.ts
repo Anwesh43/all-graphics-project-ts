@@ -14,6 +14,7 @@ const w : number = window.innerWidth
 const h : number = window.innerHeight 
 const parts : number = 4
 const scGap : number = 0.04 / parts 
+const sepDeg : number = Math.PI / 4 
 
 class ScaleUtil {
 
@@ -54,8 +55,10 @@ class DrawingUtil {
                 DrawingUtil.drawXY(context, 0, 0, () => {
                     context.scale(1, 1 - 2 * j)
                     for (let k = 0; k < 2; k++) {
-                        context.rotate(Math.PI * 0.25 * (1 - 2 * k))
-                        DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(j))
+                        DrawingUtil.drawXY(context, 0, 0, () => {
+                            context.rotate(sepDeg * (1 - 2 * k))
+                            DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(j))
+                        })
                     }
                 })
             }
