@@ -14,7 +14,7 @@ const w : number = window.innerWidth
 const h : number = window.innerHeight 
 const parts : number = 4
 const scGap : number = 0.04 / parts 
-const sepDeg : number = Math.PI / 4 
+const sepDeg : number = Math.PI / 8 
 
 class ScaleUtil {
 
