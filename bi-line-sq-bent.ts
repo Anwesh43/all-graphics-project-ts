@@ -215,3 +215,25 @@ class BiLineSqBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blsb : BiLineSqBent = new BiLineSqBent()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blsb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.blsb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blsb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
