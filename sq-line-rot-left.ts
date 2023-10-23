@@ -214,3 +214,25 @@ class SqLineRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slrl : SqLineRotLeft = new SqLineRotLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slrl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
