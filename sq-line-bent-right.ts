@@ -211,3 +211,25 @@ class SqLineBentRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slbr : SqLineBentRight = new SqLineBentRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slbr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
