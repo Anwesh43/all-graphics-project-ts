@@ -207,3 +207,25 @@ class LineRightDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrd : LineRightDown = new LineRightDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
