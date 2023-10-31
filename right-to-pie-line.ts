@@ -210,3 +210,25 @@ class RightToPieLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rtpl : RightToPieLine = new RightToPieLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rtpl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rtpl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rtpl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
