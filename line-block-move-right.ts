@@ -209,3 +209,25 @@ class LineBlockMoveRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbmr : LineBlockMoveRight = new LineBlockMoveRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbmr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbmr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbmr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
