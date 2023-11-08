@@ -45,7 +45,7 @@ class DrawingUtil {
         context.stroke()
     }
 
-    static drawLineSqLeftUp(context : CanvasRenderingContext2D, scale : number) {
+    static drawLineRotSqLeftUp(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h * 0.5 * (1 - dsc(3)), () => {
@@ -59,12 +59,12 @@ class DrawingUtil {
         })
     }
 
-    static drawLSLUNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+    static drawLRSLUNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
         context.fillStyle = colors[i]
-        DrawingUtil.drawLineSqLeftUp(context, scale)
+        DrawingUtil.drawLineRotSqLeftUp(context, scale)
     }
 }
 
@@ -142,5 +142,48 @@ class Animator {
             this.animated = false 
             clearInterval(this.interval)
         }
+    }
+}
+
+class LRSLUNode {
+
+    prev : LRSLUNode 
+    next : LRSLUNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LRSLUNode(this.i + 1)
+            this.next.prev = this 
+
+        }
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawLRSLUNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : LRSLUNode {
+        var curr : LRSLUNode = this.prev 
+        if (dir == 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
     }
 }
