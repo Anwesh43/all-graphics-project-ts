@@ -210,3 +210,25 @@ class LineRotSqLeftUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrslu : LineRotSqLeftUp = new LineRotSqLeftUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrslu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrslu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrslu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
