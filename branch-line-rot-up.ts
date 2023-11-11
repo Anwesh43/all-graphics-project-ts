@@ -123,7 +123,7 @@ class State {
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir 
             this.dir = 0 
-            this.dir = 1 - 2 * this.prevScale 
+            this.prevScale = this.scale 
             cb()
         }
     }
