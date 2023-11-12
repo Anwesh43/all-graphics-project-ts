@@ -48,7 +48,7 @@ class DrawingUtil {
     }
 
     static drawArrowFromPerpLine(context : CanvasRenderingContext2D, scale : number) {
-        const size : number = Math.min(w, h) / strokeFactor 
+        const size : number = Math.min(w, h) / sizeFactor 
         const lSize : number = size / lSizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2 + (w / 2 + lSize) * dsc(4), h / 2, () => {
