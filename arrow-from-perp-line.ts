@@ -215,3 +215,25 @@ class ArrowFromPerpLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    afpl : ArrowFromPerpLine = new ArrowFromPerpLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.afpl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.afpl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.afpl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
