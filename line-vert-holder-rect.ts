@@ -209,3 +209,25 @@ class LineVertHolderRect {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lvhr : LineVertHolderRect = new LineVertHolderRect()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lvhr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lvhr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lvhr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
