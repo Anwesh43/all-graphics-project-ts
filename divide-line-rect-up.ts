@@ -212,3 +212,25 @@ class DivideLineRectUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dlru : DivideLineRectUp = new DivideLineRectUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dlru.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.dlru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
