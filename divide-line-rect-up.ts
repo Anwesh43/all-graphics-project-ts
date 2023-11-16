@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawDivideLineRectUp(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2) * dsc(3), () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2 + size) * dsc(3), () => {
             
             DrawingUtil.drawXY(context, 0, 0, () => {
                 context.rotate(rot * dsc(1))
