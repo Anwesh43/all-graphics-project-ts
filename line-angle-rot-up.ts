@@ -208,3 +208,25 @@ class LineAngleRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    laru : LineAngleRotUp = new LineAngleRotUp()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.laru.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.laru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.laru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
