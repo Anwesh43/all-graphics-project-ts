@@ -55,12 +55,13 @@ class DrawingUtil {
                     DrawingUtil.drawLine(context, 0, 0, size * Math.floor(dsc(0)), 0)
                 })
             }
+            DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
         })
     }
 
     static drawIRLRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
         context.lineCap = 'round'
-        context.lineWidth = Math.min(w, h) / sizeFactor 
+        context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
         DrawingUtil.drawInclineRotLineRight(context, scale)
     }
