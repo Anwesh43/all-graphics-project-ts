@@ -207,3 +207,25 @@ class InclineRotLineRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    irlr : InclineRotLineRight = new InclineRotLineRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.irlr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.irlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.irlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    } 
+}
