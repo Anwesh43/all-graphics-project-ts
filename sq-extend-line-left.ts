@@ -208,3 +208,25 @@ class SqExtendLineLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sell : SqExtendLineLeft = new SqExtendLineLeft()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.sell.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sell.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sell.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
