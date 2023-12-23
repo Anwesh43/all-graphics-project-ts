@@ -9,7 +9,7 @@ const parts : number = 4
 const rot : number = Math.PI / 2
 const delay: number = 20 
 const sizeFactor : number = 4.9 
-const strokeFactor : number = 20 
+const strokeFactor : number = 90 
 const scGap : number = 0.04 / parts 
 const backColor : string = "#bdbdbd"
 const w : number = window.innerWidth 
@@ -63,6 +63,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawSqExtendLineLeft(context, scale)
     }
 }
