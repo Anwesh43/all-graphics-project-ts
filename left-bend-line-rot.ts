@@ -207,3 +207,25 @@ class LeftBendLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lblr : LeftBendLineRot = new LeftBendLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lblr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lblr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lblr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
