@@ -214,3 +214,25 @@ class SqAllLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    salr : SqAllLineRot = new SqAllLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.salr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.salr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.salr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
