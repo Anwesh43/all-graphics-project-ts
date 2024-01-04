@@ -210,3 +210,25 @@ class BiTriLineRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bltr : BiTriLineRotLeft = new BiTriLineRotLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bltr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bltr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bltr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
