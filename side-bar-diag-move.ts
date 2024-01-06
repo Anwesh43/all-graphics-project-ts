@@ -203,3 +203,25 @@ class SideBarDiagMove {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sbdm : SideBarDiagMove = new SideBarDiagMove()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sbdm.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sbdm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sbdm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
