@@ -210,3 +210,25 @@ class BentLineToStraight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blts : BentLineToStraight = new BentLineToStraight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blts.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.blts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
