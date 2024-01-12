@@ -217,3 +217,25 @@ class BiBreakSqRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bbsr : BiBreakSqRot = new BiBreakSqRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bbsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bbsr.startUpdating(() => {
+           this.animator.start(() => {
+                cb()
+                this.bbsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+           })
+        })
+    }
+}
