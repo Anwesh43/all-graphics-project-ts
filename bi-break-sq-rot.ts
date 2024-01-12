@@ -54,7 +54,7 @@ class DrawingUtil {
     static drawBiBreakSqRot(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, -w * 0.5 * (1 - dsc(3)), h / 2, () => {
+        DrawingUtil.drawXY(context, w - w * 0.5 * dsc(3), h / 2, () => {
             context.rotate(rot * dsc(2))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
