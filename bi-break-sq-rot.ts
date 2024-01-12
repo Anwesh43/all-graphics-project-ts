@@ -46,9 +46,9 @@ class DrawingUtil {
     }
 
     static drawBiBreakSq(context : CanvasRenderingContext2D, size : number) {
-        DrawingUtil.drawLine(context, 0, 0, -size / 2, 0)
-        DrawingUtil.drawLine(context, -size / 2, 0, -size / 2, -size)
-        DrawingUtil.drawLine(context, -size / 2, -size, 0, -size)
+        DrawingUtil.drawLine(context, 0, 0, size / 2, 0)
+        DrawingUtil.drawLine(context, size / 2, 0, size / 2, -size)
+        DrawingUtil.drawLine(context, size / 2, -size, 0, -size)
     }
 
     static drawBiBreakSqRot(context : CanvasRenderingContext2D, scale : number) {
