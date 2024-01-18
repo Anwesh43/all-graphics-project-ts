@@ -209,3 +209,25 @@ class BoxLineBentRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blbr : BoxLineBentRight = new BoxLineBentRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blbr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.blbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
