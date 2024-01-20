@@ -210,3 +210,25 @@ class AltLineToRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    altr : AltLineToRight = new AltLineToRight()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.altr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.altr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.altr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
