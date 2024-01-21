@@ -210,3 +210,25 @@ class LineDropSquare {
     }
 
 }
+
+class Renderer {
+
+    lds : LineDropSquare = new LineDropSquare()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lds.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lds.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lds.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
