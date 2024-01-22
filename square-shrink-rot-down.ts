@@ -203,3 +203,26 @@ class SquareShrinkRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ssrd : SquareShrinkRotDown = new SquareShrinkRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ssrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ssrd.startUpdating(() => {
+            cb()
+            this.animator.start(() => {
+                cb()
+                this.ssrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
