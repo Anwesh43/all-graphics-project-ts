@@ -213,3 +213,25 @@ class LineSqUpLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsul : LineSqUpLine = new LineSqUpLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsul.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsul.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsul.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
