@@ -14,6 +14,7 @@ const sizeFactor : number = 4.9
 const strokeFactor : number = 90 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
+const start : number = 60
 
 class ScaleUtil {
 
@@ -65,7 +66,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(3), () => {
             context.rotate(rot * dsc(2))
             DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
-            DrawingUtil.drawArc(context, size, -rot * dsc(1), rot * dsc(1))
+            DrawingUtil.drawArc(context, size, -start * dsc(1), start * dsc(1))
         })
     }
 
