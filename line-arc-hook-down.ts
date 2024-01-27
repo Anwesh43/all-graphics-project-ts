@@ -14,7 +14,7 @@ const sizeFactor : number = 4.9
 const strokeFactor : number = 90 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const start : number = 60
+const start : number = 20
 
 class ScaleUtil {
 
