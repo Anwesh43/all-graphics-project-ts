@@ -216,3 +216,25 @@ class LineArcHookDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lahd : LineArcHookDown = new LineArcHookDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lahd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lahd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lahd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
