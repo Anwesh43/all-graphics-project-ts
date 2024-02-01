@@ -215,3 +215,25 @@ class LineCircleRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lcr : LineCircleRight = new LineCircleRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lcr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lcr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lcr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
