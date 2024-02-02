@@ -209,3 +209,25 @@ class MidSquareLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mslr : MidSquareLineRot = new MidSquareLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.mslr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.mslr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mslr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
