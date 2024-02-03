@@ -210,3 +210,25 @@ class AlternateLineRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    alrd : AlternateLineRotDown = new AlternateLineRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.alrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.alrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.alrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
