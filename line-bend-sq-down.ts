@@ -45,10 +45,10 @@ class DrawingUtil {
         context.stroke()
     }
 
-    static drawLineBendSqDown(context : CanvasRenderingContext2D, scale : number) {
+    static drawLineBendSqDown(context : CanvasRenderingContext2D, k : number, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(3), () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 + size) * dsc(3) * k, h / 2 + (h / 2) * dsc(3) * (1 - k), () => {
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, -h * 0.5 * (1 - dsc(0)), () => {
                     context.rotate(-rot * dsc(1) * j)
@@ -66,7 +66,8 @@ class DrawingUtil {
         context.lineWidth = Math.min(w, h) / strokeFactor 
         context.strokeStyle = colors[i]
         context.fillStyle = colors[i]
-        DrawingUtil.drawLineBendSqDown(context, scale)
+        const k : number = i % 2
+        DrawingUtil.drawLineBendSqDown(context, k, scale)
     }
 }
 
