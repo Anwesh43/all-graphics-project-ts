@@ -207,3 +207,25 @@ class LineTriRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ltrd : LineTriRotDown = new LineTriRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ltrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ltrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ltrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
