@@ -45,6 +45,7 @@ class DrawingUtil {
     static drawBiSqDisectRot(context : CanvasRenderingContext2D, scale : number) {
         const dsc : (i : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         const size : number = Math.min(w, h) / sizeFactor 
+        console.log("SCALE", scale, dsc(0), dsc(1))
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(3), () => {
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
