@@ -199,3 +199,25 @@ class BiSqDisectRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    curr : BiSqDisectRot = new BiSqDisectRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.curr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.curr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
