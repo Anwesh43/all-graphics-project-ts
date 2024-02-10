@@ -149,11 +149,14 @@ class BSDRNode {
     state : State = new State()
 
     constructor(private i : number) {
-        
+        this.addNeighbor
     }
 
     addNeighbor() {
-
+        if (this.i < colors.length - 1) {
+            this.next = new BSDRNode(this.i + 1)
+            this.next.prev = this 
+        }
     }
 
     draw(context : CanvasRenderingContext2D) {
