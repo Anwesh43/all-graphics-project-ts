@@ -209,3 +209,25 @@ class LineToLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ltld : LineToLineDown = new LineToLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ltld.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ltld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ltld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
