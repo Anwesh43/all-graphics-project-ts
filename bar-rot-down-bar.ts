@@ -196,3 +196,25 @@ class BarRotDownBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    brdb : BarRotDownBar = new BarRotDownBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.brdb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.brdb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brdb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
