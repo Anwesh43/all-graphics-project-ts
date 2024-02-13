@@ -131,3 +131,33 @@ class Animator {
         }
     }
 }
+
+class BRDBNode {
+
+    prev : BRDBNode 
+    next : BRDBNode 
+    state : State = new State()
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new BRDBNode(this.i + 1)
+            this.next.prev = this 
+        }    
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawBRDBNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+}
