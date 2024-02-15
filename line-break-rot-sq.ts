@@ -214,3 +214,25 @@ class LineBreakRotSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbrs : LineBreakRotSq = new LineBreakRotSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbrs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
