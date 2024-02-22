@@ -101,4 +101,3 @@ class Stage {
         stage.handleTap()
     }
 }
-
