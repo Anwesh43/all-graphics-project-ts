@@ -196,3 +196,25 @@ class BarSqHolderRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bshr : BarSqHolderRot = new BarSqHolderRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bshr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bshr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bshr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
