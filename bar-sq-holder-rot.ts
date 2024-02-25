@@ -25,3 +25,32 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawBarSqHolderRot(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 + size / 2) * dsc(3), h / 2, () => {
+            DrawingUtil.drawXY(context, 0, -h * 0.5 * (1 - dsc(0)) , () => {
+                context.rotate(rot * dsc(1))
+                context.fillRect(-size / 2, -size / 4, size, size / 4)
+            })
+            DrawingUtil.drawXY(context, 0, -h * 0.5 * (1 - dsc(2)), () => {
+                context.fillRect(-size / 8, -size / 4, size / 4, size / 4)
+            })
+        })
+    }
+
+    static drawBSHRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBarSqHolderRot(context, scale)
+    }
+}
