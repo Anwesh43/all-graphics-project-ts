@@ -48,7 +48,7 @@ class DrawingUtil {
             context.rotate(rot * dsc(2))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, size * 0.5 * (1 - 2 * j), -h * 0.5 * (1 - dsc(j)), () =>{
-                    DrawingUtil.drawCircle(context, 0, -size / 2, size / 2)
+                    DrawingUtil.drawCircle(context, 0, 0, size / 2)
                 })
             }
         })
