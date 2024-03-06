@@ -25,3 +25,37 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawCircle(context : CanvasRenderingContext2D, x : number, y : number, r : number) {
+        context.beginPath()
+        context.arc(x, y, r, 0, 2 * Math.PI)
+        context.fill()
+    }
+
+    static drawBiDropCircleRot(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor
+        const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3), () => {
+            context.rotate(rot * dsc(2))
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, size * 0.5 * (1 - 2 * j), -h * 0.5 * (1 - dsc(j)), () =>{
+                    DrawingUtil.drawCircle(context, 0, -size / 2, size / 2)
+                })
+            }
+        })
+    }
+
+    static drawBDCRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBiDropCircleRot(context, scale)
+    }
+}
