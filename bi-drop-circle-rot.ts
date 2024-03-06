@@ -75,6 +75,9 @@ class Stage {
 
     render() {
         if (this.context) {
+            this.context.clearRect(0, 0, w, h)
+            this.context.fillStyle = backColor 
+            this.context.fillRect(0, 0, w, h)
             this.renderer.render(this.context)
         }
     }
