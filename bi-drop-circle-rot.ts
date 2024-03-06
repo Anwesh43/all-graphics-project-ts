@@ -200,3 +200,25 @@ class BiDropCircleRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bdcr : BiDropCircleRot = new BiDropCircleRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bdcr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bdcr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bdcr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
