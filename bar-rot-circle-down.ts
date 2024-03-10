@@ -51,7 +51,7 @@ class DrawingUtil {
             })
             DrawingUtil.drawXY(context, w * 0.5 * (1 - dsc(0)), 0, () => {
                 context.rotate(rot * dsc(1))
-                DrawingUtil.drawCircle(context, 0, 0, size / 3)
+                DrawingUtil.drawCircle(context, size / 3, 0, size / 3)
             })
         })
     }
