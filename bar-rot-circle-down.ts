@@ -203,3 +203,25 @@ class BarRotCircleDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bcrd : BarRotCircleDown = new BarRotCircleDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bcrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bcrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bcrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
