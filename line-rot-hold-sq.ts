@@ -211,3 +211,25 @@ class LineRotHoldSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrhs : LineRotHoldSq = new LineRotHoldSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrhs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrhs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrhs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
