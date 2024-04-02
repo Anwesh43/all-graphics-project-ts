@@ -100,7 +100,7 @@ class State {
         }
     }
 
-    startUdpating(cb : () => void) {
+    startUpdating(cb : () => void) {
         if (this.dir === 0) {
             this.dir = 1 - 2 * this.prevScale 
             cb()
@@ -125,5 +125,47 @@ class Animator {
             this.animated = false 
             clearInterval(this.interval)
         }
+    }
+}
+
+class DUSRNode {
+
+    prev : DUSRNode 
+    next : DUSRNode 
+    state : State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new DUSRNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawDUSRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : DUSRNode {
+        var curr : DUSRNode = this.next 
+        if (dir == -1) {
+            curr = this.prev 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
     }
 }
