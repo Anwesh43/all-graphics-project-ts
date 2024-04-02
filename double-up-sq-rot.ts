@@ -192,3 +192,25 @@ class DoubleUpSqRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dusr : DoubleUpSqRot = new DoubleUpSqRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dusr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.dusr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dusr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
