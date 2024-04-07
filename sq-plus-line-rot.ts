@@ -49,7 +49,7 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
-            DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(0)), 0, () => {
+            DrawingUtil.drawXY(context, -(w / 2) * (1 - dsc(0)), 0, () => {
                 context.fillRect(-size, -size, size, size)
             })
             for (let j = 0; j < 2; j++) {
@@ -65,6 +65,8 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        console.log("SCALE", scale);
         DrawingUtil.drawSqPlusLineRot(context, scale)
     }
 }
