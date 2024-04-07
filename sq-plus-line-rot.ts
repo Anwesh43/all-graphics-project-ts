@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawSqPlusLineRot(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor
         const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2 - (w / 2 + size / 4) * dsc(3), h / 2, () => {
             DrawingUtil.drawXY(context, -(w / 2) * (1 - dsc(0)), 0, () => {
                 context.fillRect(-size, -size, size, size)
             })
