@@ -231,7 +231,7 @@ class Renderer {
         this.splr.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.splr.startUpdating(() => {
+                this.splr.update(() => {
                     this.animator.stop()
                     cb()
                 })
