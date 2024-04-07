@@ -210,3 +210,25 @@ class SqPlusLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    splr : SqPlusLineRot = new SqPlusLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.splr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.splr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.splr.startUpdating(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
