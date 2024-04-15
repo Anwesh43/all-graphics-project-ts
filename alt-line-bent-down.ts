@@ -213,3 +213,25 @@ class AltLineBentDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    albd : AltLineBentDown = new AltLineBentDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.albd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.albd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.albd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
