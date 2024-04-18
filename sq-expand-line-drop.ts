@@ -207,3 +207,24 @@ class SqExpandLineDrop {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    seld : SqExpandLineDrop = new SqExpandLineDrop()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.seld.draw(context)
+    }
+    hhandleTap(cb : () => void) {
+        this.seld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.seld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
