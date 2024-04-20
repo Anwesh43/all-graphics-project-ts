@@ -208,3 +208,25 @@ class LineChairRotStroke {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lcrs : LineChairRotStroke = new LineChairRotStroke()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lcrs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lcrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lcrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
