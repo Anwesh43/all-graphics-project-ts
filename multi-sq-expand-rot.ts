@@ -194,3 +194,27 @@ class MultiSqExpandRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mser : MultiSqExpandRot = new MultiSqExpandRot()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.mser.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.mser.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mser.update(() => {
+                    this.mser.update(() => {
+                        this.animator.stop()
+                        cb()
+                    })
+                })
+            })
+        })
+    }
+}
