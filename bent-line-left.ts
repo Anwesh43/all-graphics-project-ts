@@ -208,3 +208,25 @@ class BentLeftLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bll : BentLeftLine = new BentLeftLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bll.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bll.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bll.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
