@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts : number = 4
+const parts : number = 5
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90
 const sizeFactor : number = 4.9
@@ -48,11 +48,11 @@ class DrawingUtil {
     static drawLineShrinkSqRot(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(3), () => {
-            context.rotate(rot * dsc(2))
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(4), () => {
+            context.rotate(rot * dsc(3))
             DrawingUtil.drawLine(context, 0, 0, -size * dsc(0), 0)
             DrawingUtil.drawXY(context, 0, -h / 2 + (h / 2) * dsc(1), () => {
-                context.fillRect(0, -size + size * 0.5 * dsc(1), size, size - size * 0.5 * dsc(1))
+                context.fillRect(0, -size + size * 0.5 * dsc(2), size, size - size * 0.5 * dsc(2))
             })            
         })
     }
