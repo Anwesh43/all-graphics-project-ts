@@ -207,3 +207,25 @@ class LineShrinkSqRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lssr : LineShrinkSqRot = new LineShrinkSqRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lssr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lssr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lssr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
