@@ -115,6 +115,7 @@ class State {
             this.dir = 0 
             this.prevScale = this.scale 
             cb()
+            console.log("Stopped updating")
         }
     }
 
@@ -142,6 +143,7 @@ class Animator {
         if (this.animated) {
             this.animated = false 
             clearInterval(this.interval)
+            console.log("CLEARED INTERVAL", this.interval)
         }
     }
 }
