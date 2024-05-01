@@ -206,3 +206,25 @@ class FollowRectLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    frl : FollowRectLine = new FollowRectLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.frl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.frl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.frl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
