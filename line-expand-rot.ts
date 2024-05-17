@@ -203,3 +203,25 @@ class LineExpandRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ler : LineExpandRot = new LineExpandRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ler.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ler.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ler.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
