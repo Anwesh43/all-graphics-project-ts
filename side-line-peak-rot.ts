@@ -210,3 +210,25 @@ class SideLinePeakRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slpr : SideLinePeakRot = new SideLinePeakRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.slpr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slpr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slpr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
