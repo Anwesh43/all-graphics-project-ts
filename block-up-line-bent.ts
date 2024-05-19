@@ -211,3 +211,25 @@ class BlockUpLineBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bulb : BlockUpLineBent = new BlockUpLineBent()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bulb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bulb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bulb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
