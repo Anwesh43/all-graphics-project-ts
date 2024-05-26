@@ -212,3 +212,25 @@ class LineAltSideDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lasd : LineAltSideDown = new LineAltSideDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lasd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lasd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lasd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
