@@ -58,4 +58,11 @@ class DrawingUtil {
             })
         }) 
     }
+
+    static drawLSSDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor 
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawLineShiftSqDrop(context, scale)
+    }
 }
