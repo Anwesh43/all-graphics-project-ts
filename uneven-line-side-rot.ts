@@ -207,3 +207,25 @@ class UnevenLineSideRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ulsr : UnevenLineSideRot = new UnevenLineSideRot()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.ulsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ulsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ulsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
