@@ -208,3 +208,25 @@ class LineShiftSqDrop {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lssd : LineShiftSqDrop = new LineShiftSqDrop()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lssd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lssd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lssd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
