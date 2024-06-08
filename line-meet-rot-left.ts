@@ -207,3 +207,25 @@ class LineMeetRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lmrl : LineMeetRotLeft = new LineMeetRotLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lmrl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lmrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lmrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
