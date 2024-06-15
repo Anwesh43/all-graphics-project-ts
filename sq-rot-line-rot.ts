@@ -210,3 +210,25 @@ class SqRotLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    srlr : SqRotLineRot = new SqRotLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.srlr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.srlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.srlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
