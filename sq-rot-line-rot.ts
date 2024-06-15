@@ -46,7 +46,7 @@ class DrawingUtil {
     }
 
     static drawSqRotLineRot(context : CanvasRenderingContext2D, scale : number) {
-        const size : number = Math.min(w, h) / strokeFactor 
+        const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (number) => number = (i : number) => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(4), () => {
             context.rotate(rot * dsc(3))
@@ -54,7 +54,7 @@ class DrawingUtil {
                 context.rotate(rot * dsc(1))
                 context.fillRect(-size, 0, size, size * dsc(0))
             })
-            DrawingUtil.drawXY(context, -size - (w / 2) * (1 - dsc(2)), 0, () => {
+            DrawingUtil.drawXY(context, -size - (w / 2) * (1 - dsc(2)), -size / 2, () => {
                 DrawingUtil.drawLine(context, 0, 0, -size, 0)
             })
         })
