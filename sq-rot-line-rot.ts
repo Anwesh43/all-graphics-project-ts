@@ -145,3 +145,45 @@ class Animator {
         }
     }
 }
+
+class SRLRNode {
+
+    prev : SRLRNode 
+    next : SRLRNode 
+    state : State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new SRLRNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawSRLRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : SRLRNode {
+        var curr : SRLRNode = this.prev 
+        if (dir === 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
