@@ -211,3 +211,25 @@ class PeakAltLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    palr : PeakAltLineRot = new PeakAltLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.palr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.palr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.palr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
