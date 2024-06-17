@@ -211,3 +211,24 @@ class LineAltCrossRot {
     }
 }
 
+class Renderer {
+
+    lacr : LineAltCrossRot = new LineAltCrossRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lacr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lacr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lacr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
