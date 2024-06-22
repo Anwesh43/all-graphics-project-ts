@@ -210,6 +210,28 @@ class LineSqRotCatch {
     }
 }
 
+class Renderer {
+
+    lsrc : LineSqRotCatch = new LineSqRotCatch()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsrc.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsrc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsrc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
+
 
 
 
