@@ -219,3 +219,25 @@ class OpenBoxLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    oblr : OpenBoxLineRot = new OpenBoxLineRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.oblr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.oblr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.oblr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
