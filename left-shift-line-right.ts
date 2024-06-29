@@ -203,3 +203,25 @@ class LeftShiftLineRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lslr : LeftShiftLineRight = new LeftShiftLineRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lslr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lslr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lslr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
