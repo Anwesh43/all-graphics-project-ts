@@ -48,7 +48,10 @@ class DrawingUtil {
     static drawLeftShiftLineRight(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (i : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2 - size + size * dsc(1) + (w / 2) * dsc(3), h * 0.5 * (1 - dsc(0)), () => {
+        DrawingUtil.drawXY(
+            context,
+            w / 2 - size + size * dsc(1) + (w / 2) * dsc(3),
+            h * 0.5 * (1 - dsc(0)), () => {
             context.rotate(rot * dsc(2))
             DrawingUtil.drawLine(context, 0, 0, 0, -size)
         })
