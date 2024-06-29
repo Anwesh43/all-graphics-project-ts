@@ -55,6 +55,9 @@ class DrawingUtil {
             context.rotate(rot * dsc(2))
             DrawingUtil.drawLine(context, 0, 0, 0, -size)
         })
+        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+            DrawingUtil.drawLine(context, 0, 0, -size * (dsc(0) - dsc(1)), 0)
+        })
     }
 
     static drawLSLRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
