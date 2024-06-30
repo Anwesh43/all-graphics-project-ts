@@ -208,3 +208,25 @@ class BiLineRightSlant {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blrs : BiLineRightSlant = new BiLineRightSlant()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blrs.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.blrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
