@@ -213,3 +213,25 @@ class AltLineRotTwice {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    altr : AltLineRotTwice = new AltLineRotTwice()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.altr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.altr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.altr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
