@@ -193,3 +193,25 @@ class RotSqToLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rtsl : RotSqToLeft = new RotSqToLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rtsl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rtsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rtsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
