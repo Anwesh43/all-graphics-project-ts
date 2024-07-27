@@ -210,3 +210,25 @@ class LineSqRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsrl : LineSqRotLeft = new LineSqRotLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsrl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
