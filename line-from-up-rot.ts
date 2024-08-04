@@ -205,3 +205,26 @@ class LineFromUpRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lfur : LineFromUpRot = new LineFromUpRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lfur.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lfur.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lfur.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+
+}
