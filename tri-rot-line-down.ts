@@ -211,3 +211,25 @@ class TriRotLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    trld : TriRotLineDown = new TriRotLineDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.trld.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.trld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.trld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
