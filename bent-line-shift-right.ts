@@ -206,3 +206,25 @@ class BentLineShiftRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blsr : BentLineShiftRight = new BentLineShiftRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.blsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.blsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
