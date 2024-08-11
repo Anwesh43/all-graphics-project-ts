@@ -211,3 +211,25 @@ class LineBlockSqLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbsl : LineBlockSqLeft = new LineBlockSqLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbsl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
