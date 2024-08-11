@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts : number = 4
+const parts : number = 5
 const scGap : number = 0.04 / parts 
 const sizeFactor : number = 7.9 
 const delay : number= 20
@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawLineBlockSqLeft(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(4), h / 2, () => {
             DrawingUtil.drawXY(context, 0, 0, () => {
                 context.rotate(rot * dsc(2))
                 DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
@@ -56,7 +56,7 @@ class DrawingUtil {
             DrawingUtil.drawXY(context, size, 0, () => {
                 const upSize : number = size * dsc(1)
                 context.rotate(rot * dsc(3))
-                context.fillRect(upSize, -upSize, upSize, upSize)
+                context.fillRect(0, -upSize, upSize, upSize)
             })
         })
     }
