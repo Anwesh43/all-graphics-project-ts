@@ -209,3 +209,25 @@ class LineSlantPerpRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lspr : LineSlantPerpRot = new LineSlantPerpRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lspr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lspr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lspr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
