@@ -148,3 +148,44 @@ class Animator {
     }
 }
 
+class LBPRNode {
+
+    prev : LBPRNode 
+    next : LBPRNode 
+    state : State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LBPRNode(this.i + 1)
+            this.next.prev = this 
+        }
+    }
+
+    constructor(private i : number) {
+        this.addNeighbor()
+    }
+
+    draw(context : CanvasRenderingContext2D) {
+        DrawingUtil.drawLBPRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb : () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb : () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir : number, cb : () => void) : LBPRNode {
+        var curr : LBPRNode = this.prev 
+        if (dir === 1) {
+            curr = this.next 
+        }
+        if (curr) {
+            return curr 
+        }
+        cb()
+        return this 
+    }
+}
