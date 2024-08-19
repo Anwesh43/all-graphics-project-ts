@@ -212,3 +212,25 @@ class LineBentPerpRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbpr : LineBentPerpRight = new LineBentPerpRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbpr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbpr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbpr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
