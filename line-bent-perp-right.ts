@@ -127,3 +127,16 @@ class State {
         }
     }
 }
+
+class Animator {
+
+    animated : boolean = false 
+    interval : number 
+
+    start(cb : () => void) {
+        if (!this.animated) {
+            this.animated = true 
+            this.interval = setInterval(cb, delay)
+        }
+    }
+}
