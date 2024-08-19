@@ -139,4 +139,12 @@ class Animator {
             this.interval = setInterval(cb, delay)
         }
     }
+
+    stop() {
+        if (this.animated) {
+            this.animated = false 
+            clearInterval(this.interval)
+        }
+    }
 }
+
