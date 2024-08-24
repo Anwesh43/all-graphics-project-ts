@@ -206,3 +206,25 @@ class BiSqAltRotRight {
         this.curr.startUpdating(cb)
     } 
 }
+
+class Renderer {
+
+    bsarr : BiSqAltRotRight = new BiSqAltRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsarr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bsarr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsarr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
