@@ -212,3 +212,25 @@ class LineSqDropRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsdr : LineSqDropRot = new LineSqDropRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsdr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsdr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsdr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
