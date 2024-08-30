@@ -212,3 +212,25 @@ class LineRightToSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrts : LineRightToSq = new LineRightToSq()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrts.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrts.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrts.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
