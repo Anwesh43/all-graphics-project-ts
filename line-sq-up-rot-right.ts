@@ -206,3 +206,25 @@ class LineSqUpRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsurr : LineSqUpRotRight = new LineSqUpRotRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsurr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsurr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsurr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
