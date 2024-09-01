@@ -210,3 +210,25 @@ class LineExtendFromPoint {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lefp : LineExtendFromPoint = new LineExtendFromPoint()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lefp.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lefp.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lefp.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
