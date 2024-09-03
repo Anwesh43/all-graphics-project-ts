@@ -207,3 +207,25 @@ class LineBarDownRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbdr : LineBarDownRot = new LineBarDownRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbdr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbdr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbdr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
