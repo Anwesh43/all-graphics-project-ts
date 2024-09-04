@@ -208,3 +208,25 @@ class LineRotHoldLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrhl : LineRotHoldLine = new LineRotHoldLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrhl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrhl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrhl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
