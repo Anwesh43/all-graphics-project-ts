@@ -49,8 +49,10 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2 - (w / 2) * dsc(3), h / 2, () => {
-            context.rotate(rot * dsc(1))
-            DrawingUtil.drawLine(context, -size * 0.5 * dsc(0), 0, size * 0.5 * dsc(0), 0)
+            DrawingUtil.drawXY(context, 0, 0, () => {
+                context.rotate(rot * dsc(1))
+                DrawingUtil.drawLine(context, -size * 0.5 * dsc(0), 0, size * 0.5 * dsc(0), 0)
+            })
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, -size / 2 + size * j, -h * 0.5 * (1 - dsc(2)), () => {
                     DrawingUtil.drawLine(context, 0, 0, 0, -size)
