@@ -183,7 +183,7 @@ class SRHLNode {
     }
 
     getNext(dir : number, cb : () => void) {
-        var curr : SRHLNode = this.next 
+        var curr : SRHLNode = this.prev 
         if (dir === 1) {
             curr = this.next 
         }
