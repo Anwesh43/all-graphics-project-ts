@@ -214,3 +214,25 @@ class SqRotHoldLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    srhl : SqRotHoldLine = new SqRotHoldLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.srhl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.srhl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.srhl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
