@@ -14,7 +14,7 @@ const rot : number = -Math.PI
 const sizeFactor : number = 4.9 
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const deg : number = Math.PI / 4
+const deg : number = Math.PI / 6
 
 class ScaleUtil {
 
