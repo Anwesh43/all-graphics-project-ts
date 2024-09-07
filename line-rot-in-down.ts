@@ -205,3 +205,25 @@ class LineRotInDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrid : LineRotInDown = new LineRotInDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrid.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrid.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrid.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
