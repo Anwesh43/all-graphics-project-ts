@@ -207,3 +207,25 @@ class SqDivideRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sdrd : SqDivideRotDown = new SqDivideRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sdrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sdrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sdrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
