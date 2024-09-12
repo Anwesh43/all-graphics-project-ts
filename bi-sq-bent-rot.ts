@@ -148,7 +148,8 @@ class BSBRNode {
 
     addNeighbor() {
         if (this.i < colors.length - 1) {
-
+            this.next = new BSBRNode(this.i + 1)
+            this.next.prev = this 
         }
     }
 
