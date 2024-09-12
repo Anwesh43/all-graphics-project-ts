@@ -25,3 +25,32 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawBiSqBentRot(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2) * dsc(3), () => {
+            for (let j = 0; j < 2; j++) {
+                const currRot : number = rot / (1 + j)
+                DrawingUtil.drawXY(context, 0, 0, () => {
+                    context.rotate(currRot * dsc(j + 1))
+                    context.fillRect(-size * dsc(0), 0, size * dsc(0), size * dsc(0))
+                })
+            }
+        })
+    }
+
+    static drawBSBRNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBiSqBentRot(context, scale)
+    }
+}
