@@ -195,3 +195,25 @@ class BiSqBentRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsbr : BiSqBentRot = new BiSqBentRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bsbr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bsbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
