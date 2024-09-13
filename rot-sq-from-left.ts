@@ -5,8 +5,8 @@ const colors : Array<string> = [
     "#C51162",
     "#00C853"  
 ]
-const parts : number = 4
-const scGap : number = 0.04 / parts 
+const parts : number = 3
+const scGap : number = 0.03 / parts 
 const delay : number = 20
 const sizeFactor : number = 4.9 
 const backColor : string = "#BDBDBD"
@@ -22,5 +22,31 @@ class ScaleUtil {
 
     static divideScale(scale : number, i : number, n : number) : number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
+    }
+}
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawRotSqFromLeft(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2 - (w / 2) * (1 - dsc(0)), h / 2 - (h / 2) * (1 - dsc(2)), () => {
+            DrawingUtil.drawXY(context, -size, 0, () => {
+                context.rotate(rot * dsc(1))
+                context.fillRect(0, -size, size, size)
+            })
+        })
+    }
+
+    static drawRSFLNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawRotSqFromLeft(context, scale)
     }
 }
