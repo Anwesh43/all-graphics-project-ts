@@ -192,3 +192,25 @@ class RotSqFromLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rsfl : RotSqFromLeft = new RotSqFromLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rsfl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rsfl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rsfl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
