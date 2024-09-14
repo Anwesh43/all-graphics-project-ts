@@ -212,3 +212,25 @@ class LineGroupRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lgr : LineGroupRot = new LineGroupRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lgr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lgr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lgr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
