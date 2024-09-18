@@ -25,3 +25,37 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawConcBar(context : CanvasRenderingContext2D, size : number, dsc : number[]) {
+        const barH : number = size / 4
+        for (let j = 0; j < 2; j++) {
+            DrawingUtil.drawXY(context, 0, -barH * j, () => {
+                const dsj : number = dsc[j]
+                context.fillRect(-size * 0.5 * dsj, -barH, size * dsj, barH)
+            })
+        }
+    }
+
+    static drawConcBarRotDown(context : CanvasRenderingContext2D, scale : number) {
+        const size : number = Math.min(w, h) / sizeFactor 
+        const dsc : (i : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(3), () => {
+            context.rotate(rot * dsc(2))
+            DrawingUtil.drawConcBar(context, size, [dsc(0), dsc(1)])
+        })
+    }
+
+    static drawCBRDNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawConcBarRotDown(context, scale)
+    }
+}
