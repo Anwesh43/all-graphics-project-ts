@@ -201,3 +201,25 @@ class ConcBarRotDown {
         this.curr.startUpdating(cb)
     } 
 }
+
+class Renderer {
+
+    cbrd : ConcBarRotDown = new ConcBarRotDown()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cbrd.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.cbrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cbrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
