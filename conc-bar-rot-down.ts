@@ -39,8 +39,9 @@ class DrawingUtil {
         const barH : number = size / 4
         for (let j = 0; j < 2; j++) {
             DrawingUtil.drawXY(context, 0, -barH * j, () => {
+                const barW : number = size / (1 + j)
                 const dsj : number = dsc[j]
-                context.fillRect(-size * 0.5 * dsj, -barH, size * dsj, barH)
+                context.fillRect(-barW * 0.5 * dsj, -barH, barW * dsj, barH)
             })
         }
     }
