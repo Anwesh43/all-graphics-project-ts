@@ -5,7 +5,7 @@ const colors : Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts : number = 4 
+const parts : number = 5 
 const scGap : number = 0.04 / parts 
 const strokeFactor : number = 90
 const sizeFactor : number = 4.9 
@@ -14,7 +14,7 @@ const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth
 const h : number = window.innerHeight 
 const rot : number = -Math.PI 
-
+const deg : number = Math.PI / 2
 class ScaleUtil {
 
     static maxScale(scale : number, i : number, n : number) : number {
@@ -48,7 +48,8 @@ class DrawingUtil {
     static drawLineRotSqFill(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor
         const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(4), () => {
+            context.rotate(rot * dsc(3))
             context.fillRect(-size * 0.25 * dsc(2), -size / 4, size * 0.5 * dsc(2), size * 0.5)
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
