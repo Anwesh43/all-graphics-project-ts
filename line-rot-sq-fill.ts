@@ -211,3 +211,25 @@ class LineRotSqFill {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrsf : LineRotSqFill = new LineRotSqFill()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lrsf.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lrsf.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrsf.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
