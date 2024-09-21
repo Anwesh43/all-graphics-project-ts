@@ -212,3 +212,24 @@ class LineHolderRectRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+    lhrr : LineHolderRectRot = new LineHolderRectRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lhrr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lhrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lhrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
