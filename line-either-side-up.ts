@@ -214,3 +214,25 @@ class LineEitherSideUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lesu : LineEitherSideUp = new LineEitherSideUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lesu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lesu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lesu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
