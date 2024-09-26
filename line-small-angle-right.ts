@@ -211,3 +211,25 @@ class LineSmallAngleRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsar : LineSmallAngleRight = new LineSmallAngleRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsar.draw(context)
+    }
+    
+    handleTap(cb : () => void) {
+        this.lsar.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsar.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
