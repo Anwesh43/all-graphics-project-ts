@@ -64,9 +64,12 @@ class DrawingUtil {
         const size : number = Math.min(w, h) / sizeFactor
         DrawingUtil.drawXY(context, w / 2 - (w / 2) * dsc(3), h / 2, () => {
             DrawingUtil.drawLine(context, 0, -size * (1 - dsc(0)), 0, -size)
-            DrawingUtil.drawXY(context, 0, size / 2, () => {
+            DrawingUtil.drawXY(context, 0, 0, () => {
                 context.rotate(rot * dsc(2))
-                DrawingUtil.drawArc(context, size / 2, -90, 180)
+                DrawingUtil.drawXY(context, 0, size / 2, () => {
+                    
+                    DrawingUtil.drawArc(context, size / 2, -90, 180 * dsc(1))
+                })
             })
         })
     }
