@@ -220,3 +220,25 @@ class LineJoinArcRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ljar : LineJoinArcRot = new LineJoinArcRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.ljar.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.ljar.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ljar.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
