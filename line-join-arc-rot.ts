@@ -13,7 +13,7 @@ const delay : number = 20
 const backColor : string = "#BDBDBD"
 const w : number = window.innerWidth 
 const h : number = window.innerHeight 
-const rot : number = Math.PI / 2
+const rot : number = Math.PI
 
 class ScaleUtil {
 
