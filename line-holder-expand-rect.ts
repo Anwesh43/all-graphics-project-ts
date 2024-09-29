@@ -211,3 +211,25 @@ class LineHolderExpandRect {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lher : LineHolderExpandRect = new LineHolderExpandRect()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lher.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lher.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lher.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
