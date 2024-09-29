@@ -67,3 +67,38 @@ class DrawingUtil {
         DrawingUtil.drawLineHolderExpandRot(context, scale)
     }
 }
+
+class Stage {
+
+    canvas : HTMLCanvasElement = document.createElement('canvas')
+    context : CanvasRenderingContext2D | null 
+
+    initCanvas() {
+        this.canvas.width = w 
+        this.canvas.height = h 
+        this.context = this.canvas.getContext('2d')
+        document.body.appendChild(this.canvas)
+    }
+
+    render() {
+        if (this.context) {
+            this.canvas.width = w 
+            this.canvas.height = h 
+            this.context = this.canvas.getContext('2d')
+            document.body.appendChild(this.canvas)
+        }
+    }
+
+    handleTap() {
+        this.canvas.onmousedown = () => {
+
+        }
+    }
+
+    static init() {
+        const stage : Stage = new Stage()
+        stage.initCanvas()
+        stage.render()
+        stage.handleTap()
+    }
+}
