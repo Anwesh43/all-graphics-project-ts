@@ -192,3 +192,25 @@ class BarMidShrinkRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bmsr : BarMidShrinkRot = new BarMidShrinkRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bmsr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bmsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bmsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
