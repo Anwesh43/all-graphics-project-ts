@@ -208,3 +208,25 @@ class SqLineIntoRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slir : SqLineIntoRot = new SqLineIntoRot()
+    animator : Animator = new Animator()
+    
+    render(context : CanvasRenderingContext2D) {
+        this.slir.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.slir.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slir.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
