@@ -206,3 +206,25 @@ class SqBentToLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sbtl : SqBentToLine = new SqBentToLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.sbtl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.sbtl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sbtl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
