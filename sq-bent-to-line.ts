@@ -48,6 +48,7 @@ class DrawingUtil {
     static drawSqBentToLine(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor
         const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        console.log("SCALE", scale)
         DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2) * dsc(3), () => {
             DrawingUtil.drawXY(context, 0, -size, () => {
                 DrawingUtil.drawLine(context, 0, 0, size * dsc(1), 0)
