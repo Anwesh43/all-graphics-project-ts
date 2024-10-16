@@ -201,10 +201,12 @@ class SqBentToLine {
     }
 
     update(cb : () => void) {
-        this.curr = this.curr.getNext(this.dir, () => {
-            this.dir *= -1
-        })
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
         cb()
+        })
     }
 
     startUpdating(cb : () => void) {
