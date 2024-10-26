@@ -211,3 +211,25 @@ class DownRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dru : DownRotUp = new DownRotUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dru.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.dru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
