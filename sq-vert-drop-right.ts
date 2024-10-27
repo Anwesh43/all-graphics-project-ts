@@ -197,3 +197,25 @@ class SqVertDropRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    svdr : SqVertDropRight = new SqVertDropRight()
+    animator : Animator = new Animator() 
+
+    render(context : CanvasRenderingContext2D) {
+        this.svdr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.svdr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.svdr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
