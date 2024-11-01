@@ -49,6 +49,7 @@ class DrawingUtil {
     static drawDoubleLineJoinRot(context : CanvasRenderingContext2D, scale : number) {
         const size : number = Math.min(w, h) / sizeFactor 
         const dsc : (a : number) => number = (i : number) : number => ScaleUtil.divideScale(scale, i, parts)
+        console.log(`SIZE ${size} SCALE ${scale}`)
         DrawingUtil.drawXY(context, w / 2 - (w / 2) * dsc(3), h / 2, () => {
             context.rotate(deg * dsc(2))
             for (let j = 0; j < 2; j++) {
