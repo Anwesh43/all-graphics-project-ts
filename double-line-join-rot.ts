@@ -209,3 +209,25 @@ class DoubleLineJoinRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dljr : DoubleLineJoinRot = new DoubleLineJoinRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.dljr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.dljr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dljr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
