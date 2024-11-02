@@ -209,3 +209,25 @@ class RightRotLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rrlu : RightRotLineUp = new RightRotLineUp()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rrlu.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rrlu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rrlu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
