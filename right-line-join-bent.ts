@@ -209,3 +209,25 @@ class RightLineJoinBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rljb : RightLineJoinBent = new RightLineJoinBent()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.rljb.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rljb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rljb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
