@@ -209,3 +209,25 @@ class OpenRectLeftRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    orlr : OpenRectLeftRot = new OpenRectLeftRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.orlr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.orlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.orlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
