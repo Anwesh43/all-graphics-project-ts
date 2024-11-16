@@ -211,3 +211,25 @@ class EachSideHandleLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    eshl : EachSideHandleLine = new EachSideHandleLine()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.eshl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.eshl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.eshl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
