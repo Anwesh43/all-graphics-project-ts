@@ -188,7 +188,7 @@ class PLBRNode {
     }   
 }
 
-class PeelLinebentRight {
+class PeelLineBentRight {
 
     curr : PLBRNode = new PLBRNode(0)
     dir : number = 1
@@ -208,5 +208,27 @@ class PeelLinebentRight {
 
     startUdpating(cb : () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    plbr : PeelLineBentRight = new PeelLineBentRight()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.plbr.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.plbr.startUdpating(() => {
+            this.animator.start(() => {
+                cb()
+                this.plbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
