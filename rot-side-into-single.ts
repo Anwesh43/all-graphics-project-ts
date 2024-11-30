@@ -113,4 +113,31 @@ class State {
             cb()
         }
     }
+
+    startUpdating(cb : () => void) {
+        if (this.dir === 0) {
+            this.dir = 1 - 2 * this.prevScale 
+            cb()
+        }   
+    }
+}
+
+class Animator {
+
+    animated : boolean = false 
+    interval : number 
+
+    start(cb : () => void) {
+        if (!this.animated) {
+            this.animated = true 
+            this.interval = setInterval(cb, delay)
+        }
+    }
+
+    stop() {
+        if (this.animated) {
+            this.animated = false 
+            clearInterval(this.interval)
+        }
+    }
 }
