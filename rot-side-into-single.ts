@@ -206,3 +206,26 @@ class RotSideIntoSingle {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rsis : RotSideIntoSingle = new RotSideIntoSingle()
+    animator : Animator = new Animator()
+
+    renderer(context : CanvasRenderingContext2D) {
+        this.rsis.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.rsis.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rsis.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+
+}
