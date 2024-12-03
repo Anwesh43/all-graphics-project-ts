@@ -208,3 +208,25 @@ class LineSlantUpRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsur : LineSlantUpRot = new LineSlantUpRot()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lsur.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lsur.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsur.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
