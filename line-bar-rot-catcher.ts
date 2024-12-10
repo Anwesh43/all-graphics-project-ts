@@ -212,3 +212,25 @@ class LineBarRotCatcher {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbrc : LineBarRotCatcher = new LineBarRotCatcher()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lbrc.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.lbrc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbrc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
