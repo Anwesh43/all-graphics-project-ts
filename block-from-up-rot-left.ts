@@ -190,3 +190,25 @@ class BlockFromUpRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bfurl : BlockFromUpRotLeft = new BlockFromUpRotLeft()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bfurl.draw(context)
+    }
+
+    handleTap(cb : () => void) {
+        this.bfurl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bfurl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
