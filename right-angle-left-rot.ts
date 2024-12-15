@@ -63,7 +63,7 @@ class DrawingUtil {
         })
     }
 
-    static drawRALR(context: CanvasRenderingContext2D, i: number, scale: number) {
+    static drawRALRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
