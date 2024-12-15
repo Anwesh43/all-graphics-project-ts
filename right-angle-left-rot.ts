@@ -212,3 +212,25 @@ class RightAngleLeftRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ralr: RightAngleLeftRot = new RightAngleLeftRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ralr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ralr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ralr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
