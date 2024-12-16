@@ -209,3 +209,25 @@ class RightBentLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rblu: RightBentLineUp = new RightBentLineUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rblu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rblu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rblu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
