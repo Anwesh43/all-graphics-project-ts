@@ -208,3 +208,25 @@ class LineRotDownSweep {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrds: LineRotDownSweep = new LineRotDownSweep()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrds.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrds.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrds.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
