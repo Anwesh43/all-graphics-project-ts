@@ -186,7 +186,7 @@ class LRDSNode {
     }
 }
 
-class LineROtDownSweep {
+class LineRotDownSweep {
 
     curr: LRDSNode = new LRDSNode(0)
     dir: number = 1
