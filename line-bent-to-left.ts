@@ -48,6 +48,7 @@ class DrawingUtil {
     static drawLineBentToLeft(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        console.log("SC", scale)
         DrawingUtil.drawXY(context, w / 2 - (w / 2) * dsc(3), h / 2, () => {
             context.rotate(deg * dsc(2))
             DrawingUtil.drawXY(context, 0, 0, () => {
@@ -110,7 +111,7 @@ class State {
 
     update(cb: () => void) {
         this.scale += scGap * this.dir
-        console.log("SCALE", this.scale)
+        //console.log("SCALE", this.scale)
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir
             this.dir = 0
