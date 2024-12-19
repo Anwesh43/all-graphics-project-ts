@@ -205,3 +205,25 @@ class LineBentToLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbtl: LineBentToLeft = new LineBentToLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbtl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbtl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbtl.startUpdating(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
