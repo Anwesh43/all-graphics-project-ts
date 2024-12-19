@@ -224,7 +224,7 @@ class Renderer {
         this.lbtl.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.lbtl.startUpdating(() => {
+                this.lbtl.update(() => {
                     this.animator.stop()
                     cb()
                 })
