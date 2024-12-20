@@ -115,7 +115,7 @@ class State {
     update(cb: () => void) {
         console.log("UPDATING", this.scale, this.dir)
         this.scale += scGap * this.dir
-        if (Math.abs(this.dir - this.prevScale) > 1) {
+        if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir
             this.dir = 0
             this.prevScale = this.scale
