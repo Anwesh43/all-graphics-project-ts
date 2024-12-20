@@ -113,6 +113,7 @@ class State {
     prevScale: number = 0
 
     update(cb: () => void) {
+        console.log("UPDATING", this.scale, this.dir)
         this.scale += scGap * this.dir
         if (Math.abs(this.dir - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir
@@ -137,6 +138,7 @@ class Animator {
 
     start(cb: () => void) {
         if (!this.animated) {
+            console.log("STARTING_ANIMATION")
             this.animated = true
             this.interval = setInterval(cb, delay)
         }
