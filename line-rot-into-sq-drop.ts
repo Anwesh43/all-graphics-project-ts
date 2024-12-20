@@ -210,3 +210,25 @@ class LineRotIntoSqDrop {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrsd: LineRotIntoSqDrop = new LineRotIntoSqDrop()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrsd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
