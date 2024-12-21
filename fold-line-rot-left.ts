@@ -207,3 +207,25 @@ class FoldLineRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    flrl: FoldLineRotLeft = new FoldLineRotLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.flrl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.flrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.flrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
