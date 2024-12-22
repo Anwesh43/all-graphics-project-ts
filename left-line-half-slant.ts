@@ -208,3 +208,25 @@ class LeftLineHalfSlant {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    llhs: LeftLineHalfSlant = new LeftLineHalfSlant()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.llhs.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.llhs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.llhs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
