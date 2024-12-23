@@ -203,3 +203,25 @@ class PerpLineDownShift {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    plds: PerpLineDownShift = new PerpLineDownShift()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.plds.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.plds.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.plds.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
