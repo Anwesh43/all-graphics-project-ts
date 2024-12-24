@@ -191,3 +191,25 @@ class RotSqDownLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rsdl: RotSqDownLeft = new RotSqDownLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rsdl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rsdl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rsdl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
