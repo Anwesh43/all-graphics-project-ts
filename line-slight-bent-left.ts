@@ -207,3 +207,25 @@ class LineSlightBentLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsbl: LineSlightBentLeft = new LineSlightBentLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsbl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsbl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsbl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
