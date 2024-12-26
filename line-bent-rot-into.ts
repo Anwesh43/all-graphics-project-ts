@@ -210,3 +210,25 @@ class LineBentRotInto {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbri: LineBentRotInto = new LineBentRotInto()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbri.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbri.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbri.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
