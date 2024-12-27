@@ -197,3 +197,25 @@ class AllSqRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    asrd: AllSqRotDown = new AllSqRotDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.asrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.asrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.asrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
