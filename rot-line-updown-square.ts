@@ -207,3 +207,25 @@ class RotLineUpDownSquare {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rluds: RotLineUpDownSquare = new RotLineUpDownSquare()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rluds.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rluds.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rluds.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
