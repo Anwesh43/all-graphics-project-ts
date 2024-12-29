@@ -207,3 +207,25 @@ class LineDivideFromLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldfl: LineDivideFromLeft = new LineDivideFromLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldfl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldfl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldfl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
