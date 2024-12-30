@@ -203,3 +203,24 @@ class LineHorizontalVerticalRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lhvr: LineHorizontalVerticalRot = new LineHorizontalVerticalRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lhvr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lhvr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lhvr.update(() => {
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
