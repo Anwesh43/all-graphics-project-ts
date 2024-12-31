@@ -192,3 +192,25 @@ class BarDownRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bdrr: BarDownRotRight = new BarDownRotRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bdrr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bdrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bdrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
