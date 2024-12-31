@@ -39,9 +39,9 @@ class DrawingUtil {
         const barW: number = Math.min(w, h) / barWFactor
         const barH: number = Math.min(w, h) / barHFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), (h / 2) * dsc(2), () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 + barH) * dsc(3), (h / 2) * dsc(2), () => {
             context.rotate(rot * dsc(1))
-            context.fillRect(-barW, 0, barW, barH * dsc(0))
+            context.fillRect(0, 0, barW, barH * dsc(0))
         })
     }
 
