@@ -10,7 +10,7 @@ const scGap: number = 0.04 / parts
 const delay: number = 20
 const backColor: string = "#BDBDBD"
 const rot: number = -Math.PI
-const sizeFactor: number = 5.2
+const sizeFactor: number = 9.2
 const w: number = window.innerWidth
 const h: number = window.innerHeight
 
