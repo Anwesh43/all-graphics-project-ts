@@ -191,3 +191,25 @@ class RotFromRightSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rfrs: RotFromRightSq = new RotFromRightSq()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rfrs.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rfrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rfrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
