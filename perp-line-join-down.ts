@@ -141,3 +141,45 @@ class Animator {
         }
     }
 }
+
+class PLJDNode {
+
+    prev: PLJDNode
+    next: PLJDNode
+    state: State = new State()
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new PLJDNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawPLJDNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): PLJDNode {
+        var curr: PLJDNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
