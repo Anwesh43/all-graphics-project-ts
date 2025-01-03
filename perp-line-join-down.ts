@@ -206,3 +206,25 @@ class PerpLineJoinDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pljd: PerpLineJoinDown = new PerpLineJoinDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.pljd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.pljd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pljd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
