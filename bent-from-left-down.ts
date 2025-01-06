@@ -203,3 +203,25 @@ class BentFromLeftDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bfld: BentFromLeftDown = new BentFromLeftDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bfld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bfld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bfld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
