@@ -163,7 +163,7 @@ class LPDBNode {
     }
 
     draw(context: CanvasRenderingContext2D) {
-        DrawingUtil.drawLinePerpDownBent(context, this.state.scale)
+        DrawingUtil.drawLPDBNode(context, this.i, this.state.scale)
     }
 
     update(cb: () => void) {
