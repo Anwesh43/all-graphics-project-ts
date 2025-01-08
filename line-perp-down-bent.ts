@@ -205,3 +205,25 @@ class LinePerpDownBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpdb: LinePerpDownBent = new LinePerpDownBent()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lpdb.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lpdb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpdb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
