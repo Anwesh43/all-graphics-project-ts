@@ -190,3 +190,25 @@ class BarSqRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsrd: BarSqRotDown = new BarSqRotDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bsrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bsrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
