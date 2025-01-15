@@ -191,3 +191,25 @@ class SqDownRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sdrl: SqDownRotLeft = new SqDownRotLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.sdrl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.sdrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sdrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
