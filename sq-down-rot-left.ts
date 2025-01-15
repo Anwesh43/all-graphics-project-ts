@@ -37,7 +37,7 @@ class DrawingUtil {
     static drawSqDownRotLeft(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, (w / 2), (h / 2) * (dsc(1) - dsc(3)), () => {
+        DrawingUtil.drawXY(context, (w / 2) - (w / 2) * dsc(3), (h / 2) * dsc(1), () => {
             context.rotate(rot * dsc(2))
             context.fillRect(0, 0, size * dsc(0), size)
         })
