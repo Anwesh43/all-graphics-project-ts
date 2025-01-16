@@ -25,3 +25,27 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawBlockCornerUpRight(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w * 0.5 * dsc(2), h - h * 0.5 * (dsc(1) - dsc(4)), () => {
+            context.rotate(rot * dsc(3))
+            context.fillRect(0, -size * dsc(0), size * dsc(0), size * dsc(0))
+        })
+    }
+
+    static drawBCURNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawBlockCornerUpRight(context, scale)
+    }
+}
