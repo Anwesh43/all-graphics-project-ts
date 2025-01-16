@@ -191,3 +191,25 @@ class BlockCornerUpRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bcur: BlockCornerUpRight = new BlockCornerUpRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bcur.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bcur.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bcur.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
