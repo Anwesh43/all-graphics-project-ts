@@ -54,7 +54,7 @@ class DrawingUtil {
                 context.fillRect(0, -size / 2, size, size)
             })
             for (let j = 0; j < 2; j++) {
-                DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(1)), -2 * size / 2 + 4 * size * j, () => {
+                DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(1)), -size + 2 * size * j, () => {
                     DrawingUtil.drawLine(context, 0, 0, size, 0)
                 })
             }
