@@ -211,3 +211,25 @@ class MidRotLineGroup {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mrlg: MidRotLineGroup = new MidRotLineGroup()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.mrlg.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.mrlg.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mrlg.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
