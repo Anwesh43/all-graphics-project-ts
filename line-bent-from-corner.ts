@@ -203,3 +203,25 @@ class LineBentFromCorner {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbfc: LineBentFromCorner = new LineBentFromCorner()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbfc.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbfc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbfc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
