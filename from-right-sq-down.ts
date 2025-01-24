@@ -191,3 +191,25 @@ class FromRightSqDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    frsd: FromRightSqDown = new FromRightSqDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.frsd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.frsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.frsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
