@@ -25,3 +25,27 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawFromRightSqDown(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (a: number) => number = (i: number) => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, (w / 2) * dsc(1), h / 2 + (h / 2) * dsc(3), () => {
+            context.rotate(rot * dsc(2))
+            context.fillRect(size * (1 - dsc(0)), -size / 2, size * dsc(0), size)
+        })
+    }
+
+    static drawFRSDNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawFromRightSqDown(context, scale)
+    }
+}
