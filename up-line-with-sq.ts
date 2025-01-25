@@ -228,7 +228,7 @@ class Renderer {
         this.ulws.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.ulws.startUpdating(() => {
+                this.ulws.update(() => {
                     this.animator.stop()
                     cb()
                 })
