@@ -208,3 +208,25 @@ class FromUpBottomRightLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    fubrl: FromUpBottomRightLine = new FromUpBottomRightLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.fubrl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.fubrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.fubrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
