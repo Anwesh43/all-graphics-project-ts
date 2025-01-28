@@ -53,6 +53,7 @@ class DrawingUtil {
                 DrawingUtil.drawXY(context, 0, -h * 0.5 * (1 - dsc(2 * j)), () => {
                     context.rotate(rot * (1 + j) * dsc(2 * j + 1))
                     DrawingUtil.drawLine(context, 0, 0, 0, -size)
+                    console.log("SC", scale)
                 })
             }
         })
