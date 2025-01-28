@@ -90,6 +90,7 @@ class Stage {
 
     handleTap() {
         this.canvas.onmousedown = () => {
+            console.log("handle tap")
             this.renderer.handleTap(() => {
                 console.log("Rendering")
                 this.render()
