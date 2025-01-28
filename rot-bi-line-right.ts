@@ -206,3 +206,25 @@ class RotBiLineRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rblr: RotBiLineRight = new RotBiLineRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rblr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rblr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rblr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
