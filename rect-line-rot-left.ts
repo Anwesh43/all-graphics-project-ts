@@ -209,3 +209,25 @@ class RectLineRotLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlrl: RectLineRotLeft = new RectLineRotLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlrl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
