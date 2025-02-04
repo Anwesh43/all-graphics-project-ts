@@ -207,3 +207,25 @@ class LinePointRotTurn {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    animator: Animator = new Animator()
+    lprt: LinePointRotTurn = new LinePointRotTurn()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lprt.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lprt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lprt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
