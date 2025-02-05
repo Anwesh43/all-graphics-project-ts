@@ -210,3 +210,25 @@ class RotLineMultiStep {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlms: RotLineMultiStep = new RotLineMultiStep()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlms.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlms.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlms.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
