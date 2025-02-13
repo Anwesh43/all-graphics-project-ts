@@ -193,3 +193,25 @@ class RotFromUpLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rful: RotFromUpLeft = new RotFromUpLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rful.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rful.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rful.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
