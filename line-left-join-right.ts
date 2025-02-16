@@ -144,3 +144,44 @@ class Animator {
         }
     }
 }
+
+class LLJRNode {
+
+    state: State = new State()
+    prev: LLJRNode
+    next: LLJRNode
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LLJRNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawLLJRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): LLJRNode {
+        var curr: LLJRNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
