@@ -209,3 +209,24 @@ class RotLineBentRight {
     }
 }
 
+class Renderer {
+
+    rlbr: RotLineBentRight = new RotLineBentRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlbr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
