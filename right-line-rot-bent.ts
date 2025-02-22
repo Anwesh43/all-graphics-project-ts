@@ -213,3 +213,25 @@ class RightLineRotBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlbr: RightLineRotBent = new RightLineRotBent()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlbr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
