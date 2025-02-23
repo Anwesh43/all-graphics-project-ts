@@ -5,7 +5,7 @@ const colors: Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts: number = 4
+const parts: number = 5
 const scGap: number = 0.04 / parts
 const strokeFactor: number = 90
 const sizeFactor: number = 7.9
@@ -23,5 +23,47 @@ class ScaleUtil {
 
     static divideScale(scale: number, i: number, n: number): number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
+    }
+}
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawLineRightExtendLine(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (i: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(4), () => {
+            context.rotate(rot * dsc(3))
+            for (let j = 0; j <= 2; j++) {
+                const jMod: number = j % 2
+                const jDiv: number = Math.floor((j + 1) / 2)
+                DrawingUtil.drawXY(context, size * jDiv, size * jDiv * (1 - jMod), () => {
+                    DrawingUtil.drawLine(context, 0, 0, size * dsc(j) * (1 - jMod), size * dsc(j) * jMod)
+                })
+            }
+        })
+    }
+
+    static drawLRELNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.strokeStyle = colors[i]
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        DrawingUtil.drawLineRightExtendLine(context, scale)
     }
 }
