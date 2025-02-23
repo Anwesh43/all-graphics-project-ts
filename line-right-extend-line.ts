@@ -209,3 +209,25 @@ class LineRightExtendLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrel: LineRightExtendLine = new LineRightExtendLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrel.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrel.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrel.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
