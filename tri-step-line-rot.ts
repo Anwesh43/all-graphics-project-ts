@@ -37,11 +37,12 @@ class DrawingUtil {
 
     static drawLine(context: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
         if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
-            context.beginPath()
-            context.moveTo(x1, y1)
-            context.lineTo(x2, y2)
-            context.stroke()
+            return
         }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
     }
 
     static drawTriStepLineRot(context: CanvasRenderingContext2D, scale: number) {
@@ -51,7 +52,7 @@ class DrawingUtil {
             context.rotate(rot * dsc(3))
             for (let j = 0; j < 3; j++) {
                 DrawingUtil.drawXY(context, size * 0.5 * j, 0, () => {
-                    DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(j))
+                    DrawingUtil.drawLine(context, 0, 0, 0, -(size / 2 + size * 0.25 * j) * dsc(j))
                 })
             }
         })
