@@ -206,3 +206,25 @@ class TriStepLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tslr: TriStepLineRot = new TriStepLineRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.tslr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.tslr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tslr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
