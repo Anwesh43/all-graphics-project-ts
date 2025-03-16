@@ -146,6 +146,7 @@ class Animator {
     stop() {
         if (this.animated) {
             this.animated = false
+            clearInterval(this.interval)
         }
     }
 }
