@@ -207,3 +207,25 @@ class LineCatchPieDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lcpd: LineCatchPieDown = new LineCatchPieDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lcpd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lcpd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lcpd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
