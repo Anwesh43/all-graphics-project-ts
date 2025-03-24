@@ -13,6 +13,7 @@ const backColor: string = "#BDBDBD"
 const rot: number = Math.PI / 4
 const w: number = window.innerWidth
 const h: number = window.innerHeight
+const delay: number = 20
 
 class ScaleUtil {
 
@@ -119,6 +120,26 @@ class State {
         if (this.dir === 0) {
             this.dir = 1 - 2 * this.prevScale
             cb()
+        }
+    }
+}
+
+class Animator {
+
+    aniamted: boolean = false
+    interval: number
+
+    start(cb: () => void) {
+        if (!this.aniamted) {
+            this.aniamted = true
+            this.interval = setInterval(cb, delay)
+        }
+    }
+
+    stop() {
+        if (this.aniamted) {
+            this.aniamted = false
+            clearInterval(this.interval)
         }
     }
 }
