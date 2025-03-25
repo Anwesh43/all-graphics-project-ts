@@ -207,3 +207,25 @@ class TriRotRightLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    trrl: TriRotRightLine = new TriRotRightLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.trrl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.trrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.trrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
