@@ -212,3 +212,25 @@ class DoublePieLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dpld: DoublePieLineDown = new DoublePieLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dpld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dpld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dpld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
