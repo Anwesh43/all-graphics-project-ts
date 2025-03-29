@@ -211,3 +211,25 @@ class SingleLineRotTriple {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slrt: SingleLineRotTriple = new SingleLineRotTriple()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.slrt.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.slrt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slrt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
