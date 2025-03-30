@@ -206,3 +206,25 @@ class LineExtendPerpRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lepr: LineExtendPerpRot = new LineExtendPerpRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lepr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lepr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lepr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
