@@ -5,7 +5,7 @@ const colors: Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts: number = 4
+const parts: number = 5
 const scGap: number = 0.04 / parts
 const delay: number = 20
 const backColor: string = "#BDBDBD"
