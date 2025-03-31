@@ -206,3 +206,25 @@ class RightLineRightRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlrr: RightLineRightRot = new RightLineRightRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlrr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
