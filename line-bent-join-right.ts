@@ -210,3 +210,26 @@ class LineBentJoinRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbjr: LineBentJoinRight = new LineBentJoinRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbjr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbjr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbjr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+
+            })
+        })
+    }
+}
