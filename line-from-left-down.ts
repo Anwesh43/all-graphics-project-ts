@@ -209,3 +209,25 @@ class LineFromLeftDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lfld: LineFromLeftDown = new LineFromLeftDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lfld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lfld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lfld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
