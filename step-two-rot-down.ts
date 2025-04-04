@@ -206,3 +206,25 @@ class StepTwoRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    strd: StepTwoRotDown = new StepTwoRotDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.strd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.strd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.strd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
