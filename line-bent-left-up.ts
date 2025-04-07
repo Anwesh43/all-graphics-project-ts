@@ -48,7 +48,7 @@ class DrawingUtil {
     static drawLineBentLeftUp(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (i: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w * 0.5 * dsc(2), -h * 0.5 * dsc(3), () => {
+        DrawingUtil.drawXY(context, w * 0.5 * dsc(2), h / 2 - h * 0.5 * dsc(3), () => {
             context.rotate(rot * dsc(1))
             DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
         })
