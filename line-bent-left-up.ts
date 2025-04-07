@@ -203,3 +203,25 @@ class LineBentLeftUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lblu: LineBentLeftUp = new LineBentLeftUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lblu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lblu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lblu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
