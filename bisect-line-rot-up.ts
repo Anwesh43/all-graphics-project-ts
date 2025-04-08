@@ -209,3 +209,25 @@ class BisectLineRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blru: BisectLineRotUp = new BisectLineRotUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blru.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
