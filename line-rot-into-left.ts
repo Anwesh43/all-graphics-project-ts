@@ -224,14 +224,12 @@ class Renderer {
     }
 
     handleTap(cb: () => void) {
-        this.animator.start(() => {
-            this.lril.startUpdating(() => {
-                this.animator.start(() => {
+        this.lril.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lril.update(() => {
+                    this.animator.stop()
                     cb()
-                    this.lril.update(() => {
-                        this.animator.stop()
-                        cb()
-                    })
                 })
             })
         })
