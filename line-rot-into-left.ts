@@ -208,3 +208,27 @@ class LineRotIntoLeft {
         })
     }
 }
+
+class Renderer {
+
+    lril: LineRotIntoLeft = new LineRotIntoLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lril.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.animator.start(() => {
+            this.lril.startUpdating(() => {
+                this.animator.start(() => {
+                    cb()
+                    this.lril.update(() => {
+                        this.animator.stop()
+                        cb()
+                    })
+                })
+            })
+        })
+    }
+}
