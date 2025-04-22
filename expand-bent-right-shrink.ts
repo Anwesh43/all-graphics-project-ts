@@ -203,3 +203,25 @@ class ExpandBentRightShrink {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ebrs: ExpandBentRightShrink = new ExpandBentRightShrink()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ebrs.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ebrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ebrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
