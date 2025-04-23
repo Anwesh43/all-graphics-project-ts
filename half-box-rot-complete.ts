@@ -210,3 +210,25 @@ class HalfBoxRotComplete {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    hbrc: HalfBoxRotComplete = new HalfBoxRotComplete()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.hbrc.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.hbrc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.hbrc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
