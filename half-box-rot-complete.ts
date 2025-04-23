@@ -54,7 +54,7 @@ class DrawingUtil {
                 const xi1: number = Math.floor(j / 2)
                 const yi: number = (j) % 2
                 DrawingUtil.drawXY(context, size * xi, -size + size * xi1, () => {
-                    context.rotate(rot * j * dsc(3))
+                    context.rotate(rot * xi1 * dsc(3))
                     DrawingUtil.drawLine(context, 0, 0, size * dsc(j) * (1 - yi), size * dsc(j) * yi)
                 })
             }
