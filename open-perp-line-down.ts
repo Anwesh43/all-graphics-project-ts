@@ -207,3 +207,25 @@ class OpenPerpLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    opld: OpenPerpLineDown = new OpenPerpLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.opld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.opld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.opld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
