@@ -58,6 +58,13 @@ class DrawingUtil {
             })
         })
     }
+
+    static drawBLWPNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawBentLineWithPerp(context, scale)
+    }
 }
 
 class Stage {
@@ -134,5 +141,48 @@ class State {
             this.dir = 1 - 2 * this.prevScale
             cb()
         }
+    }
+}
+
+
+class BLWPNode {
+
+    prev: BLWPNode
+    next: BLWPNode
+    state: State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new BLWPNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawBLWPNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): BLWPNode {
+        let curr: BLWPNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
     }
 }
