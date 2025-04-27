@@ -209,3 +209,25 @@ class BentLineWithPerp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blwp: BentLineWithPerp = new BentLineWithPerp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blwp.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blwp.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blwp.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
