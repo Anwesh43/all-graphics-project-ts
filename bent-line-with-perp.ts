@@ -11,7 +11,7 @@ const strokeFactor: number = 90
 const sizeFactor: number = 5.9
 const backColor: string = "#BDBDBD"
 const rot: number = Math.PI
-const delay: number = 2
+const delay: number = 20
 const bentRot: number = Math.PI / 4
 const w: number = window.innerWidth
 const h: number = window.innerHeight
@@ -54,7 +54,7 @@ class DrawingUtil {
             DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
             DrawingUtil.drawXY(context, size, 0, () => {
                 context.rotate(-rot * dsc(3))
-                DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(1))
+                DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(1))
             })
         })
     }
