@@ -203,3 +203,25 @@ class LineUpMidRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lumr: LineUpMidRight = new LineUpMidRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lumr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lumr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lumr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
