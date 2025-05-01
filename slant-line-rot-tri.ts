@@ -209,3 +209,25 @@ class SlantLineRotTri {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slrt: SlantLineRotTri = new SlantLineRotTri()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.slrt.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.slrt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slrt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
