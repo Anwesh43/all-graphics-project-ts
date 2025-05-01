@@ -168,7 +168,7 @@ class SLRTNode {
     }
 
     draw(context: CanvasRenderingContext2D) {
-        DrawingUtil.drawSlantLineRotTri(context, this.state.scale)
+        DrawingUtil.drawSLRTNode(context, this.i, this.state.scale)
     }
 
     update(cb: () => void) {
