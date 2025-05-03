@@ -60,7 +60,7 @@ class DrawingUtil {
         })
     }
 
-    static drawLBRH(context: CanvasRenderingContext2D, i: number, scale: number) {
+    static drawLBRHNode(context: CanvasRenderingContext2D, i: number, scale: number) {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
@@ -143,4 +143,47 @@ class Animator {
             clearInterval(this.interval)
         }
     }
+}
+
+class LBRHNode {
+
+    prev: LBRHNode
+    next: LBRHNode
+    state: State = new State()
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LBRHNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawLBRHNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): LBRHNode {
+        var curr: LBRHNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+
 }
