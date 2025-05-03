@@ -210,3 +210,25 @@ class LineBentRotHoriz {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbrh: LineBentRotHoriz = new LineBentRotHoriz()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbrh.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbrh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbrh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
