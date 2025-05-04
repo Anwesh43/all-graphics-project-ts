@@ -60,6 +60,7 @@ class DrawingUtil {
     }
 
     static drawBLRDNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        console.log("SCALE", scale)
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
