@@ -213,3 +213,25 @@ class LineRotIntoBox {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrib: LineRotIntoBox = new LineRotIntoBox()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrib.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrib.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrib.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
