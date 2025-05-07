@@ -209,3 +209,25 @@ class DiagBigSmallLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dbsl: DiagBigSmallLine = new DiagBigSmallLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dbsl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dbsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dbsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
