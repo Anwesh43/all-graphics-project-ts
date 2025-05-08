@@ -201,3 +201,25 @@ class BiLineJoinRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bljr: BiLineJoinRot = new BiLineJoinRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bljr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bljr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bljr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
