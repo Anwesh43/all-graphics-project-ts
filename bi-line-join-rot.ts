@@ -25,3 +25,38 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
+
+    }
+
+    static drawBiLineJoinRot(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+            context.rotate(rot * dsc(2))
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, -size + size * 0.5 * j, -h * 0.5 * (1 - dsc(0)) - w * 0.5 * dsc(4), () => {
+                    context.rotate(rot * (dsc(1) - dsc(3)))
+                    DrawingUtil.drawLine(context, 0, 0, 0, -size * 0.5)
+                })
+            }
+        })
+    }
+
+    static drawBLJRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawBiLineJoinRot(context, scale)
+    }
+}
