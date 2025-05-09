@@ -195,3 +195,25 @@ class SquareMoveRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    smrr: SquareMoveRotRight = new SquareMoveRotRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.smrr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.smrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.smrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
