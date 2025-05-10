@@ -207,3 +207,25 @@ class DownBentLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dblr: DownBentLineRot = new DownBentLineRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dblr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dblr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dblr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
