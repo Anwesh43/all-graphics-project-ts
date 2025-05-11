@@ -218,3 +218,25 @@ class FoldSqRightMove {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    fsrm: FoldSqRightMove = new FoldSqRightMove()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.fsrm.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.fsrm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.fsrm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
