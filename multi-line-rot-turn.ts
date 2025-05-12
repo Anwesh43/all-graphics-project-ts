@@ -25,3 +25,44 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawMultiLineRotTurn(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        const dsk: (i: number, j: number) => number = (i: number, j: number) => ScaleUtil.divideScale(dsc(i), j, 2)
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(5), h / 2, () => {
+            context.rotate(rot * (dsk(1, 0) + dsk(2, 0) + dsk(3, 0) + dsk(4, 0)))
+            DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
+            DrawingUtil.drawXY(context, size / 2, 0, () => {
+                context.rotate(rot * 0.5 * (dsk(1, 1) + dsk(2, 1) + dsk(3, 1) + dsk(4, 1)))
+                DrawingUtil.drawLine(context, 0, 0, -size * Math.floor(dsc(0)), 0)
+            })
+        })
+    }
+
+    static drawMLRTNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawMultiLineRotTurn(context, scale)
+    }
+}
