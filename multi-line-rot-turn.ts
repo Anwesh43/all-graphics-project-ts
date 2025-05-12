@@ -208,3 +208,25 @@ class MultiLineRotTurn {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mlrt: MultiLineRotTurn = new MultiLineRotTurn()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.mlrt.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.mlrt.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mlrt.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
