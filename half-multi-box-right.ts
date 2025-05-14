@@ -217,3 +217,25 @@ class HalfMultiBoxRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    hmbr: HalfMultiBoxRight = new HalfMultiBoxRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.hmbr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.hmbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.hmbr.startUpdating(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
