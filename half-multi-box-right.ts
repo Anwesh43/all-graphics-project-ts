@@ -48,6 +48,7 @@ class DrawingUtil {
     static drawHalfMultiBoxRight(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        console.log(scale)
         const dsk: (i: number, k: number, parts: number) => number = (i: number, k: number): number => ScaleUtil.divideScale(dsc(i), k, parts)
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(4), h / 2, () => {
             context.rotate(rot * dsc(3))
