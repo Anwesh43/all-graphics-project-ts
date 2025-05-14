@@ -236,7 +236,7 @@ class Renderer {
         this.hmbr.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.hmbr.startUpdating(() => {
+                this.hmbr.update(() => {
                     this.animator.stop()
                     cb()
                 })
