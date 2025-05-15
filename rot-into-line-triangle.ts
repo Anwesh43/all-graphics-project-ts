@@ -189,3 +189,21 @@ class RILTNode {
         return this
     }
 }
+
+class RotIntoLineTriangle {
+
+    curr: RILTNode = new RILTNode(0)
+    dir: number = 1
+
+    draw(context: CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb: () => void) {
+        this.curr.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.curr.startUpdating(cb)
+    }
+}
