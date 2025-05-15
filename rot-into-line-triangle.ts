@@ -204,7 +204,12 @@ class RotIntoLineTriangle {
     }
 
     update(cb: () => void) {
-        this.curr.update(cb)
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
     }
 
     startUpdating(cb: () => void) {
