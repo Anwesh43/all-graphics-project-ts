@@ -209,3 +209,25 @@ class TriSqBoxDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tsbd: TriSqBoxDown = new TriSqBoxDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.tsbd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.tsbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tsbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
