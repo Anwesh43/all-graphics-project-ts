@@ -65,6 +65,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
+        console.log(scale)
         DrawingUtil.drawLineDiagRotExtend(context, scale)
     }
 }
