@@ -210,3 +210,25 @@ class LineDiagRotExtend {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldre: LineDiagRotExtend = new LineDiagRotExtend()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldre.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldre.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldre.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
