@@ -207,3 +207,25 @@ class SqBoxCreateLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sbcl: SqBoxCreateLine = new SqBoxCreateLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.sbcl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.sbcl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sbcl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
