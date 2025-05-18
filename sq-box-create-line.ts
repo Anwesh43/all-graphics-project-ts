@@ -62,6 +62,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
+        console.log("SCALE", scale)
         DrawingUtil.drawSqBoxCreateLine(context, scale)
     }
 }
@@ -89,7 +90,9 @@ class Stage {
 
     handleTap() {
         this.canvas.onmousedown = () => {
-
+            this.renderer.handleTap(() => {
+                this.render()
+            })
         }
     }
 
