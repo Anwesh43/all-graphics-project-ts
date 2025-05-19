@@ -208,3 +208,25 @@ class UpLineRightRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ulrr: UpLineRightRot = new UpLineRightRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ulrr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ulrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ulrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
