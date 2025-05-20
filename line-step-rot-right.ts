@@ -209,3 +209,25 @@ class LineStepRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsrr: LineStepRotRight = new LineStepRotRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsrr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
