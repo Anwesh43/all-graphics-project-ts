@@ -173,7 +173,7 @@ class LDRLNode {
     }
 
     startUpdating(cb: () => void) {
-        this.startUpdating(cb)
+        this.state.startUpdating(cb)
     }
 
     getNext(dir: number, cb: () => void): LDRLNode {
