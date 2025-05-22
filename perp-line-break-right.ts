@@ -210,3 +210,25 @@ class PerpLineBreakRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    plbr: PerpLineBreakRight = new PerpLineBreakRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.plbr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.plbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.plbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
