@@ -26,3 +26,44 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawBentRightLineLeft(context: CanvasRenderingContext2D, scale: number) {
+        const dsc: (i: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        const size: number = Math.min(w, h) / sizeFactor
+        DrawingUtil.drawXY(context, w / 2 - (w / 2) * dsc(3), h / 2, () => {
+            DrawingUtil.drawXY(context, 0, 0, () => {
+                context.rotate(-start + rot * dsc(1))
+                DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
+            })
+            DrawingUtil.drawXY(context, -size, -h * 0.5 * (1 - dsc(2)), () => {
+                DrawingUtil.drawLine(context, 0, 0, 0, -size)
+            })
+        })
+    }
+
+    static drawBRLRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawBentRightLineLeft(context, scale)
+    }
+}
