@@ -214,3 +214,25 @@ class LineDivideRightLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldrl: LineDivideRightLine = new LineDivideRightLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldrl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
