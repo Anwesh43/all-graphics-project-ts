@@ -209,3 +209,25 @@ class LineBentTShapeRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbtsr: LineBentTShapeRight = new LineBentTShapeRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbtsr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbtsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbtsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
