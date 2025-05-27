@@ -12,7 +12,7 @@ const sizeFactor: number = 5.9
 const delay: number = 20
 const backColor: string = "#BDBDBD"
 const rot: number = Math.PI / 2
-const rot1: number = -1.25 * Math.PI
+const rot1: number = -0.75 * Math.PI
 const w: number = window.innerWidth
 const h: number = window.innerHeight
 
