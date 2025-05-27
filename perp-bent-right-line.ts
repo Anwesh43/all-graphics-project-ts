@@ -206,3 +206,24 @@ class PerpBentRightLine {
     }
 }
 
+class Renderer {
+
+    pbrl: PerpBentRightLine = new PerpBentRightLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.pbrl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.pbrl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pbrl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
