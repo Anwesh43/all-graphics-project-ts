@@ -155,7 +155,10 @@ class PBRLNode {
     state: State = new State()
 
     addNeighbor() {
-
+        if (this.i < colors.length - 1) {
+            this.next = new PBRLNode(this.i + 1)
+            this.next.prev = this
+        }
     }
 
     constructor(private i: number) {
