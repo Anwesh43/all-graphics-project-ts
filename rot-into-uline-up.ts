@@ -189,7 +189,7 @@ class RIUUNode {
     }
 }
 
-class RotIntroULineUp {
+class RotIntoULineUp {
 
     curr: RIUUNode = new RIUUNode(0)
     dir: number = 1
@@ -209,5 +209,27 @@ class RotIntroULineUp {
 
     startUpdating(cb: () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    riuu: RotIntoULineUp = new RotIntoULineUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.riuu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.riuu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.riuu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
