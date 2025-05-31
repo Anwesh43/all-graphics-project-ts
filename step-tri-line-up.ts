@@ -213,3 +213,25 @@ class StepTriLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    stlu: StepTriLineUp = new StepTriLineUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.stlu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.stlu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.stlu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
