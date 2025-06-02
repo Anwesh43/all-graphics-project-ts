@@ -46,7 +46,7 @@ class DrawingUtil {
     }
 
     static drawArc(context: CanvasRenderingContext2D, r: number, start: number, sweep: number) {
-        for (let j = start; j <= start + sweep; j++) {
+        for (let j = start; j <= start + Math.floor(sweep); j++) {
             const x: number = r * Math.cos(j * Math.PI / 180)
             const y: number = r * Math.sin(j * Math.PI / 180)
             if (j === start) {
