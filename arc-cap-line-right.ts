@@ -222,3 +222,25 @@ class ArcCapLineRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    aclr: ArcCapLineRight = new ArcCapLineRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.aclr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.aclr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.aclr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
