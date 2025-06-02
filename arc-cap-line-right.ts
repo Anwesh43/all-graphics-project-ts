@@ -46,7 +46,8 @@ class DrawingUtil {
     }
 
     static drawArc(context: CanvasRenderingContext2D, r: number, start: number, sweep: number) {
-        for (let j = start; j <= start + Math.floor(sweep); j++) {
+        const endDeg: number = start + Math.floor(sweep)
+        for (let j = start; j <= endDeg; j++) {
             const x: number = r * Math.cos(j * Math.PI / 180)
             const y: number = r * Math.sin(j * Math.PI / 180)
             if (j === start) {
@@ -55,7 +56,7 @@ class DrawingUtil {
             } else {
                 context.lineTo(x, y)
             }
-            if (j === start + sweep) {
+            if (j === endDeg) {
                 context.stroke()
             }
         }
