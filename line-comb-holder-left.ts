@@ -209,3 +209,25 @@ class LineCombHolderLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lchl: LineCombHolderLeft = new LineCombHolderLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lchl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lchl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lchl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
