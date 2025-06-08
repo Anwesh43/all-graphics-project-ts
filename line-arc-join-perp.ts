@@ -69,7 +69,7 @@ class DrawingUtil {
             DrawingUtil.drawXY(context, -size / 2, 0, () => {
                 DrawingUtil.drawArc(context, size / 2, 90 * dsc(1))
             })
-            DrawingUtil.drawXY(context, 0, -size / 2, () => {
+            DrawingUtil.drawXY(context, -size / 2, -size / 2, () => {
                 DrawingUtil.drawLine(context, 0, 0, 0, size * 0.5 * dsc(2))
             })
         })
