@@ -224,3 +224,25 @@ class LineArcJoinPerp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lajp: LineArcJoinPerp = new LineArcJoinPerp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lajp.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lajp.startUdpating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lajp.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
