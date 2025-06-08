@@ -201,3 +201,26 @@ class LAJPNode {
         return this
     }
 }
+
+class LineArcJoinPerp {
+
+    curr: LAJPNode = new LAJPNode(0)
+    dir: number = 1
+
+    draw(context: CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb: () => void) {
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+
+    startUdpating(cb: () => void) {
+        this.curr.startUpdating(cb)
+    }
+}
