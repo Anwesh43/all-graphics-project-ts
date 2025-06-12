@@ -207,3 +207,25 @@ class LineInsideSqRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lisr: LineInsideSqRight = new LineInsideSqRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lisr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lisr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lisr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
