@@ -40,7 +40,7 @@ class DrawingUtil {
         const startInt: number = Math.floor(start)
         const sweepInt: number = Math.floor(sweep)
         context.beginPath()
-        for (let i = startInt; i <= sweepInt; i++) {
+        for (let i = startInt; i <= startInt + sweepInt; i++) {
             const x: number = r * Math.cos(i * Math.PI / 180)
             const y: number = r * Math.sin(i * Math.PI / 180)
             if (i === startInt) {
