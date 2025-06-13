@@ -59,7 +59,7 @@ class DrawingUtil {
             context.rotate(deg * dsc(1))
             for (let j = 0; j < 4; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
-                    context.rotate(rot * 2 * j)
+                    context.rotate((rot * 2 * j) * Math.PI / 180)
                     DrawingUtil.drawArc(context, size * 0.5, -rot * 0.5 * (dsc(0) + dsc(2)), rot * (dsc(0) + dsc(2)))
                 })
             }
