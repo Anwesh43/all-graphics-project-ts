@@ -215,3 +215,25 @@ class ArcQuarterPartialFull {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    aqpf: ArcQuarterPartialFull = new ArcQuarterPartialFull()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.aqpf.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.aqpf.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.aqpf.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
