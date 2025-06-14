@@ -147,3 +147,42 @@ class Animator {
         }
     }
 }
+
+class LRJENode {
+
+    prev: LRJENode
+    next: LRJENode
+    state: State = new State()
+
+    addNeighbor() {
+
+    }
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): LRJENode {
+        var curr: LRJENode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
