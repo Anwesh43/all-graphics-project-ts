@@ -209,3 +209,25 @@ class LineRotJoinEnd {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrje: LineRotJoinEnd = new LineRotJoinEnd()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrje.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrje.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrje.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
