@@ -208,3 +208,25 @@ class LineRotExtendBench {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lreb: LineRotExtendBench = new LineRotExtendBench()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lreb.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lreb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lreb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
