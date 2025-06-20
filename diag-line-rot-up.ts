@@ -209,3 +209,25 @@ class DiagLineRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dlru: DiagLineRotUp = new DiagLineRotUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dlru.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dlru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
