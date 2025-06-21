@@ -227,3 +227,25 @@ class StartArcRightLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sarl: StartArcRightLine = new StartArcRightLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.sarl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.sarl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sarl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
