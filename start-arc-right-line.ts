@@ -71,7 +71,7 @@ class DrawingUtil {
             DrawingUtil.drawArc(context, size, 2 * sweep, sweep * dsc(0))
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
-                    context.rotate(rot * dsc(2))
+                    context.rotate(rot * dsc(2) * j)
                     DrawingUtil.drawLine(context, 0, -size, 0, -size * (1 - dsc(1)))
                 })
             }
