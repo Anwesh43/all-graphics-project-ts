@@ -207,3 +207,25 @@ class BiBentDiagLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bbdl: BiBentDiagLine = new BiBentDiagLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bbdl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bbdl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bbdl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
