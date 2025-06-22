@@ -156,8 +156,10 @@ class BBDLNode {
     state: State = new State()
 
     addNeighbor() {
-        this.next = new BBDLNode(this.i + 1)
-        this.next.prev = this
+        if (this.i < colors.length - 1) {
+            this.next = new BBDLNode(this.i + 1)
+            this.next.prev = this
+        }
     }
 
     constructor(private i: number) {
