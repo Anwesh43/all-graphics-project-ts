@@ -205,3 +205,25 @@ class ShiftDownBentLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sdbl: ShiftDownBentLine = new ShiftDownBentLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.sdbl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.sdbl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sdbl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
