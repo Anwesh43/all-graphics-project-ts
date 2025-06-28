@@ -207,3 +207,25 @@ class LineBentExtendRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lber: LineBentExtendRight = new LineBentExtendRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lber.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lber.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lber.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
