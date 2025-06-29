@@ -190,3 +190,25 @@ class MultiRotSqDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mrsd: MultiRotSqDown = new MultiRotSqDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.mrsd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.mrsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mrsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
