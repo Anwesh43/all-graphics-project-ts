@@ -46,7 +46,7 @@ class DrawingUtil {
         context.stroke()
     }
 
-    static drawShiftLineRot(context: CanvasRenderingContext2D, scale: number) {
+    static drawDownShiftLineRot(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
@@ -59,11 +59,11 @@ class DrawingUtil {
         })
     }
 
-    static drawSLRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+    static drawDSLRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
         context.lineCap = 'round'
-        DrawingUtil.drawShiftLineRot(context, scale)
+        DrawingUtil.drawDownShiftLineRot(context, scale)
     }
 }
 
@@ -141,5 +141,47 @@ class Animator {
             this.animated = false
             clearInterval(this.interval)
         }
+    }
+}
+
+class DSLRNode {
+
+    prev: DSLRNode
+    next: DSLRNode
+    state: State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new DSLRNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawDSLRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): DSLRNode {
+        var curr: DSLRNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
     }
 }
