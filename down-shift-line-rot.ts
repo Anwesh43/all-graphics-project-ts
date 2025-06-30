@@ -208,3 +208,25 @@ class DownShiftLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dslr: DownShiftLineRot = new DownShiftLineRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dslr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dslr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dslr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
