@@ -211,3 +211,25 @@ class LinePerpRotInto {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpri: LinePerpRotInto = new LinePerpRotInto()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lpri.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lpri.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpri.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
