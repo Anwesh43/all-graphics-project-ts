@@ -206,3 +206,25 @@ class LineExtendRotDown {
         this.curr.startupdating(cb)
     }
 }
+
+class Renderer {
+
+    lerd: LineExtendRotDown = new LineExtendRotDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lerd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lerd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lerd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
