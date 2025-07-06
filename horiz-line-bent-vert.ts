@@ -210,3 +210,25 @@ class HorizLineBentVert {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    hlbv: HorizLineBentVert = new HorizLineBentVert()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.hlbv.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.hlbv.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.hlbv.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
