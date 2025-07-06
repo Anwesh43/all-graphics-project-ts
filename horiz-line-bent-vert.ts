@@ -180,7 +180,7 @@ class HLBVNode {
     }
 
     getNext(dir: number, cb: () => void): HLBVNode {
-        var curr: HLBVNode = this.next
+        var curr: HLBVNode = this.prev
         if (dir === 1) {
             curr = this.next
         }
