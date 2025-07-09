@@ -207,3 +207,25 @@ class OpenLineUpDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    olud: OpenLineUpDown = new OpenLineUpDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.olud.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.olud.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.olud.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
