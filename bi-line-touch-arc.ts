@@ -226,3 +226,25 @@ class BiLineTouchArc {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blta: BiLineTouchArc = new BiLineTouchArc()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blta.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blta.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blta.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
