@@ -68,7 +68,7 @@ class DrawingUtil {
                 DrawingUtil.drawXY(context, 0, 0, () => {
                     context.scale(1 - 2 * j, 1)
                     DrawingUtil.drawXY(context, 0, -h * 0.5 * (1 - dsc(1)) * (1 - 2 * j), () => {
-                        context.rotate(rot * (1 - dsc(2)))
+                        context.rotate(rot * (1 - dsc(2)) * (1 - 2 * j))
                         DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
                     })
                     DrawingUtil.drawArc(context, size, dsc(3))
