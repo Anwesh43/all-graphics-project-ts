@@ -187,6 +187,10 @@ class BLTANode {
         this.state.update(cb)
     }
 
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
     getNext(dir: number, cb: () => void): BLTANode {
         var curr: BLTANode = this.prev
         if (dir === 1) {
@@ -197,5 +201,28 @@ class BLTANode {
         }
         cb()
         return this
+    }
+}
+
+class BiLineTouchArc {
+
+    curr: BLTANode = new BLTANode(0)
+    dir: number = 1
+
+    draw(context: CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb: () => void) {
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+
+    startUpdating(cb: () => void) {
+        this.curr.startUpdating(cb)
     }
 }
