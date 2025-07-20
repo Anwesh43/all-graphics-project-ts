@@ -48,9 +48,9 @@ class DrawingUtil {
 
     static drawArc(context: CanvasRenderingContext2D, r: number, scale: number) {
         context.beginPath()
-        for (let j = 0; j <= sweep * scale; j++) {
-            const x: number = r * Math.cos(j * Math.PI)
-            const y: number = r * Math.sin(j * Math.PI)
+        for (let j = 0; j <= Math.floor(sweep * scale); j++) {
+            const x: number = r * Math.cos(j * Math.PI / 180)
+            const y: number = r * Math.sin(j * Math.PI / 180)
             if (j == 0) {
                 context.moveTo(x, y)
             } else {
