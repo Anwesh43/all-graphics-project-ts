@@ -56,14 +56,15 @@ class DrawingUtil {
                 DrawingUtil.drawLine(context, 0, 0, size / 2, 0)
             })
         })
+        DrawingUtil.drawXY(context, w / 2, h / 4, () => {
+            DrawingUtil.drawLine(context, size * dsc(3), 0, size * dsc(0), 0)
+        })
     }
 
     static drawLBRRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
         context.lineCap = 'round'
         context.strokeStyle = colors[i]
         context.lineWidth = Math.min(w, h) / strokeFactor
-        context.font = context.font.replace(/d/, `${Math.min(w, h) / 10}`)
-        context.fillText(`${i + 1}`, w / 2, h / 4)
         DrawingUtil.drawLineBentRotRight(context, scale)
     }
 }
