@@ -62,6 +62,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.strokeStyle = colors[i]
         context.lineWidth = Math.min(w, h) / strokeFactor
+        context.fillText(`${i + 1}`, w / 2, h / 4)
         DrawingUtil.drawLineBentRotRight(context, scale)
     }
 }
