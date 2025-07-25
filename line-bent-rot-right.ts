@@ -207,3 +207,25 @@ class LineBentRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbrr: LineBentRotRight = new LineBentRotRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbrr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
