@@ -206,3 +206,25 @@ class BiLineRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blrr: BiLineRotRight = new BiLineRotRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blrr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
