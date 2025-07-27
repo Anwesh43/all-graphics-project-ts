@@ -210,3 +210,25 @@ class LineFoldIntoLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lfil: LineFoldIntoLeft = new LineFoldIntoLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lfil.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lfil.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lfil.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
