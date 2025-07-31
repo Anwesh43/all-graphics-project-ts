@@ -210,3 +210,25 @@ class JoinBentLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    jbld: JoinBentLineDown = new JoinBentLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.jbld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.jbld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.jbld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
