@@ -209,3 +209,25 @@ class FromEitherEndLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    feel: FromEitherEndLine = new FromEitherEndLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.feel.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.feel.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.feel.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
