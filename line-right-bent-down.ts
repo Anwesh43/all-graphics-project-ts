@@ -207,3 +207,25 @@ class LineRightBentDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrbd: LineRightBentDown = new LineRightBentDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrbd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
