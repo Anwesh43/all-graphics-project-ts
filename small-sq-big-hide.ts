@@ -24,3 +24,53 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static scaleXY(context: CanvasRenderingContext2D, scaleX: number, scaleY: number, cb: () => void) {
+        DrawingUtil.drawXY(context, 0, 0, () => {
+            context.scale(scaleX, scaleY)
+            cb()
+        })
+    }
+
+    static rotateOrigin(context: CanvasRenderingContext2D, rot: number, cb: () => void) {
+        DrawingUtil.drawXY(context, 0, 0, () => {
+            context.rotate(rot)
+            cb()
+        })
+    }
+
+    static drawSmallSqBigHide(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        const upSize: number = size * (1 - dsc(5))
+        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+            DrawingUtil.rotateOrigin(context, rot * dsc(4), () => {
+                for (let j = 0; j < 2; j++) {
+                    DrawingUtil.scaleXY(context, 1 - 2 * j, 1, () => {
+                        for (let k = 0; k < 2; k++) {
+                            DrawingUtil.drawXY(context, 1, 1 - 2 * k, () => {
+                                DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(2 * k + j)), 0, () => {
+                                    context.fillRect(0, -upSize, upSize, upSize)
+                                })
+                            })
+                        }
+                    })
+                }
+            })
+        })
+    }
+
+    static drawSSBHNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.fillStyle = colors[i]
+        DrawingUtil.drawSmallSqBigHide(context, scale)
+    }
+}
