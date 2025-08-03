@@ -57,7 +57,7 @@ class DrawingUtil {
                 for (let j = 0; j < 2; j++) {
                     DrawingUtil.scaleXY(context, 1 - 2 * j, 1, () => {
                         for (let k = 0; k < 2; k++) {
-                            DrawingUtil.drawXY(context, 1, 1 - 2 * k, () => {
+                            DrawingUtil.scaleXY(context, 1, 1 - 2 * k, () => {
                                 DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(2 * j + k)), 0, () => {
                                     context.fillRect(0, -upSize, upSize, upSize)
                                 })
