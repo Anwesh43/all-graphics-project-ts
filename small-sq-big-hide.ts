@@ -216,3 +216,25 @@ class SmallSqBigHide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ssbh: SmallSqBigHide = new SmallSqBigHide()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ssbh.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ssbh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ssbh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
