@@ -186,6 +186,7 @@ class LRUBNode {
             curr = this.next
         }
         if (curr) {
+            console.log("CURR", curr)
             return curr
         }
         cb()
