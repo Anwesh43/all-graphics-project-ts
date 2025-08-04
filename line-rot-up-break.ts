@@ -124,6 +124,7 @@ class State {
     }
 
     startUpdating(cb: () => void) {
+        console.log("THIS_STATE", this)
         if (this.dir === 0) {
             this.dir = 1 - 2 * this.prevScale
             console.log("STARTED ANIMATING")
