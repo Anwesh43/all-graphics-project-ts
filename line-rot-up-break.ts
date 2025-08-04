@@ -209,6 +209,7 @@ class LineRotUpBreak {
             this.curr = this.curr.getNext(this.dir, () => {
                 this.dir *= -1
             })
+            console.log("NEW_CURR", this.curr)
             cb()
         })
     }
