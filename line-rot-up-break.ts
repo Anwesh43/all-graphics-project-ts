@@ -211,3 +211,25 @@ class LineRotUpBreak {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrub: LineRotUpBreak = new LineRotUpBreak()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrub.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrub.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrub.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
