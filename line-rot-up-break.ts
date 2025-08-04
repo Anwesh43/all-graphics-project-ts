@@ -146,3 +146,45 @@ class Animator {
         }
     }
 }
+
+class LRUBNode {
+
+    prev: LRUBNode
+    next: LRUBNode
+    state: State = new State()
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LRUBNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawLRUBNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): LRUBNode {
+        var curr: LRUBNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
