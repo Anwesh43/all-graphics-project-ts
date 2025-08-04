@@ -49,7 +49,7 @@ class DrawingUtil {
     static drawBrokenLine(context: CanvasRenderingContext2D, i: number, size: number, sc1: number, sc2: number) {
         const dSize: number = (size / lines)
         DrawingUtil.drawXY(context, dSize * i, (w / 2) * sc2, () => {
-            DrawingUtil.drawLine(context, 0, 0, dSize * ScaleUtil.divideScale(sc2, i, lines), 0)
+            DrawingUtil.drawLine(context, 0, 0, dSize * ScaleUtil.divideScale(sc1, i, lines), 0)
         })
     }
 
