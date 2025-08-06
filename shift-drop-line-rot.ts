@@ -206,3 +206,25 @@ class ShiftDropLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sdlr: ShiftDropLineRot = new ShiftDropLineRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.sdlr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.sdlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sdlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
