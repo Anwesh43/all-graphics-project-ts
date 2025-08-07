@@ -13,4 +13,11 @@ const delay: number = 20
 const backColor: string = "#BDBDBD"
 const rot: number = Math.PI / 2
 const w: number = window.innerWidth
-const h: number = window.innerHeight 
+const h: number = window.innerHeight
+
+class ScaleUtil {
+
+    static maxScale(scale: number, i: number, n: number): number {
+        return Math.max(0, scale - i / n)
+    }
+}
