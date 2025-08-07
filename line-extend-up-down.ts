@@ -110,6 +110,7 @@ class State {
 
     update(cb: () => void) {
         this.scale += scGap * this.dir
+        console.log("UPDATE SCALE")
         if (Math.abs(this.scale - this.prevScale) > 1) {
             this.scale = this.prevScale + this.dir
             this.dir = 0
@@ -120,6 +121,7 @@ class State {
 
     startUpdating(cb: () => void) {
         if (this.dir === 0) {
+            console.log("START SCALE")
             this.dir = 1 - 2 * this.prevScale
             cb()
         }
@@ -202,6 +204,7 @@ class LineExtendUpDown {
             this.curr = this.curr.getNext(this.dir, () => {
                 this.dir *= -1
             })
+            cb()
         })
     }
 
