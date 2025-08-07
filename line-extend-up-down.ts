@@ -166,6 +166,7 @@ class LEUDNode {
     }
 
     draw(context: CanvasRenderingContext2D) {
+        console.log("DRAWING")
         DrawingUtil.drawLEUDNode(context, this.i, this.state.scale)
     }
 
