@@ -205,3 +205,25 @@ class LineExtendUpDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    leud: LineExtendUpDown = new LineExtendUpDown()
+    animator: Animator = new Animator()
+
+    draw(context: CanvasRenderingContext2D) {
+        this.leud.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.leud.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.leud.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
