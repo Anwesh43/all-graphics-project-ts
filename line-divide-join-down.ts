@@ -209,3 +209,25 @@ class LineDivideJoinDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldjd: LineDivideJoinDown = new LineDivideJoinDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldjd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldjd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldjd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
