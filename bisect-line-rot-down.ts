@@ -209,3 +209,25 @@ class BisectLineRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blrd: BisectLineRotDown = new BisectLineRotDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
