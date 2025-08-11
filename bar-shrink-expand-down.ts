@@ -202,3 +202,25 @@ class BarShrinkExpandDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsed: BarShrinkExpandDown = new BarShrinkExpandDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bsed.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bsed.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsed.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
