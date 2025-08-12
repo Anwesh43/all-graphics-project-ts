@@ -221,3 +221,25 @@ class BentArcJoinRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bajr: BentArcJoinRight = new BentArcJoinRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bajr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bajr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bajr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
