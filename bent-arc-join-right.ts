@@ -171,7 +171,10 @@ class BAJRNode {
     state: State = new State()
 
     addNeighbor() {
-
+        if (this.i < colors.length - 1) {
+            this.next = new BAJRNode(this.i + 1)
+            this.next.prev = this
+        }
     }
 
     constructor(private i: number) {
