@@ -209,3 +209,25 @@ class RightCapLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlcr: RightCapLineRot = new RightCapLineRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlcr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlcr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlcr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
