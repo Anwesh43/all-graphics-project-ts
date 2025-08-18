@@ -46,7 +46,9 @@ class DrawingUtil {
     }
 
     static drawRightCapLineRot(context: CanvasRenderingContext2D, scale: number) {
-        console.log("STROKE_STYLE", context.strokeStyle)
+        if (scale === 0 || scale === 1) {
+            console.log("STROKE_STYLE", context.strokeStyle)
+        }
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(4), h / 2, () => {
