@@ -169,7 +169,7 @@ class RLCRNode {
     }
 
     draw(context: CanvasRenderingContext2D) {
-        DrawingUtil.drawRightCapLineRot(context, this.state.scale)
+        DrawingUtil.drawRCLRNode(context, this.i, this.state.scale)
     }
 
     update(cb: () => void) {
