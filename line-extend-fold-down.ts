@@ -14,7 +14,7 @@ const backColor: string = "#BDBDBD"
 const rot: number = Math.PI / 2
 const w: number = window.innerWidth
 const h: number = window.innerHeight
-const deg: number = Math.PI
+const deg: number = Math.PI / 2
 
 class ScaleUtil {
 
