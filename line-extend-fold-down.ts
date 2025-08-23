@@ -215,3 +215,25 @@ class LineExtendFoldDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lefd: LineExtendFoldDown = new LineExtendFoldDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lefd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lefd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lefd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
