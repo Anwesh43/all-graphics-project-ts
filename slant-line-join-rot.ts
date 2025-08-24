@@ -48,6 +48,7 @@ class DrawingUtil {
     static drawSlantLineJoinRot(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        console.log("SCALE", scale)
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(3), h / 2, () => {
             context.rotate(rot * dsc(2))
             DrawingUtil.drawXY(context, -size, 0, () => {
