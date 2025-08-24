@@ -226,6 +226,7 @@ class Renderer {
     handleTap(cb: () => void) {
         this.sljr.startUpdating(() => {
             this.animator.start(() => {
+                cb()
                 this.sljr.update(() => {
                     this.animator.stop()
                     cb()
