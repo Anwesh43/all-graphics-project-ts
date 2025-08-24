@@ -208,3 +208,24 @@ class SlantLineJoinRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sljr: SlantLineJoinRot = new SlantLineJoinRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.sljr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.sljr.startUpdating(() => {
+            this.animator.start(() => {
+                this.sljr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
