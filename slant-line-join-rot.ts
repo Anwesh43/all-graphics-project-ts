@@ -143,3 +143,38 @@ class Animator {
         }
     }
 }
+
+class SLJRNode {
+
+    prev: SLJRNode
+    next: SLJRNode
+    state: State = new State()
+
+    addNeighbor() {
+
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+
+    }
+
+    update(cb: () => void) {
+
+    }
+
+    startUpdating(cb: () => void) {
+
+    }
+
+    getNext(dir: number, cb: () => void): SLJRNode {
+        var curr: SLJRNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
