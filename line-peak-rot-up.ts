@@ -152,23 +152,26 @@ class LPRUNode {
     state: State = new State()
 
     addNeighbor() {
-
+        if (this.i < colors.length - 1) {
+            this.next = new LPRUNode(this.i + 1)
+            this.next.prev = this
+        }
     }
 
     constructor(private i: number) {
-
+        this.addNeighbor()
     }
 
     draw(context: CanvasRenderingContext2D) {
-
+        DrawingUtil.drawLPRUNode(context, this.i, this.state.scale)
     }
 
     update(cb: () => void) {
-
+        this.state.update(cb)
     }
 
     startUpdating(cb: () => void) {
-
+        this.state.startUpdating(cb)
     }
 
     getNext(dir: number, cb: () => void): LPRUNode {
