@@ -144,3 +144,42 @@ class Animator {
         }
     }
 }
+
+class LPRUNode {
+
+    prev: LPRUNode
+    next: LPRUNode
+    state: State = new State()
+
+    addNeighbor() {
+
+    }
+
+    constructor(private i: number) {
+
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+
+    }
+
+    update(cb: () => void) {
+
+    }
+
+    startUpdating(cb: () => void) {
+
+    }
+
+    getNext(dir: number, cb: () => void): LPRUNode {
+        var curr: LPRUNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
