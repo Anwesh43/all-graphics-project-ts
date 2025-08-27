@@ -209,3 +209,25 @@ class LinePeakRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpru: LinePeakRotUp = new LinePeakRotUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lpru.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lpru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
