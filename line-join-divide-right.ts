@@ -162,7 +162,7 @@ class LJDRNode {
 
     addNeighbor() {
         if (this.i < colors.length - 1) {
-            this.next = new LJDRNode(0)
+            this.next = new LJDRNode(this.i + 1)
             this.next.prev = this
         }
     }
