@@ -210,3 +210,25 @@ class LineJoinDivideRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ljdr: LineJoinDivideRight = new LineJoinDivideRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ljdr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ljdr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ljdr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
