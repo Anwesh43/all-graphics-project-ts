@@ -49,11 +49,11 @@ class DrawingUtil {
     static drawLineDoubleSideBent(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2) * dsc(4), () => {
             DrawingUtil.drawLine(context, 0, -size * (1 - dsc(0)), 0, -size)
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, 0, 0, () => {
-                    context.rotate((rot + gapDeg * j) * (1 - dsc(3)))
+                    context.rotate((rot + gapDeg * (1 - j)) * (1 - dsc(3)))
                     DrawingUtil.drawLine(context, 0, 0, 0, -size * (dsc(1 + j) - dsc(2) * (1 - j)))
                 })
             }
