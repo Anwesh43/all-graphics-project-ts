@@ -209,3 +209,25 @@ class LineDoubleSideBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldsb: LineDoubleSideBent = new LineDoubleSideBent()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldsb.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldsb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldsb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
