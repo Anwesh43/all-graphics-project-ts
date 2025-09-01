@@ -40,6 +40,7 @@ class DrawingUtil {
         if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
             return
         }
+        context.beginPath()
         context.moveTo(x1, y1)
         context.lineTo(x2, y2)
         context.stroke()
