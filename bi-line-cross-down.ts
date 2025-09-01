@@ -209,3 +209,25 @@ class BiLineCrossDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blcd: BiLineCrossDown = new BiLineCrossDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blcd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blcd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blcd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
