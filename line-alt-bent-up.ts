@@ -210,3 +210,25 @@ class LineAltBentUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    labu: LineAltBentUp = new LineAltBentUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.labu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.labu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.labu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
