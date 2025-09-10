@@ -154,7 +154,6 @@ class LRTRNode {
     state: State = new State()
 
     addNeighbor() {
-        console.log(this.i, colors.length)
         if (this.i < colors.length - 1) {
             this.next = new LRTRNode(this.i + 1)
             this.next.prev = this
@@ -162,6 +161,7 @@ class LRTRNode {
     }
 
     constructor(private i: number) {
+        console.log(this.i)
         this.addNeighbor()
     }
 
