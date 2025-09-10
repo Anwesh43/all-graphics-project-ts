@@ -207,3 +207,25 @@ class LineRotTwiceRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrtr: LineRotTwiceRight = new LineRotTwiceRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrtr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrtr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrtr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
