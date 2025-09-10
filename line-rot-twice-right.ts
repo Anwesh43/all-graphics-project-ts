@@ -157,6 +157,7 @@ class LRTRNode {
         if (this.i < colors.length - 1) {
             this.next = new LRTRNode(this.i + 1)
             this.next.prev = this
+            console.log(this.i, this.next, this.prev)
         }
     }
 
