@@ -73,10 +73,10 @@ class Stage {
     renderer: Renderer = new Renderer()
 
     initCanvas() {
-        const stage: Stage = new Stage()
-        stage.initCanvas()
-        stage.render()
-        stage.handleTap()
+        this.canvas.width = w
+        this.canvas.height = h
+        this.context = this.canvas.getContext('2d')
+        document.body.appendChild(this.canvas)
     }
 
     render() {
@@ -154,10 +154,10 @@ class LRTRNode {
     state: State = new State()
 
     addNeighbor() {
-        // if (this.i < colors.length - 1) {
-        //     this.next = new LRTRNode(this.i + 1)
-        //     this.next.prev = this
-        // }
+        if (this.i < colors.length - 1) {
+            this.next = new LRTRNode(this.i + 1)
+            this.next.prev = this
+        }
     }
 
     constructor(private i: number = 0) {
