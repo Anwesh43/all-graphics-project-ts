@@ -160,7 +160,7 @@ class LRTRNode {
         }
     }
 
-    constructor(private i: number) {
+    constructor(private i: number = 0) {
         console.log(this.i)
         this.addNeighbor()
     }
