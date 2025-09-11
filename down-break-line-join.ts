@@ -229,7 +229,7 @@ class Renderer {
         this.dblj.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.dblj.startUpdating(() => {
+                this.dblj.update(() => {
                     this.animator.stop()
                     cb()
                 })
