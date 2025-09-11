@@ -209,3 +209,25 @@ class DownBreakLineJoin {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dblj: DownBreakLineJoin = new DownBreakLineJoin()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dblj.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dblj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dblj.startUpdating(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
