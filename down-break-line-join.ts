@@ -224,6 +224,7 @@ class Renderer {
     }
 
     handleTap(cb: () => void) {
+        console.log("SCALE", cb)
         this.dblj.startUpdating(() => {
             this.animator.start(() => {
                 cb()
