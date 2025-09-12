@@ -219,7 +219,7 @@ class RightLineRotEnclose {
 
 class Renderer {
 
-    rlre; RightLineRotEnclose = new RightLineRotEnclose()
+    rlre: RightLineRotEnclose = new RightLineRotEnclose()
     animator: Animator = new Animator()
 
     render(context: CanvasRenderingContext2D) {
