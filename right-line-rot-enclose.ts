@@ -212,3 +212,25 @@ class RightLineRotEnclose {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlre; RightLineRotEnclose = new RightLineRotEnclose()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlre.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlre.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlre.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
