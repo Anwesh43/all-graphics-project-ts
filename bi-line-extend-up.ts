@@ -207,3 +207,25 @@ class BiLineExtendUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bleu: BiLineExtendUp = new BiLineExtendUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bleu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bleu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bleu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
