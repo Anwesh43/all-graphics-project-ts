@@ -25,3 +25,56 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
+        if (Math.abs(x1 - x2) < 0.05 && Math.abs(y1 - y2) < 0.05) {
+            return
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static scaleXY(context: CanvasRenderingContext2D, sx: number, sy: number, cb: () => void) {
+        DrawingUtil.drawXY(context, 0, 0, () => {
+            context.scale(sx, sy)
+            cb()
+        })
+    }
+
+    static drawLineBentJoinRot(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(4), h / 2, () => {
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.scaleXY(context, 1 - 2 * j, 1, () => {
+                    context.rotate(rot * (1 - j) * dsc(3))
+                    DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(2)), 0, () => {
+
+                        DrawingUtil.drawLine(context, 0, 0, -size * 0.5 * dsc(0), -size * 0.5 * dsc(0))
+                        DrawingUtil.drawXY(context, -size / 2, -size / 2, () => {
+                            DrawingUtil.drawLine(context, 0, 0, 0, size * 0.5 * dsc(1))
+                        })
+                    })
+                })
+            }
+        })
+    }
+
+    static drawLBJRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawLineBentJoinRot(context, scale)
+    }
+}
