@@ -208,3 +208,25 @@ class BiRotLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    brld: BiRotLineDown = new BiRotLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.brld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.brld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
