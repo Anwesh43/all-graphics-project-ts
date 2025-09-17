@@ -213,3 +213,25 @@ class BiSlantLineJoin {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bslr: BiSlantLineJoin = new BiSlantLineJoin()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bslr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bslr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bslr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
