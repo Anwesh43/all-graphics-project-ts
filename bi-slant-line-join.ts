@@ -99,7 +99,7 @@ class Stage {
         }
     }
 
-    static initCanvas() {
+    static init() {
         const stage: Stage = new Stage()
         stage.initCanvas()
         stage.render()
