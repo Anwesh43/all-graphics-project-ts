@@ -52,13 +52,15 @@ class DrawingUtil {
         const lSize: number = size / 3
         console.log("SCALE", scale)
         DrawingUtil.drawXY(context, w * 0.5 * (dsc(0) - dsc(4)), h / 2, () => {
-            context.rotate(rot * dsc(3))
-            DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+            DrawingUtil.drawLine(context, 0, 0, -size, 0)
+            DrawingUtil.drawXY(context, 0, 0, () => {
+                context.rotate(rot * dsc(3))
                 for (let j = 0; j < 3; j++) {
                     const ds1j: number = ScaleUtil.divideScale(dsc(1), j, 3)
                     const ds2j: number = ScaleUtil.divideScale(dsc(2), j, 3)
                     DrawingUtil.drawXY(context, lSize * j, -h * 0.5 * (1 - ds1j), () => {
                         context.rotate(deg * ds2j)
+                        DrawingUtil.drawLine(context, 0, 0, 0, -lSize)
                     })
                 }
             })
