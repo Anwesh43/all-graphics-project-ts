@@ -197,7 +197,7 @@ class LineLeftRotUp {
     dir: number = 1
 
     draw(context: CanvasRenderingContext2D) {
-
+        this.curr.draw(context)
     }
 
     update(cb: () => void) {
