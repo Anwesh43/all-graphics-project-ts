@@ -58,7 +58,7 @@ class DrawingUtil {
                 for (let j = 0; j < 3; j++) {
                     const ds1j: number = ScaleUtil.divideScale(dsc(1), j, 3)
                     const ds2j: number = ScaleUtil.divideScale(dsc(2), j, 3)
-                    DrawingUtil.drawXY(context, lSize * j, (-h * 0.5 + context.lineWidth) * (1 - ds1j), () => {
+                    DrawingUtil.drawXY(context, lSize * j, (-h * 0.5 - context.lineWidth) * (1 - ds1j), () => {
                         context.rotate(deg * ds2j)
                         DrawingUtil.drawLine(context, 0, 0, 0, -lSize)
                     })
