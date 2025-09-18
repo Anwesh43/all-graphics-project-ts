@@ -79,10 +79,10 @@ class Stage {
     context: CanvasRenderingContext2D | null
 
     initCanvas() {
-        const stage: Stage = new Stage()
-        stage.initCanvas()
-        stage.render()
-        stage.handleTap()
+        this.canvas.width = w
+        this.canvas.height = h
+        this.context = this.canvas.getContext('2d')
+        document.body.appendChild(this.canvas)
     }
 
     render() {
