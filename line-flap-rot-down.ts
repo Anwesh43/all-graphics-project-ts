@@ -209,3 +209,25 @@ class LineFlapRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lfrd: LineFlapRotDown = new LineFlapRotDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lfrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lfrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lfrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
