@@ -59,7 +59,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(7), () => {
             context.rotate(rot * dsc(6))
             for (let j = 0; j < 2; j++) {
-                DrawingUtil.drawXY(context, lineX[j], 0, () => {
+                DrawingUtil.drawXY(context, lineX[j], -size + (h / 2 + context.lineWidth - size) * (1 - dsc(2 * j + 2)), () => {
                     DrawingUtil.drawLine(context, 0, 0, 0, -size)
                 })
             }
@@ -73,6 +73,7 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
         DrawingUtil.drawBlockLineCatcher(context, scale)
     }
 }
