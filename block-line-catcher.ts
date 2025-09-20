@@ -178,7 +178,7 @@ class BLCNode {
     }
 
     startUpdating(cb: () => void) {
-        this.startUpdating(cb)
+        this.state.startUpdating(cb)
     }
 
     getNext(dir: number, cb: () => void): BLCNode {
