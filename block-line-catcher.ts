@@ -212,3 +212,25 @@ class BlockLineCatcher {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blc: BlockLineCatcher = new BlockLineCatcher()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blc.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
