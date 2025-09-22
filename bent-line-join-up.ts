@@ -208,3 +208,25 @@ class BentLineJoinUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blju: BentLineJoinUp = new BentLineJoinUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blju.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blju.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blju.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
