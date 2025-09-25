@@ -75,6 +75,7 @@ class Stage {
 
     canvas: HTMLCanvasElement = document.createElement('canvas')
     context: CanvasRenderingContext2D | null
+    renderer: Renderer = new Renderer()
 
     initCanvas() {
         this.canvas.width = w
@@ -85,15 +86,16 @@ class Stage {
 
     render() {
         if (this.context) {
-            this.canvas.onmousedown = () => {
-
-            }
+            this.context.fillStyle = backColor
+            this.renderer.render(this.context)
         }
     }
 
     handleTap() {
         this.canvas.onmousedown = () => {
-
+            this.renderer.handleTap(() => {
+                this.render()
+            })
         }
     }
 
