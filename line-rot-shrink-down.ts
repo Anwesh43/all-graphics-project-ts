@@ -114,7 +114,7 @@ class Animator {
 class Stage {
 
     context: CanvasRenderingContext2D | null
-    canvas: HTMLCanvasElement
+    canvas: HTMLCanvasElement = document.createElement('canvas')
     renderer: Renderer = new Renderer()
 
     initCanvas() {
