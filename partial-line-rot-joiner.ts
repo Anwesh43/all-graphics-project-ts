@@ -213,3 +213,25 @@ class PartialLineRotJoiner {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pljr: PartialLineRotJoiner = new PartialLineRotJoiner()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.pljr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.pljr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pljr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
