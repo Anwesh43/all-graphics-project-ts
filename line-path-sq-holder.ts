@@ -214,3 +214,25 @@ class LinePathSqHolder {
         })
     }
 }
+
+class Renderer {
+
+    lpsh: LinePathSqHolder = new LinePathSqHolder()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lpsh.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lpsh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpsh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
