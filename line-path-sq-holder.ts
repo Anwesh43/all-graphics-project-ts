@@ -8,8 +8,8 @@ const colors: Array<string> = [
 const delay: number = 20
 const backColor: string = "#BDBDBD"
 const rot: number = Math.PI / 2
-const parts: number = 6
-const scGap: number = 0.04 / parts
+const parts: number = 7
+const scGap: number = 0.05 / parts
 const sizeFactor: number = 5.9
 const sqFactor: number = 5.2
 const strokeFactor: number = 90
@@ -24,5 +24,50 @@ class ScaleUtil {
 
     static divideScale(scale: number, i: number, n: number): number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
+    }
+}
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawLinePathSqHolder(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        const sqSize: number = Math.min(w, h) / sqFactor
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(6), h / 2, () => {
+            DrawingUtil.drawXY(context, size * dsc(3), -size + size * dsc(5), () => {
+                context.fillRect(0, -sqSize * dsc(2), sqSize, sqSize * dsc(2))
+            })
+            DrawingUtil.drawXY(context, 0, -size, () => {
+                DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
+                DrawingUtil.drawXY(context, size, 0, () => {
+                    DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(1))
+                })
+            })
+        })
+    }
+
+    static drawLPSHNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        context.fillStyle = colors[i]
+        DrawingUtil.drawLinePathSqHolder(context, scale)
     }
 }
