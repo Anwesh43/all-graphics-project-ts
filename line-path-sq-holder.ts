@@ -52,6 +52,7 @@ class DrawingUtil {
         const sqSize: number = Math.min(w, h) / sqFactor
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(6), h / 2, () => {
             DrawingUtil.drawXY(context, size * dsc(3), -size + size * dsc(5), () => {
+                context.rotate(rot * dsc(3))
                 context.fillRect(0, -sqSize * dsc(2), sqSize, sqSize * dsc(2))
             })
             DrawingUtil.drawXY(context, 0, -size, () => {
