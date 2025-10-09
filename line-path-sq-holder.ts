@@ -51,7 +51,7 @@ class DrawingUtil {
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
         const sqSize: number = size / sqFactor
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(6), h / 2, () => {
-            DrawingUtil.drawXY(context, size * dsc(3), -size + size * dsc(5), () => {
+            DrawingUtil.drawXY(context, size * dsc(3), -size + (size - sqSize) * dsc(5), () => {
                 context.rotate(rot * dsc(4))
                 context.fillRect(0, -sqSize * dsc(2), sqSize, sqSize * dsc(2))
             })
