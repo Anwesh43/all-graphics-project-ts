@@ -207,3 +207,25 @@ class LineSlantMoveDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsmd: LineSlantMoveDown = new LineSlantMoveDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsmd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsmd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsmd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
