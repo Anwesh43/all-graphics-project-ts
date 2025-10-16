@@ -162,7 +162,7 @@ class LRRMNode {
     }
 
     constructor(private i: number) {
-        this.addNeighbor
+        this.addNeighbor()
     }
 
     draw(context: CanvasRenderingContext2D) {
