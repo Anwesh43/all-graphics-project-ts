@@ -207,5 +207,26 @@ class LineRightRotMove {
     startUpdating(cb: () => void) {
         this.curr.startUpdating(cb)
     }
+}
 
+class Renderer {
+
+    lrrm: LineRightRotMove = new LineRightRotMove()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrrm.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrrm.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrrm.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
 }
