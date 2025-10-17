@@ -126,6 +126,26 @@ class State {
     }
 }
 
+class Animator {
+
+    animated: boolean = false
+    interval: number
+
+    start(cb: () => void) {
+        if (!this.animated) {
+            this.animated = true
+            this.interval = setInterval(cb, delay)
+        }
+    }
+
+    stop() {
+        if (this.animated) {
+            clearInterval(this.interval)
+            this.animated = false
+        }
+    }
+}
+
 class RLSDNode {
 
     prev: RLSDNode
@@ -188,5 +208,27 @@ class RotShiftLineDown {
 
     startUpdating(cb: () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    rlsd: RotShiftLineDown = new RotShiftLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlsd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
