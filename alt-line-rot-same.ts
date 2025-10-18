@@ -211,3 +211,26 @@ class AltLineRotSame {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    alrs: AltLineRotSame = new AltLineRotSame()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.alrs.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.alrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.alrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+
+}
