@@ -218,11 +218,18 @@ class Stage {
         }
     }
 
-    handleTap(cb: () => void) {
+    handleTap() {
         this.canvas.onmousedown = () => {
             this.renderer.handleTap(() => {
                 this.render()
             })
         }
+    }
+
+    static init() {
+        const stage: Stage = new Stage()
+        stage.initCanvas()
+        stage.render()
+        stage.handleTap()
     }
 }
