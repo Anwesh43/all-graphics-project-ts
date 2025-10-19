@@ -174,3 +174,25 @@ class BreakTriLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    btlu: BreakTriLineUp = new BreakTriLineUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.btlu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.btlu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.btlu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
