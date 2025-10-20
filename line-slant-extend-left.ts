@@ -54,6 +54,9 @@ class DrawingUtil {
                 DrawingUtil.drawXY(context, -size * 0.2 * dsc(1) * j, -size * 0.2 * dsc(1) * j, () => {
                     DrawingUtil.drawLine(context, 0, 0, size * dsc(0), 0)
                 })
+                DrawingUtil.drawXY(context, size * j, 0, () => {
+                    DrawingUtil.drawLine(context, 0, 0, -size * 0.2 * dsc(1), -size * 0.2 * dsc(1))
+                })
             }
         })
     }
