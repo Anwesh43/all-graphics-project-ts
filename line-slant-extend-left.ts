@@ -207,3 +207,25 @@ class LineSlantExtendLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsel: LineSlantExtendLeft = new LineSlantExtendLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsel.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsel.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsel.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
