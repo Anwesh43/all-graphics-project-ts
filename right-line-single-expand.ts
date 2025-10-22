@@ -209,3 +209,25 @@ class RightLineSingleExpand {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlse: RightLineSingleExpand = new RightLineSingleExpand()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlse.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlse.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlse.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
