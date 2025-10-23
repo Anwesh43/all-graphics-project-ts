@@ -207,3 +207,25 @@ class OpenShiftLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    osld: OpenShiftLineDown = new OpenShiftLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.osld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.osld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.osld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
