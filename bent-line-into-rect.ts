@@ -218,3 +218,25 @@ class BentLineIntoRect {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blir: BentLineIntoRect = new BentLineIntoRect()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blir.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blir.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blir.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
