@@ -212,7 +212,7 @@ class BentLineIntoRect {
     }
 
     update(cb: () => void) {
-        this.curr.startUpdating(() => {
+        this.curr.update(() => {
             this.curr = this.curr.getNext(this.dir, () => {
                 this.dir *= -1
             })
