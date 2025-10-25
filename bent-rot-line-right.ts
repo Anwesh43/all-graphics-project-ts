@@ -208,3 +208,25 @@ class BentRotLineRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    brlr: BentRotLineRight = new BentRotLineRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.brlr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.brlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
