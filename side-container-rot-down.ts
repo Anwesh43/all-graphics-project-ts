@@ -208,3 +208,25 @@ class SideContainerRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    scrd: SideContainerRotDown = new SideContainerRotDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.scrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.scrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.scrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
