@@ -211,3 +211,23 @@ class LinePartialJoinDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpjd: LinePartialJoinDown = new LinePartialJoinDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lpjd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lpjd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.animator.stop()
+                cb()
+            })
+        })
+    }
+}
