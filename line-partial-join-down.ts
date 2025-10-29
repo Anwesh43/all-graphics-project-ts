@@ -5,8 +5,8 @@ const colors: Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts: number = 5
-const scGap: number = 0.04 / parts
+const parts: number = 6
+const scGap: number = 0.05 / parts
 const strokeFactor: number = 90
 const sizeFactor: number = 5.9
 const delay: number = 20
@@ -48,8 +48,8 @@ class DrawingUtil {
     static drawLinePartialJoinDown(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(4), () => {
-            context.rotate(rot * dsc(3))
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(5), () => {
+            context.rotate(rot * dsc(4))
             DrawingUtil.drawXY(context, 0, -size, () => {
                 DrawingUtil.drawLine(context, 0, 0, size * 0.5 * dsc(0), 0)
                 DrawingUtil.drawXY(context, size / 2, 0, () => {
@@ -59,6 +59,12 @@ class DrawingUtil {
             DrawingUtil.drawXY(context, size, -size / 2, () => {
                 DrawingUtil.drawLine(context, 0, 0, 0, size * 0.5 * dsc(2))
             })
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, 0, 0, () => {
+                    context.rotate(rot * 0.5 * j)
+                    DrawingUtil.drawLine(context, 0, -size * (1 - dsc(3)), 0, -size)
+                })
+            }
         })
     }
 
