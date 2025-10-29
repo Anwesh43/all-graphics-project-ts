@@ -229,8 +229,10 @@ class Renderer {
         this.lpjd.startUpdating(() => {
             this.animator.start(() => {
                 cb()
-                this.animator.stop()
-                cb()
+                this.lpjd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
             })
         })
     }
