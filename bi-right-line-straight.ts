@@ -208,3 +208,25 @@ class BiRightLineStraight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    brls: BiRightLineStraight = new BiRightLineStraight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.brls.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.brls.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.brls.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
