@@ -52,12 +52,15 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2 + size) * dsc(4), () => {
             context.rotate(rot * dsc(3))
             for (let k = 0; k < 2; k++) {
-                for (let j = 0; j < 2; j++) {
-                    DrawingUtil.drawXY(context, 0, 0, () => {
-                        context.rotate(gapDeg * j + rot * (1 - 2 * j) * dsc(2))
-                        DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(k))
-                    })
-                }
+                DrawingUtil.drawXY(context, 0, 0, () => {
+                    context.rotate(k * Math.PI)
+                    for (let j = 0; j < 2; j++) {
+                        DrawingUtil.drawXY(context, 0, 0, () => {
+                            context.rotate(gapDeg * j + rot * (1 - 2 * j) * dsc(2))
+                            DrawingUtil.drawLine(context, 0, 0, 0, size * dsc(k))
+                        })
+                    }
+                })
             }
         })
     }
