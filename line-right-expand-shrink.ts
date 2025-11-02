@@ -216,3 +216,25 @@ class LineRightExpandShrink {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lres: LineRightExpandShrink = new LineRightExpandShrink()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lres.draw(context)
+    }
+
+    handlTap(cb: () => void) {
+        this.lres.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lres.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
