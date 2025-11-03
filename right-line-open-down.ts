@@ -213,3 +213,25 @@ class RightLineOpenDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlod: RightLineOpenDown = new RightLineOpenDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlod.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlod.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlod.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
