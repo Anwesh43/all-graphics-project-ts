@@ -208,3 +208,25 @@ class LineBentRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbru: LineBentRotUp = new LineBentRotUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbru.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
