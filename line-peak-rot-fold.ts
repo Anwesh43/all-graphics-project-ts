@@ -215,3 +215,25 @@ class LinePeakRotFold {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lprf: LinePeakRotFold = new LinePeakRotFold()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lprf.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lprf.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lprf.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
