@@ -209,3 +209,25 @@ class LineHookJoinLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lhjl: LineHookJoinLeft = new LineHookJoinLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lhjl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lhjl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lhjl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
