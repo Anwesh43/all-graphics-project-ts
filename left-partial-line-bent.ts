@@ -145,3 +145,39 @@ class Animator {
         }
     }
 }
+
+class LPLBNode {
+
+    prev: LPLBNode
+    next: LPLBNode
+    state: State = new State()
+
+    addNeighbor() {
+
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+
+    }
+
+    update(cb: () => void) {
+
+    }
+
+    startUpdating(cb: () => void) {
+
+    }
+
+    getNext(dir: number, cb: () => void): LPLBNode {
+        var curr: LPLBNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+
+    }
+}
