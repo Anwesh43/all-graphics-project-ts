@@ -152,20 +152,27 @@ class LPLBNode {
     next: LPLBNode
     state: State = new State()
 
-    addNeighbor() {
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
 
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LPLBNode(this.i + 1)
+            this.next.prev = this
+        }
     }
 
     draw(context: CanvasRenderingContext2D) {
-
+        DrawingUtil.drawLPLBNode(context, this.i, this.state.scale)
     }
 
     update(cb: () => void) {
-
+        this.state.update(cb)
     }
 
     startUpdating(cb: () => void) {
-
+        this.state.startUpdating(cb)
     }
 
     getNext(dir: number, cb: () => void): LPLBNode {
