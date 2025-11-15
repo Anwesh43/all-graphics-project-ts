@@ -212,3 +212,25 @@ class LineBentExtendDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbed: LineBentExtendDown = new LineBentExtendDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbed.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbed.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbed.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
