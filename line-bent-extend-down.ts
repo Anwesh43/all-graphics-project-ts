@@ -62,4 +62,11 @@ class DrawingUtil {
             })
         })
     }
+
+    static drawLBEDNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawLineBentExtendDown(context, scale)
+    }
 }
