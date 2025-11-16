@@ -216,3 +216,25 @@ class StepRightJoinLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    srjl: StepRightJoinLine = new StepRightJoinLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.srjl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.srjl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.srjl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
