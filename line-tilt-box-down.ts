@@ -215,3 +215,25 @@ class LineTiltBoxDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ltbd: LineTiltBoxDown = new LineTiltBoxDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ltbd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ltbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ltbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
