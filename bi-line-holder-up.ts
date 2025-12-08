@@ -208,3 +208,25 @@ class BiLineHolderUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blhu: BiLineHolderUp = new BiLineHolderUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blhu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blhu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blhu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
