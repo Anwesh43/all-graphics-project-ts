@@ -45,7 +45,7 @@ class DrawingUtil {
         context.stroke()
     }
 
-    static drawTriLineClose(context: CanvasRenderingContext2D, scale: number) {
+    static drawTriLineCloseRot(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
@@ -62,11 +62,11 @@ class DrawingUtil {
         })
     }
 
-    static drawTLCNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+    static drawTLCRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
-        DrawingUtil.drawTriLineClose(context, scale)
+        DrawingUtil.drawTriLineCloseRot(context, scale)
     }
 }
 
@@ -146,3 +146,45 @@ class Animator {
         }
     }
 }
+
+class TLCRNode {
+
+    prev: TLCRNode
+    next: TLCRNode
+    state: State = new State()
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new TLCRNode(this.i + 1)
+            this.prev = this.prev
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawTLCRNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): TLCRNode {
+        var curr: TLCRNode = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}   
