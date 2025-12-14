@@ -212,3 +212,25 @@ class TriLineCloseRot {
     }
 
 }
+
+class Renderer {
+
+    tlcr: TriLineCloseRot = new TriLineCloseRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.tlcr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.tlcr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tlcr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
