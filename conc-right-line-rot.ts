@@ -209,3 +209,24 @@ class ConcRightLineRot {
 	}
 }
 
+class Renderer {
+
+	crlr : ConcRightLineRot = new ConcRightLineRot()
+	animator : Animator = new Animator()
+
+	render(context : CanvasRenderingContext2D) {
+		this.crlr.draw(context) 
+	}
+
+	handleTap(cb : () => void) {
+		this.crlr.startUpdating(() => {
+			this.animator.start(() => {
+				cb()
+				this.crlr.update(() => {
+					this.animator.stop()
+					cb()
+				})
+			})
+		})
+	}
+}
