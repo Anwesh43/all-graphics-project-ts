@@ -208,3 +208,25 @@ class RightLineSlightRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rlsr: RightLineSlightRot = new RightLineSlightRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rlsr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rlsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rlsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
