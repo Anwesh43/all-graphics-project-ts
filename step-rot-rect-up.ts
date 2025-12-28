@@ -216,3 +216,24 @@ class StepRotRectUp {
 	}
 }
 
+class Renderer {
+	
+	srru : StepRotRectUp = new StepRotRectUp()
+	animator : Animator = new Animator()
+	
+	render(context : CanvasRenderingContext2D) {
+		this.srru.draw(context)
+	}
+	
+	handleTap(cb : () => void) {
+		this.srru.startUpdating(() => {
+			this.animator.start(() => {
+				cb()
+				this.srru.update(()=>{
+					this.animator.stop()
+					cb()
+				})
+			})
+		})
+	}
+}
