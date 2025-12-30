@@ -205,3 +205,25 @@ class LineShiftRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsru: LineShiftRotUp = new LineShiftRotUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsru.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
