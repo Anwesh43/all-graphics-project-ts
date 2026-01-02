@@ -210,3 +210,25 @@ class ParallelLineExtendRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pler: ParallelLineExtendRot = new ParallelLineExtendRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.pler.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.pler.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pler.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
