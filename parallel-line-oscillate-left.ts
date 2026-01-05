@@ -208,3 +208,25 @@ class ParallelLineOscillateLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    plol: ParallelLineOscillateLeft = new ParallelLineOscillateLeft()
+    animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.plol.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.plol.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.plol.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
