@@ -209,3 +209,25 @@ class LineJoinRotPeak {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ljrp: LineJoinRotPeak = new LineJoinRotPeak()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ljrp.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ljrp.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ljrp.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
