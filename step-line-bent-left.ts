@@ -213,3 +213,25 @@ class StepLineBentLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slbl: StepLineBentLeft = new StepLineBentLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.slbl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.slbl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slbl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
