@@ -211,3 +211,25 @@ class LineJoinSqRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ljsr: LineJoinSqRight = new LineJoinSqRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ljsr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ljsr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ljsr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
