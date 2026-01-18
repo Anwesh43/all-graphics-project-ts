@@ -179,7 +179,7 @@ class RTLRNode {
     }
 
     draw(context: CanvasRenderingContext2D) {
-
+        DrawingUtil.drawRTLRNode(context, this.i, this.state.scale)
     }
 
     update(cb: () => void) {
