@@ -66,9 +66,9 @@ class DrawingUtil {
         const dsc: (i: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
             pathLines.forEach((pathLine: PathLine, j: number) => {
-                const currRot: number = j == 0 ? rot * dsc(3) : 0
-                pathLine.draw(context, currRot, size, dsc(j))
+                pathLine.draw(context, 0, size, dsc(j))
             })
+            pathLines[0].draw(context, rot * dsc(3), size, 1)
         })
     }
 
