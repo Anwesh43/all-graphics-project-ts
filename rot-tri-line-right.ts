@@ -67,7 +67,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
             pathLines.forEach((pathLine: PathLine, j: number) => {
                 const currRot: number = j == 0 ? rot * dsc(3) : 0
-                pathLine.draw(context, currRot, size, scale)
+                pathLine.draw(context, currRot, size, dsc(j))
             })
         })
     }
