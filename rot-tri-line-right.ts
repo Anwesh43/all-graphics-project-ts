@@ -68,7 +68,7 @@ class DrawingUtil {
             pathLines.forEach((pathLine: PathLine, j: number) => {
                 pathLine.draw(context, 0, size, dsc(j))
             })
-            pathLines[0].draw(context, rot * dsc(3), size, 1)
+            pathLines[0].draw(context, rot * dsc(3), size, Math.floor(dsc(2)))
         })
     }
 
