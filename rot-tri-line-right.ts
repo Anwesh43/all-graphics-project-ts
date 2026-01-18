@@ -208,7 +208,7 @@ class RotTriLineRight {
         this.curr.draw(context)
     }
 
-    uddate(cb: () => void) {
+    update(cb: () => void) {
         this.curr.update(() => {
             this.curr = this.curr.getNext(this.dir, () => {
                 this.dir *= -1
@@ -219,5 +219,27 @@ class RotTriLineRight {
 
     startUpdating(cb: () => void) {
         this.curr.startUpdating(cb)
+    }
+}
+
+class Renderer {
+
+    rtlr: RotTriLineRight = new RotTriLineRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rtlr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rtlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rtlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
     }
 }
