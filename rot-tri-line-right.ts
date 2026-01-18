@@ -64,7 +64,7 @@ class DrawingUtil {
     static drawRotTriLineRight(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (i: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2, h / 2, () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(4), h / 2, () => {
             pathLines.forEach((pathLine: PathLine, j: number) => {
                 pathLine.draw(context, 0, size, dsc(j))
             })
