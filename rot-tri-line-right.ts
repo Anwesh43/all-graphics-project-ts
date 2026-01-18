@@ -31,11 +31,11 @@ class PathLine {
     constructor(private x: number, private y: number, private x1: number, private y1: number) {
 
     }
-    draw(context: CanvasRenderingContext2D, rot: number, size: number) {
+    draw(context: CanvasRenderingContext2D, rot: number, size: number, scale: number) {
         const x: number = size * this.x, y: number = size * this.y, x1 = size * this.x1, y1 = size * this.y1
         DrawingUtil.drawXY(context, x, y, () => {
             context.rotate(rot)
-            DrawingUtil.drawLine(context, 0, 0, x1, y1)
+            DrawingUtil.drawLine(context, 0, 0, x1 * scale, y1 * scale)
         })
     }
 }
@@ -67,7 +67,7 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
             pathLines.forEach((pathLine: PathLine, j: number) => {
                 const currRot: number = j == 0 ? rot * dsc(3) : 0
-                pathLine.draw(context, currRot, size * dsc(j))
+                pathLine.draw(context, currRot, size, scale)
             })
         })
     }
