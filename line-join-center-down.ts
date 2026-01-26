@@ -204,3 +204,25 @@ class LineJoinCenterDown {
 		this.curr.startUpdating(cb)
 	}
 }
+
+class Renderer {
+
+	ljcd: LineJoinCenterDown = new LineJoinCenterDown()
+	animator: Animator = new Animator()
+
+	render(context: CanvasRenderingContext2D) {
+		this.ljcd.draw(context)
+	}
+
+	handleTap(cb: () => void) {
+		this.ljcd.startUpdating(() => {
+			this.animator.start(() => {
+				cb()
+				this.ljcd.update(() => {
+					this.animator.stop()
+					cb()
+				})
+			})
+		})
+	}
+}
