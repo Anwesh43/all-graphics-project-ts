@@ -71,7 +71,8 @@ class DrawingUtil {
 class Stage {
 
     canvas: HTMLCanvasElement = document.createElement('canvas')
-    context: CanvasRenderingContext2D | null
+    context: CanvasRenderingContext2D | null = null
+    renderer: Renderer = new Renderer()
 
     initCanvas() {
         this.canvas.width = w
@@ -84,14 +85,16 @@ class Stage {
         if (this.context) {
             this.context.fillStyle = backColor
             this.context.fillRect(0, 0, w, h)
+            this.renderer.render(this.context)
         }
     }
 
     handleTap() {
-        this.canvas.width = w
-        this.canvas.height = h
-        this.context = this.canvas.getContext('2d')
-        document.body.appendChild(this.canvas)
+        this.canvas.onmousedown = () => {
+            this.renderer.handleTap(() => {
+                this.render()
+            })
+        }
     }
 
     static init() {
