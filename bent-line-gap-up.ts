@@ -210,3 +210,25 @@ class BentLineGapUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blgu: BentLineGapUp = new BentLineGapUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blgu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blgu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blgu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
