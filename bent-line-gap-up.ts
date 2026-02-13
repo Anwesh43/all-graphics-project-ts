@@ -11,9 +11,10 @@ const strokeFactor: number = 90
 const sizeFactor: number = 5.9
 const delay: number = 20
 const backColor: string = "#BDDBBD"
-const rot: number = Math.PI / 2
+const rot: number = Math.PI / 4
 const w: number = window.innerWidth
 const h: number = window.innerHeight
+const deg: number = Math.PI
 
 class ScaleUtil {
 
@@ -23,5 +24,46 @@ class ScaleUtil {
 
     static divideScale(scale: number, i: number, n: number): number {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
+    }
+}
+
+class DrawingUtil {
+
+    static drawXY(context: CanvasRenderingContext2D, x: number, y: number, cb: () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+
+    static drawBentLineGapUp(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(4), () => {
+            context.rotate(deg * dsc(3))
+            for (let j = 0; j < 2; j++) {
+                DrawingUtil.drawXY(context, (w / 4) * (1 - dsc(2)), -h * 0.5 * (1 - dsc(0)), () => {
+                    context.rotate(rot * dsc(1))
+                    DrawingUtil.drawLine(context, 0, 0, 0, -size)
+                })
+            }
+        })
+    }
+
+    static drawBLGUNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawBentLineGapUp(context, scale)
     }
 }
