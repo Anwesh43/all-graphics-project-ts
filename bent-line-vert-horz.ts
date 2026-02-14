@@ -204,3 +204,25 @@ class BentLineVertHorz {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blvh: BentLineVertHorz = new BentLineVertHorz()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blvh.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blvh.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blvh.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
