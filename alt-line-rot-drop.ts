@@ -188,7 +188,7 @@ class ALRDNode {
     }
 }
 
-class AllLineRotDrop {
+class AltLineRotDrop {
 
     curr: ALRDNode = new ALRDNode(0)
     dir: number = 1
@@ -209,4 +209,26 @@ class AllLineRotDrop {
     startUpdating(cb: () => void) {
         this.curr.startUpdating(cb)
     }
-}   
+}
+
+class Renderer {
+
+    alrd: AltLineRotDrop = new AltLineRotDrop()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.alrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.alrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.alrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
