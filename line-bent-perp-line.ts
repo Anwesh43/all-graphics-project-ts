@@ -207,3 +207,25 @@ class LineBentPerpLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbpl: LineBentPerpLine = new LineBentPerpLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbpl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbpl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbpl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
