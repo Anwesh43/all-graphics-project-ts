@@ -208,3 +208,25 @@ class LineStepRotPrep {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsrp: LineStepRotPrep = new LineStepRotPrep()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsrp.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsrp.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsrp.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
