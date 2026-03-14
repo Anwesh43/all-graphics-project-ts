@@ -204,7 +204,7 @@ class AltLineHalfUp {
 
     update(cb: () => void) {
         this.curr.update(() => {
-            this.curr.getNext(this.dir, () => {
+            this.curr = this.curr.getNext(this.dir, () => {
                 this.dir *= -1
             })
             cb()
