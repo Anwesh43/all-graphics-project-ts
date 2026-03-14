@@ -210,3 +210,25 @@ class AltLineHalfUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    alhu: AltLineHalfUp = new AltLineHalfUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.alhu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.alhu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.alhu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
