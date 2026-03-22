@@ -167,7 +167,7 @@ class BLDRNode {
     }
 
     draw(context: CanvasRenderingContext2D) {
-
+        DrawingUtil.drawBLDRNode(context, this.i, this.state.scale)
     }
 
     update(cb: () => void) {
