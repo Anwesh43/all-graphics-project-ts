@@ -186,3 +186,26 @@ class BLDRNode {
         return this
     }
 }
+
+class BentLineDownRight {
+
+    curr: BLDRNode = new BLDRNode(0)
+    dir: number = 1
+
+    draw(context: CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb: () => void) {
+        this.curr.update(() => {
+            this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+
+    startUpating(cb: () => void) {
+        this.curr.startUpdating(cb)
+    }
+}
