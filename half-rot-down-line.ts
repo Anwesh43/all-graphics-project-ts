@@ -203,3 +203,25 @@ class HalfRotDownLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    hrdl: HalfRotDownLine = new HalfRotDownLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.hrdl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.hrdl.startUdpating(() => {
+            this.animator.start(() => {
+                cb()
+                this.hrdl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
