@@ -64,7 +64,7 @@ class DrawingUtil {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
 
-        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(2), h / 2 + (h / 2) * dsc(4), () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 4) * dsc(2), h / 2 + (h / 2) * dsc(4), () => {
             context.rotate(rot * dsc(3))
             DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
             DrawingUtil.drawArc(context, 0, 0, size, -90, 90 * dsc(1))
@@ -73,7 +73,7 @@ class DrawingUtil {
 
     static drawLASDNode(context: CanvasRenderingContext2D, i: number, scale: number) {
         context.lineCap = 'round'
-        context.lineWidth = Math.min(w, h) / sizeFactor
+        context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
         DrawingUtil.drawLineArcSweepDown(context, scale)
     }
