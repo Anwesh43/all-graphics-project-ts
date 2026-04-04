@@ -218,3 +218,25 @@ class LineArcSweepDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lasd: LineArcSweepDown = new LineArcSweepDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lasd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lasd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lasd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
