@@ -204,3 +204,25 @@ class LinePartialBentLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpbl: LinePartialBentLeft = new LinePartialBentLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lpbl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lpbl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpbl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
