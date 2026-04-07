@@ -207,3 +207,25 @@ class LineDropSeparateDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldsd: LineDropSeparateDown = new LineDropSeparateDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldsd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldsd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
