@@ -177,7 +177,7 @@ class LDSDNode {
     }
 
     getNext(dir: number, cb: () => void): LDSDNode {
-        var curr: LDSDNode | null = this.next
+        var curr: LDSDNode | null = this.prev
         if (dir === 1) {
             curr = this.next
         }
