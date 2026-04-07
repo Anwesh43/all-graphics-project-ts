@@ -115,7 +115,7 @@ class State {
         }
     }
 
-    startUdpating(cb: () => void) {
+    startUpdating(cb: () => void) {
         if (this.dir === 0) {
             this.dir = 1 - 2 * this.prevScale
             cb()
@@ -140,5 +140,47 @@ class Animator {
             this.animated = false
             clearInterval(this.interval)
         }
+    }
+}
+
+class LDSDNode {
+
+    prev: LDSDNode | null = null
+    next: LDSDNode | null = null
+    state: State = new State()
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LDSDNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawLDSDNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): LDSDNode {
+        var curr: LDSDNode | null = this.next
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
     }
 }
