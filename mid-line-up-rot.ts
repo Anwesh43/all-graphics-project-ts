@@ -210,3 +210,25 @@ class MidLineUpRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mlur: MidLineUpRot = new MidLineUpRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.mlur.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.mlur.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mlur.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
