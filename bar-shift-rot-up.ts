@@ -207,3 +207,25 @@ class BarShiftRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bsru: BarShiftRotUp = new BarShiftRotUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bsru.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bsru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bsru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
