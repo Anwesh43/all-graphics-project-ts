@@ -207,3 +207,25 @@ class DownLineRotDivide {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dlrd: DownLineRotDivide = new DownLineRotDivide()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dlrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dlrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
