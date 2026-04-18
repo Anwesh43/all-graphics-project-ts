@@ -141,3 +141,41 @@ class Animator {
         }
     }
 }
+
+class RSLDNode {
+
+    prev: RSLDNode | null = null
+    next: RSLDNode | null = null
+    state: State = new State()
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new RSLDNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawRSLDNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    getNext(dir: number, cb: () => void): RSLDNode {
+        var curr: RSLDNode | null = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
