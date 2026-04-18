@@ -206,3 +206,25 @@ class RightSeparatedLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rsld: RightSeparatedLineDown = new RightSeparatedLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rsld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rsld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rsld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
