@@ -211,3 +211,25 @@ class LineFanBentDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lfbd: LineFanBentDown = new LineFanBentDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lfbd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lfbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lfbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
