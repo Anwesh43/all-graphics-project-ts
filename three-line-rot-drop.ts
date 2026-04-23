@@ -118,7 +118,7 @@ class State {
         }
     }
 
-    statUpdating(cb: () => void) {
+    startUpdating(cb: () => void) {
         if (this.dir === 0) {
             this.dir = 1 - 2 * this.prevScale
             cb()
@@ -143,5 +143,47 @@ class Animator {
             this.animated = false
             clearInterval(this.interval)
         }
+    }
+}
+
+class TLRDNode {
+
+    prev: TLRDNode | null = null
+    next: TLRDNode | null = null
+    state: State = new State()
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new TLRDNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawTLRDNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): TLRDNode {
+        var curr: TLRDNode | null = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
     }
 }
