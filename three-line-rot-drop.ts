@@ -210,3 +210,25 @@ class ThreeLineRotDrop {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tlrd: ThreeLineRotDrop = new ThreeLineRotDrop()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.tlrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.tlrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tlrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
