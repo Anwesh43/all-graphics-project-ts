@@ -62,7 +62,7 @@ class DrawingUtil {
 
     static drawTLRDNode(context: CanvasRenderingContext2D, i: number, scale: number) {
         context.lineCap = 'round'
-        context.lineWidth = Math.min(w, h) / sizeFactor
+        context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
         DrawingUtil.drawThreeLineRotDrop(context, scale)
     }
