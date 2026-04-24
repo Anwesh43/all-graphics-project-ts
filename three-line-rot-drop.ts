@@ -53,10 +53,11 @@ class DrawingUtil {
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
             let x: number = 0
             for (let j = 0; j < lines; j++) {
-                DrawingUtil.drawXY(context, x, -h * 0.5 * (1 - dsc(0)) + h * 0.5 * dsc(parts - 1), () => {
+                const currX: number = j === 0 ? 0 : x + gap * dsc(j * 2)
+                DrawingUtil.drawXY(context, currX, -h * 0.5 * (1 - dsc(0)) + h * 0.5 * dsc(parts - 1), () => {
                     context.rotate(rot * dsc(2 * j + 1))
                     DrawingUtil.drawLine(context, 0, 0, 0, -size)
-                    x += gap * dsc(j * 2)
+                    x = currX
                 })
             }
         })
