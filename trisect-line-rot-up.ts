@@ -51,12 +51,12 @@ class DrawingUtil {
     static drawTrisectLineRotUp(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        const dsk: (i: number, j: number) => number = (i: number, j: number): number => ScaleUtil.divideScale(dsc(i), j, parts)
+        const dsk: (i: number, j: number) => number = (i: number, j: number): number => ScaleUtil.divideScale(dsc(i), j, 2)
         DrawingUtil.drawXY(context, w / 2, h / 2 - (h / 2) * dsc(4), () => {
             context.rotate(rot * dsc(3))
             for (let j = 0; j < lines; j++) {
                 DrawingUtil.drawXY(context, 0, -h * 0.5 * (1 - dsk(j, 0)), () => {
-                    context.rotate((finalRot - trisectDeg * j) * dsk(j, 1))
+                    context.rotate(-(finalRot - trisectDeg * j) * dsk(j, 1))
                     DrawingUtil.drawLine(context, 0, 0, 0, -size)
                 })
             }
