@@ -212,3 +212,25 @@ class TrisectLineRotUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tlru: TrisectLineRotUp = new TrisectLineRotUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.tlru.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.tlru.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.tlru.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
