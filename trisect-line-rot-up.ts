@@ -56,7 +56,7 @@ class DrawingUtil {
             context.rotate(rot * dsc(3))
             for (let j = 0; j < lines; j++) {
                 DrawingUtil.drawXY(context, 0, -h * 0.5 * (1 - dsk(j, 0)), () => {
-                    context.rotate((finalRot - trisectDeg * j) * (1 - dsk(j, 1)))
+                    context.rotate((finalRot - trisectDeg * j) * dsk(j, 1))
                     DrawingUtil.drawLine(context, 0, 0, 0, -size)
                 })
             }
