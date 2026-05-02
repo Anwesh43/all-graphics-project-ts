@@ -210,3 +210,25 @@ class ParallelLineEncloseUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    pleu: ParallelLineEncloseUp = new ParallelLineEncloseUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.pleu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.pleu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.pleu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
