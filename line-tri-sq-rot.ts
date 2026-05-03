@@ -24,3 +24,23 @@ class ScaleUtil {
         return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 }
+
+class DrawingUtil {
+
+    static drawXY(context : CanvasRenderingContext2D, x : number, y : number, cb : () => void) {
+        context.save()
+        context.translate(x, y)
+        cb()
+        context.restore()
+    }
+
+    static drawLine(context : CanvasRenderingContext2D, x1 : number, y1 : number, x2 : number, y2 : number) {
+        if (Math.abs(x1 - x2) < 0.1 && Math.abs(y1 - y2) < 0.1) {
+            return 
+        }
+        context.beginPath()
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y2)
+        context.stroke()
+    }
+}
