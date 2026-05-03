@@ -211,3 +211,25 @@ class LinePerpBreakRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpbr: LinePerpBreakRot = new LinePerpBreakRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lpbr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lpbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
