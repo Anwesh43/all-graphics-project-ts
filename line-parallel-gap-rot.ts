@@ -208,3 +208,25 @@ class LineParallelGapRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lpgr: LineParallelGapRot = new LineParallelGapRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lpgr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lpgr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lpgr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
