@@ -207,3 +207,25 @@ class RightLineEncloseDiag {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rled: RightLineEncloseDiag = new RightLineEncloseDiag()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rled.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rled.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rled.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
