@@ -47,11 +47,11 @@ class DrawingUtil {
     static drawRightLineEncloserDiag(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2 + (w / 2 - size) * dsc(3), h / 2 + (h / 2) * dsc(4), () => {
+        DrawingUtil.drawXY(context, w / 2 + (w / 2 - size - context.lineWidth) * dsc(3), h / 2 + (h / 2) * dsc(4), () => {
             context.rotate(rot * dsc(2))
             DrawingUtil.drawXY(context, -size, 0, () => {
                 DrawingUtil.drawLine(context, 0, 0, 0, -size * dsc(0))
-                DrawingUtil.drawXY(context, 0, -size - context.lineWidth, () => {
+                DrawingUtil.drawXY(context, 0, -size, () => {
                     DrawingUtil.drawLine(context, 0, 0, size * dsc(1), 0)
                 })
             })
