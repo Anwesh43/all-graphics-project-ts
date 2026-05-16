@@ -211,3 +211,25 @@ class LineDropRightBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldrb: LineDropRightBent = new LineDropRightBent()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldrb.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldrb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldrb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
