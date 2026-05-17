@@ -213,3 +213,25 @@ class LineSeqBentRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsbr: LineSeqBentRot = new LineSeqBentRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsbr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
