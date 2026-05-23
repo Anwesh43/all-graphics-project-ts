@@ -211,3 +211,25 @@ class SqLineSqCreator {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    slsc: SqLineSqCreator = new SqLineSqCreator()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.slsc.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.slsc.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.slsc.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
