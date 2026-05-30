@@ -207,3 +207,25 @@ class LineRotEncloserRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lrer: LineRotEncloserRight = new LineRotEncloserRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lrer.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lrer.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lrer.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
