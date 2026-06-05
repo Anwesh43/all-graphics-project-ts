@@ -203,5 +203,26 @@ class BentLineMoveUpRight {
     startUpdating(cb: () => void) {
         this.curr.startUpdating(cb)
     }
+}
 
+class Renderer {
+
+    blmur: BentLineMoveUpRight = new BentLineMoveUpRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blmur.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blmur.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blmur.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
 }
