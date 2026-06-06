@@ -207,3 +207,25 @@ class BiLineDropRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bldr: BiLineDropRot = new BiLineDropRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bldr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bldr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bldr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
