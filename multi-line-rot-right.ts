@@ -210,3 +210,25 @@ class MultiLineRotRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mlrr: MultiLineRotRight = new MultiLineRotRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.mlrr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.mlrr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mlrr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
