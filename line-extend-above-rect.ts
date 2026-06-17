@@ -208,3 +208,25 @@ class LineExtendAboveRect {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lear: LineExtendAboveRect = new LineExtendAboveRect()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lear.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lear.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lear.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
