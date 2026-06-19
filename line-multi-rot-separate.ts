@@ -212,3 +212,25 @@ class LineMultiRotSeparate {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lmrs: LineMultiRotSeparate = new LineMultiRotSeparate()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lmrs.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lmrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lmrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
