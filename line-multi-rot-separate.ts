@@ -81,7 +81,7 @@ class Stage {
         this.canvas.width = w
         this.canvas.height = h
         this.context = this.canvas.getContext('2d')
-        document.appendChild(this.canvas)
+        document.body.appendChild(this.canvas)
     }
 
     render() {
