@@ -56,7 +56,7 @@ class DrawingUtil {
                         for (let k = 0; k < 2; k++) {
                             DrawingUtil.drawLine(context, 0, 0, size * 0.4 * dsc(0) * (1 - 2 * k), size * 0.4 * dsc(1))
                         }
-                        DrawingUtil.drawXY(context, -size, size * 0.4, () => {
+                        DrawingUtil.drawXY(context, -size * 0.4, size * 0.4, () => {
                             DrawingUtil.drawLine(context, 0, 0, 0.8 * size * dsc(2), 0)
                         })
                     })
