@@ -209,3 +209,25 @@ class LineFromEndBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lfeb: LineFromEndBent = new LineFromEndBent()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lfeb.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lfeb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lfeb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
