@@ -51,7 +51,7 @@ class DrawingUtil {
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2, h / 2, () => {
             for (let j = 0; j < 2; j++) {
-                DrawingUtil.drawXY(context, (w / 4) * dsc(3) * (1 - 2 * j), (h / 2) * (1 - 2 * j) * dsc(4), () => {
+                DrawingUtil.drawXY(context, (w / 4) * dsc(3) * (1 - 2 * j), -(h / 2) * (1 - 2 * j) * dsc(4), () => {
                     context.rotate(rot * dsc(2) * j)
                     for (let k = 0; k < 2; k++) {
                         context.rotate(bentDeg * (1 - 2 * k) * dsc(1))
