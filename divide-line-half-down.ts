@@ -210,3 +210,25 @@ class DivideLineHalfDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dlhd: DivideLineHalfDown = new DivideLineHalfDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dlhd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dlhd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlhd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
