@@ -203,3 +203,25 @@ class SqPathLineUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    splu: SqPathLineUp = new SqPathLineUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.splu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.splu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.splu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
