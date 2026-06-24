@@ -208,3 +208,25 @@ class LineBentStartJoin {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbsj: LineBentStartJoin = new LineBentStartJoin()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbsj.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbsj.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbsj.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
