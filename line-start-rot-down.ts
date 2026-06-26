@@ -205,3 +205,25 @@ class LineStartRotDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsrd: LineStartRotDown = new LineStartRotDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
