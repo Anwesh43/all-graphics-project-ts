@@ -205,3 +205,25 @@ class UpMidSqLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    umsl: UpMidSqLine = new UpMidSqLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.umsl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.umsl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.umsl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
