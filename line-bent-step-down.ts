@@ -204,3 +204,24 @@ class LineBentStepDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbsd: LineBentStepDown = new LineBentStepDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbsd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbsd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbsd.update(() => {
+                    this.animator.stop()
+                })
+            })
+        })
+    }
+}
