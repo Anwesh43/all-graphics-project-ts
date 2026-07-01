@@ -208,3 +208,25 @@ class DropLineCatchSq {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dlcs: DropLineCatchSq = new DropLineCatchSq()
+    animator: Animator = new Animator()
+
+    draw(context: CanvasRenderingContext2D) {
+        this.dlcs.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dlcs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dlcs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
