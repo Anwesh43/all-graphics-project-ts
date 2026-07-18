@@ -210,3 +210,25 @@ class LineMidJoinBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lmjb: LineMidJoinBent = new LineMidJoinBent()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lmjb.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lmjb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lmjb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
