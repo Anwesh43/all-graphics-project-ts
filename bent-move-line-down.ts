@@ -209,3 +209,25 @@ class BentMoveLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bmld: BentMoveLineDown = new BentMoveLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bmld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bmld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bmld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
