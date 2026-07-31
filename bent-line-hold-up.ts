@@ -207,3 +207,25 @@ class BentLineHoldUp {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    blhu: BentLineHoldUp = new BentLineHoldUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.blhu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.blhu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.blhu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
