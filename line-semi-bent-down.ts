@@ -204,3 +204,25 @@ class LineSemiBentDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsbd: LineSemiBentDown = new LineSemiBentDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsbd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
