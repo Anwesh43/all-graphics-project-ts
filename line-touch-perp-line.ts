@@ -209,3 +209,25 @@ class LineTouchPerpLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ltpl: LineTouchPerpLine = new LineTouchPerpLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ltpl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ltpl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ltpl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
