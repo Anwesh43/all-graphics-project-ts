@@ -210,3 +210,25 @@ class LineBentJoinDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbjd: LineBentJoinDown = new LineBentJoinDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbjd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbjd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbjd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
