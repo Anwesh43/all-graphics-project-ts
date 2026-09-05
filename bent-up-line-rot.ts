@@ -208,3 +208,25 @@ class BentUpLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bulr: BentUpLineRot = new BentUpLineRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bulr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bulr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bulr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
