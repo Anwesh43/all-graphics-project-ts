@@ -209,3 +209,25 @@ class RightFromDownLine {
         this.curr.startUdpating(cb)
     }
 }
+
+class Renderer {
+
+    rfdl: RightFromDownLine = new RightFromDownLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rfdl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rfdl.startUdpating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rfdl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
