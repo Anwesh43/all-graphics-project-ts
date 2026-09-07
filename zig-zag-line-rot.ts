@@ -210,3 +210,25 @@ class ZigZagLineRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    zzlr: ZigZagLineRot = new ZigZagLineRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.zzlr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.zzlr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.zzlr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
