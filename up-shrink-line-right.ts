@@ -203,3 +203,25 @@ class UpShrinkLineRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    uslr: UpShrinkLineRight = new UpShrinkLineRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.uslr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.uslr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.uslr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
