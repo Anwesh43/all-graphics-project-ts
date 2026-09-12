@@ -5,8 +5,8 @@ const colors: Array<string> = [
     "#C51162",
     "#00C853"
 ]
-const parts: number = 5
-const scGap: number = 0.04 / parts
+const parts: number = 7
+const scGap: number = 0.06 / parts
 const strokeFactor: number = 90
 const sizeFactor: number = 5.9
 const delay: number = 20
@@ -48,9 +48,9 @@ class DrawingUtil {
     static drawUpShrinkLineRight(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(4), h * 0.5 * dsc(0), () => {
-            context.rotate(rot * (dsc(1) + dsc(3)))
-            DrawingUtil.drawLine(context, 0, 0, 0, -(size - size * 0.5 * dsc(2)))
+        DrawingUtil.drawXY(context, w / 2, h * 0.5 * (dsc(0) + dsc(6)), () => {
+            context.rotate(rot * (dsc(1) + dsc(3) + 2 * dsc(5)))
+            DrawingUtil.drawLine(context, 0, 0, 0, -(size - size * 0.5 * dsc(2) + size * 0.5 * dsc(4)))
         })
     }
 
