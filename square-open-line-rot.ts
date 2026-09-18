@@ -208,3 +208,25 @@ class SquareOpenLineRot {
         this.curr.startUdpating(cb)
     }
 }
+
+class Renderer {
+
+    solr: SquareOpenLineRot = new SquareOpenLineRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.solr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.solr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.solr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
