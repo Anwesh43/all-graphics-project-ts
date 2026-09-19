@@ -45,11 +45,11 @@ class DrawingUtil {
         context.stroke()
     }
 
-    static drawSquareOpenLineRot(context: CanvasRenderingContext2D, scale: number) {
+    static drawSquareOpenLineRot(context: CanvasRenderingContext2D, scale: number, sf: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
-        DrawingUtil.drawXY(context, w * 0.5 * dsc(2), h / 2 + (h / 2) * dsc(4), () => {
-            context.rotate(rot * dsc(3))
+        DrawingUtil.drawXY(context, w * 0.5 * dsc(2), h / 2 + (h / 2) * dsc(4) * sf, () => {
+            context.rotate(rot * dsc(3) * sf)
             context.fillRect(0, -size / 2, size * dsc(0), size)
             for (let j = 0; j < 2; j++) {
                 DrawingUtil.drawXY(context, size, 0, () => {
@@ -65,7 +65,9 @@ class DrawingUtil {
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = colors[i]
         context.fillStyle = colors[i]
-        DrawingUtil.drawSquareOpenLineRot(context, scale)
+        for (let j = 0; j < 2; j++) {
+            DrawingUtil.drawSquareOpenLineRot(context, scale, 1 - 2 * j)
+        }
     }
 }
 
