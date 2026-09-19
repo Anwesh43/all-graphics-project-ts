@@ -60,4 +60,11 @@ class DrawingUtil {
             })
         })
     }
+
+    static drawLMRLNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.strokeStyle = colors[i]
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        DrawingUtil.drawLeftMultiRotLine(context, scale)
+    }
 }
