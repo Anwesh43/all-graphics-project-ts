@@ -210,3 +210,26 @@ class LineSqBarUp {
         this.curr.startUpdating(cb)
     }
 }
+
+
+class Renderer {
+
+    lsbu: LineSqBarUp = new LineSqBarUp()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsbu.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsbu.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsbu.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
