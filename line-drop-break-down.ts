@@ -213,3 +213,25 @@ class LineDropBreakDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldbd: LineDropBreakDown = new LineDropBreakDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldbd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldbd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldbd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
