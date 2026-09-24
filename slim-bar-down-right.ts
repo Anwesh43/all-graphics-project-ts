@@ -191,3 +191,25 @@ class SlimBarDownRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    sbrd: SlimBarDownRight = new SlimBarDownRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.sbrd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.sbrd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.sbrd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
