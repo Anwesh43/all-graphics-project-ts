@@ -14,7 +14,7 @@ const backColor: string = "#BDBDBD"
 const rot: number = Math.PI
 const w: number = window.innerWidth
 const h: number = window.innerHeight
-const bentDeg: number = Math.PI / 4
+const bentDeg: number = Math.PI / 7
 
 class ScaleUtil {
 
