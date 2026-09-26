@@ -207,3 +207,25 @@ class BiBentLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bbld: BiBentLineDown = new BiBentLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bbld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bbld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bbld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
