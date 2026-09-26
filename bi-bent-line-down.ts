@@ -45,6 +45,7 @@ class DrawingUtil {
     static drawBiBentLineDown(context: CanvasRenderingContext2D, scale: number) {
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        console.log("SCALE", scale)
         DrawingUtil.drawXY(context, w / 2, h / 2 + (h / 2) * dsc(4), () => {
             context.rotate(rot * dsc(3))
             for (let j = 0; j < 2; j++) {
