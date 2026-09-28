@@ -140,3 +140,45 @@ class Animator {
         }
     }
 }
+
+class LRRLNode {
+
+    prev: LRRLNode | null = null
+    next: LRRLNode | null = null
+    state: State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LRRLNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawLRRLNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): LRRLNode {
+        var curr: LRRLNode | null = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
