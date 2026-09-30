@@ -146,3 +146,41 @@ class Animator {
         }
     }
 }
+
+class LBADNode {
+
+    prev: LBADNode | null = null
+    next: LBADNode | null = null
+    state: State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new LBADNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): LBADNode {
+        var curr: LBADNode | null = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
