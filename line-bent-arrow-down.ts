@@ -164,6 +164,10 @@ class LBADNode {
         this.addNeighbor()
     }
 
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawLBADNode(context, this.i, this.state.scale)
+    }
+
     update(cb: () => void) {
         this.state.update(cb)
     }
@@ -182,5 +186,28 @@ class LBADNode {
         }
         cb()
         return this
+    }
+}
+
+class LineBentArrowDown {
+
+    curr: LBADNode = new LBADNode(0)
+    dir: number = 1
+
+    draw(context: CanvasRenderingContext2D) {
+        this.curr.draw(context)
+    }
+
+    update(cb: () => void) {
+        this.curr.update(() => {
+            this.curr = this.curr.getNext(this.dir, () => {
+                this.dir *= -1
+            })
+            cb()
+        })
+    }
+
+    startUpdating(cb: () => void) {
+        this.curr.startUpdating(cb)
     }
 }
