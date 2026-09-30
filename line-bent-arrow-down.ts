@@ -211,3 +211,25 @@ class LineBentArrowDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lbad: LineBentArrowDown = new LineBentArrowDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lbad.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lbad.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lbad.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
