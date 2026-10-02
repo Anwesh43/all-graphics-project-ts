@@ -203,3 +203,25 @@ class BentPartialLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bpld: BentPartialLineDown = new BentPartialLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.bpld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bpld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bpld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
