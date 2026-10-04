@@ -208,3 +208,25 @@ class RotDropBiLine {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rdbl: RotDropBiLine = new RotDropBiLine()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rdbl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rdbl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rdbl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
