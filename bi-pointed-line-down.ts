@@ -210,3 +210,25 @@ class BiPointedLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bpld: BiPointedLineDown = new BiPointedLineDown()
+    animator: Animator = new Animator()
+
+    draw(context: CanvasRenderingContext2D) {
+        this.bpld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.bpld.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bpld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
