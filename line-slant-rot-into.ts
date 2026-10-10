@@ -210,3 +210,25 @@ class LineSlantRotInto {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lsri: LineSlantRotInto = new LineSlantRotInto()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lsri.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lsri.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lsri.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
