@@ -207,5 +207,26 @@ class LineMoveJoinRight {
     startUpdating(cb: () => void) {
         this.curr.startUpdating(cb)
     }
+}
 
+class Renderer {
+
+    lmjr: LineMoveJoinRight = new LineMoveJoinRight()
+    animtor: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lmjr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lmjr.startUpdating(() => {
+            this.animtor.start(() => {
+                cb()
+                this.lmjr.update(() => {
+                    this.animtor.stop()
+                    cb()
+                })
+            })
+        })
+    }
 }
