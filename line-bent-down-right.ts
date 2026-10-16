@@ -174,7 +174,7 @@ class LBDRNode {
     }
 
     getNext(dir: number, cb: () => void): LBDRNode {
-        var curr: LBDRNode = this.prev
+        var curr: LBDRNode | null = this.prev
         if (dir === 1) {
             curr = this.next
         }
