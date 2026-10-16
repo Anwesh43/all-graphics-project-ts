@@ -228,6 +228,7 @@ class Renderer {
                 cb()
                 this.lbdr.update(() => {
                     this.animator.stop()
+                    cb()
                 })
             })
         })
