@@ -208,3 +208,25 @@ class MidLineUpVanish {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mluv: MidLineUpVanish = new MidLineUpVanish()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.mluv.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.mluv.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mluv.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
