@@ -206,3 +206,25 @@ class RotVShapeMidDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    rvmd: RotVShapeMidDown = new RotVShapeMidDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.rvmd.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.rvmd.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.rvmd.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
