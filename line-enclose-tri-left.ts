@@ -208,3 +208,25 @@ class LineEncloseTriLeft {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    letl: LineEncloseTriLeft = new LineEncloseTriLeft()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.letl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.letl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.letl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
