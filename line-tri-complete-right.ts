@@ -93,4 +93,11 @@ class Stage {
 
         }
     }
+
+    static init() {
+        const stage: Stage = new Stage()
+        stage.initCanvas()
+        stage.render()
+        stage.handleTap()
+    }
 }
