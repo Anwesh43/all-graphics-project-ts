@@ -210,3 +210,25 @@ class LineTriCompleteRight {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ltcr: LineTriCompleteRight = new LineTriCompleteRight()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ltcr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ltcr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ltcr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
