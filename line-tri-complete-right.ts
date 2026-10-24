@@ -44,4 +44,27 @@ class DrawingUtil {
         context.lineTo(x2, y2)
         context.stroke()
     }
+
+    static drawLineTriCompleteRight(context: CanvasRenderingContext2D, scale: number) {
+        const size: number = Math.min(w, h) / sizeFactor
+        const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
+        DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(5), h / 2, () => {
+            context.rotate(rot * dsc(3))
+            DrawingUtil.drawXY(context, (w / 2) * (1 - dsc(1)), 0, () => {
+                context.rotate(-rot * dsc(2))
+                DrawingUtil.drawLine(context, 0, 0, size, 0)
+            })
+            DrawingUtil.drawXY(context, -size, 0, () => {
+                DrawingUtil.drawLine(context, 0, 0, size * dsc(0), -size * dsc(0))
+            })
+            DrawingUtil.drawLine(context, 0, -size, 0, -size * (1 - dsc(4)))
+        })
+    }
+
+    static drawLTCRNode(context: CanvasRenderingContext2D, i: number, scale: number) {
+        context.lineCap = 'round'
+        context.lineWidth = Math.min(w, h) / strokeFactor
+        context.strokeStyle = colors[i]
+        DrawingUtil.drawLineTriCompleteRight(context, scale)
+    }
 }
