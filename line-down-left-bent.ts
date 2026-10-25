@@ -207,3 +207,25 @@ class LineDownLeftBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    ldbl: LineDownLeftBent = new LineDownLeftBent()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.ldbl.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.ldbl.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.ldbl.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
