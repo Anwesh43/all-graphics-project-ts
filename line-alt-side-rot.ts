@@ -207,3 +207,25 @@ class LineAltSideRot {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lasr: LineAltSideRot = new LineAltSideRot()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.lasr.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.lasr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lasr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
