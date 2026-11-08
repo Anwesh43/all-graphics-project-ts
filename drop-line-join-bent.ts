@@ -209,3 +209,25 @@ class DropLineJoinBent {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    dljb: DropLineJoinBent = new DropLineJoinBent()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.dljb.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.dljb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.dljb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
