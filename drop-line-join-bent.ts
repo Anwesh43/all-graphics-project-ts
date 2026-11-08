@@ -162,6 +162,10 @@ class DLJBNode {
         }
     }
 
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawDLJBNode(context, this.i, this.state.scale)
+    }
+
     update(cb: () => void) {
         this.state.update(cb)
     }
