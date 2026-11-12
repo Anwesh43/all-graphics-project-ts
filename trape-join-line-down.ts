@@ -229,7 +229,7 @@ class Renderer {
     }
 
     handleTap(cb: () => void) {
-        this.tjld.update(() => {
+        this.tjld.startUpdating(() => {
             this.animator.start(() => {
                 cb()
                 this.tjld.update(() => {
