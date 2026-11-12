@@ -148,3 +148,45 @@ class Animator {
         }
     }
 }
+
+class TJLDNode {
+
+    prev: TJLDNode | null = null
+    next: TJLDNode | null = null
+    state: State = new State()
+
+    addNeighbor() {
+        if (this.i < colors.length - 1) {
+            this.next = new TJLDNode(this.i + 1)
+            this.next.prev = this
+        }
+    }
+
+    constructor(private i: number) {
+        this.addNeighbor()
+    }
+
+    draw(context: CanvasRenderingContext2D) {
+        DrawingUtil.drawTJLDNode(context, this.i, this.state.scale)
+    }
+
+    update(cb: () => void) {
+        this.state.update(cb)
+    }
+
+    startUpdating(cb: () => void) {
+        this.state.startUpdating(cb)
+    }
+
+    getNext(dir: number, cb: () => void): TJLDNode {
+        var curr: TJLDNode | null = this.prev
+        if (dir === 1) {
+            curr = this.next
+        }
+        if (curr) {
+            return curr
+        }
+        cb()
+        return this
+    }
+}
