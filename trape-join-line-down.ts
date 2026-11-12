@@ -213,3 +213,25 @@ class TrapeJoinLineDown {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    tjld: TrapeJoinLineDown = new TrapeJoinLineDown()
+    animator: Animator = new Animator()
+
+    render(context: CanvasRenderingContext2D) {
+        this.tjld.draw(context)
+    }
+
+    handleTap(cb: () => void) {
+        this.tjld.update(() => {
+            this.animator.start(() => {
+                cb()
+                this.tjld.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
