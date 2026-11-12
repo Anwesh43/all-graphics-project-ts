@@ -46,6 +46,7 @@ class DrawingUtil {
     }
 
     static drawTrapeJoinLineDown(context: CanvasRenderingContext2D, scale: number) {
+        console.log("SCALE", scale)
         const size: number = Math.min(w, h) / sizeFactor
         const dsc: (a: number) => number = (i: number): number => ScaleUtil.divideScale(scale, i, parts)
         DrawingUtil.drawXY(context, w / 2 + (w / 2) * dsc(5), h / 2, () => {
